@@ -27,7 +27,7 @@ function readDirRecursive($src) {
 		} else {
 			$pi = pathinfo($path);
 			$newfile = $newPath.'/'.$pi['basename'];
-			if(isset($pi['extension']) && in_array($pi['extension'], array('php', 'js'))) {
+			if(isset($pi['extension']) && in_array($pi['extension'], array('php', 'js', 'css'))) {
 				compress($path, $newfile);
 			} else {
 				copy($path, $newfile);
