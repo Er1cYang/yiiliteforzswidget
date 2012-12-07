@@ -1,8 +1,9 @@
 <?php 
 $dir = dirname(__FILE__);
-$srcDir = $dir.'/../framework/';
-$destDir = $dir.'/../framework/';
-
+//$srcDir = $dir.'/../framework/';
+//$destDir = $dir.'/../framework/';
+$srcDir = 'd:/test/';
+$destDir = 'd:/test/';
 readDirRecursive($srcDir);
 
 /**
@@ -46,8 +47,9 @@ function compress($old, $new) {
 	$spaces = array(
 		// 文档注释
 		'/\/\*.*?\*\//msi'=>'',
-		'/^\s+\/\/.*?\n/smi'	=>"\n",
 		// 整行注释
+		'/^\s+\/\/.*?\n/smi' =>"\n",
+		// 多余的回车
 		'/\n{2,}/smi' => "\n",
 		// 整行空白
 		'/\n^\s+$/smi' => '',

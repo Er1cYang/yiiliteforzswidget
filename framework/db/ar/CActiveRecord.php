@@ -1237,7 +1237,7 @@ protected function getExistsRelatedModels($parent) {
 $cloneModel = clone $parent;
 return (array)$cloneModel->getRelated($this->name, true);
 }
-protected function deleteInternal($parent) {
+protected function deleteInternal(CActiveRecord $parent) {
 $isSuccess = true;
 foreach((array)$parent->{$this->name} as $model) {
 if(!$model->isNewRecord)
