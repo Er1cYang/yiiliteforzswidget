@@ -276,12 +276,12 @@ public function bindValues($command, $values)
 {
 if(($n=count($values))===0)
 return;
-if(isset($values[0])) // question mark placeholders
+if(isset($values[0]))//question mark placeholders
 {
 for($i=0;$i<$n;++$i)
 $command->bindValue($i+1,$values[$i]);
 }
-else // named placeholders
+else//named placeholders
 {
 foreach($values as $name=>$value)
 {
@@ -311,9 +311,9 @@ $this->ensureTable($table);
 $criteria=$this->createCriteria($condition,$params);
 if($criteria->alias!='')
 $prefix=$this->_schema->quoteTableName($criteria->alias).'.';
-if(!is_array($pk)) // single key
+if(!is_array($pk))//single key
 $pk=array($pk);
-if(is_array($table->primaryKey) && !isset($pk[0]) && $pk!==array()) // single composite key
+if(is_array($table->primaryKey) && !isset($pk[0]) && $pk!==array())//single composite key
 $pk=array($pk);
 $condition=$this->createInCondition($table,$table->primaryKey,$pk,$prefix);
 if($criteria->condition!='')
@@ -414,7 +414,7 @@ $prefix=$table->rawName.'.';
 $db=$this->_connection;
 if(is_array($columnName) && count($columnName)===1)
 $columnName=reset($columnName);
-if(is_string($columnName)) // simple key
+if(is_string($columnName))//simple key
 {
 if(!isset($table->columns[$columnName]))
 throw new CDbException(Yii::t('yii','Table "{table}" does not have a column named "{column}".',
@@ -431,7 +431,7 @@ return $prefix.$column->rawName.($values[0]===null?' IS NULL':'='.$values[0]);
 else
 return $prefix.$column->rawName.' IN ('.implode(', ',$values).')';
 }
-else if(is_array($columnName)) // composite key: $values=array(array('pk1'=>'v1','pk2'=>'v2'),array(...))
+else if(is_array($columnName))//composite key: $values=array(array('pk1'=>'v1','pk2'=>'v2'),array(...))
 {
 foreach($columnName as $name)
 {

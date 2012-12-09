@@ -1,6 +1,6 @@
 ;if(window.jQuery) (function($){
 $.fn.MultiFile = function(options){
-if(this.length==0) return this; // quick fail
+if(this.length==0) return this;//quick fail
 if(typeof arguments[0]=='string'){
 if(this.length>1){
 var args = arguments;
@@ -28,7 +28,7 @@ this
 .not('.MultiFile-applied')
 .addClass('MultiFile-applied')
 .each(function(){
-window.MultiFile = (window.MultiFile || 0) + 1;
+window.MultiFile = (window.MultiFile || 0)+1;
 var group_count = window.MultiFile;
 var MultiFile = {e:this, E:$(this), clone:$(this).clone()};
 if(typeof options=='number') options = {max:options};
@@ -42,7 +42,7 @@ if(!(o.max>0) ){
 o.max = MultiFile.E.attr('maxlength');
 if(!(o.max>0) ){
 o.max = (String(MultiFile.e.className.match(/\b(max|limit)\-([0-9]+)\b/gi) || ['']).match(/[0-9]+/gi) || [''])[0];
-if(!(o.max>0)) o.max = -1;
+if(!(o.max>0)) o.max =-1;
 else           o.max = String(o.max).match(/[0-9]+/gi)[0];
 }
 };
@@ -55,10 +55,10 @@ o.accept = new String(o.accept).replace(/^(accept|ext)\-/i,'');
 $.extend(MultiFile, o || {});
 MultiFile.STRING = $.extend({},$.fn.MultiFile.options.STRING,MultiFile.STRING);
 $.extend(MultiFile, {
-n: 0, // How many elements are currently selected?
+n: 0,//How many elements are currently selected?
 slaves: [], files: [],
-instanceKey: MultiFile.e.id || 'MultiFile'+String(group_count), // Instance Key?
-generateID: function(z){ return MultiFile.instanceKey + (z>0 ?'_F'+String(z):''); },
+instanceKey: MultiFile.e.id || 'MultiFile'+String(group_count),//Instance Key?
+generateID: function(z){ return MultiFile.instanceKey+(z>0 ?'_F'+String(z):''); },
 trigger: function(event, element){
 var handler = MultiFile[event], value = $(element).attr('value');
 if(handler){
@@ -72,10 +72,10 @@ if(String(MultiFile.accept).length>1){
 MultiFile.accept = MultiFile.accept.replace(/\W+/g,'|').replace(/^\W|\W$/g,'');
 MultiFile.rxAccept = new RegExp('\\.('+(MultiFile.accept?MultiFile.accept:'')+')$','gi');
 };
-MultiFile.wrapID = MultiFile.instanceKey+'_wrap'; // Wrapper ID?
+MultiFile.wrapID = MultiFile.instanceKey+'_wrap';//Wrapper ID?
 MultiFile.E.wrap('<div class="MultiFile-wrap" id="'+MultiFile.wrapID+'"></div>');
 MultiFile.wrapper = $('#'+MultiFile.wrapID+'');
-MultiFile.e.name = MultiFile.e.name || 'file'+ group_count +'[]';
+MultiFile.e.name = MultiFile.e.name || 'file'+group_count+'[]';
 if(!MultiFile.list){
 MultiFile.wrapper.append( '<div class="MultiFile-list" id="'+MultiFile.wrapID+'_list"></div>' );
 MultiFile.list = $('#'+MultiFile.wrapID+'_list');
@@ -92,7 +92,7 @@ slave.name = String(MultiFile.namePattern
 .replace(/\$g/gi,   group_count)//(group_count>0?group_count:''))
 .replace(/\$i/gi,   slave_count)//(slave_count>0?slave_count:''))
 );
-if( (MultiFile.max > 0) && ((MultiFile.n-1) > (MultiFile.max)) )//{ // MultiFile.n Starts at 1, so subtract 1 to find true count
+if( (MultiFile.max > 0) && ((MultiFile.n-1) > (MultiFile.max)) )//{//MultiFile.n Starts at 1, so subtract 1 to find true count
 slave.disabled = true;
 MultiFile.current = MultiFile.slaves[slave_count] = slave;
 slave = $(slave);
@@ -108,7 +108,7 @@ for(var f in MultiFile.slaves)//{
 if(MultiFile.slaves[f] && MultiFile.slaves[f]!=this)//{
 if(MultiFile.slaves[f].value==v)//{
 ERROR = MultiFile.STRING.duplicate.replace('$file', v.match(/[^\/\\]+$/gi));
-var newEle = $(MultiFile.clone).clone();// Copy parent attributes - Thanks to Jonas Wagner
+var newEle = $(MultiFile.clone).clone();//Copy parent attributes-Thanks to Jonas Wagner
 newEle.addClass('MultiFile');
 if(ERROR!=''){
 MultiFile.error(ERROR);
@@ -123,9 +123,9 @@ slave.after(newEle);
 MultiFile.addToList( this, slave_count );
 MultiFile.addSlave( newEle[0], slave_count+1 );
 if(!MultiFile.trigger('afterFileSelect', this, MultiFile)) return false;
-}); // slave.change()
+});//slave.change()
 $(slave).data('MultiFile', MultiFile);
-};// MultiFile.addSlave
+};//MultiFile.addSlave
 MultiFile.addToList = function( slave, slave_count ){
 if(!MultiFile.trigger('onFileAppend', slave, MultiFile)) return false;
 var
@@ -150,11 +150,11 @@ if(!MultiFile.trigger('afterFileRemove', slave, MultiFile)) return false;
 return false;
 });
 if(!MultiFile.trigger('afterFileAppend', slave, MultiFile)) return false;
-}; // MultiFile.addToList
+};//MultiFile.addToList
 if(!MultiFile.MultiFile) MultiFile.addSlave(MultiFile.e, 0);
 MultiFile.n++;
 MultiFile.E.data('MultiFile', MultiFile);
-}); // each element
+});//each element
 };
 $.extend($.fn.MultiFile, {
 reset: function(){
@@ -182,23 +182,23 @@ return value;
 };
 if(methods.constructor.toString().indexOf("Array")<0) methods = [methods];
 for(var i=0;i<methods.length;i++){
-method = methods[i]+''; // make sure that we have a STRING
-if(method) (function(method){ // make sure that method is ISOLATED for the interception
+method = methods[i]+'';//make sure that we have a STRING
+if(method) (function(method){//make sure that method is ISOLATED for the interception
 $.fn.MultiFile.intercepted[method] = $.fn[method] || function(){};
 $.fn[method] = function(){
 $.fn.MultiFile.disableEmpty();
 value = $.fn.MultiFile.intercepted[method].apply(this, arguments);
 setTimeout(function(){ $.fn.MultiFile.reEnableEmpty() },1000);
 return value;
-}; // interception
-})(method); // MAKE SURE THAT method IS ISOLATED for the interception
-};// for each method
-} // $.fn.MultiFile.intercept
+};//interception
+})(method);//MAKE SURE THAT method IS ISOLATED for the interception
+};//for each method
+}//$.fn.MultiFile.intercept
 });
-$.fn.MultiFile.options = { //$.extend($.fn.MultiFile, { options: {
-accept: '', // accepted file extensions
-max: -1,    // maximum number of selectable files
-namePattern: '$name', // same name by default (which creates an array)
+$.fn.MultiFile.options = {//$.extend($.fn.MultiFile, { options: {
+accept: '',//accepted file extensions
+max:-1,//maximum number of selectable files
+namePattern: '$name',//same name by default (which creates an array)
 STRING: {
 remove:'x',
 denied:'You cannot select a $ext file.\nTry again...',
@@ -210,7 +210,7 @@ autoIntercept: [ 'submit', 'ajaxSubmit', 'ajaxForm', 'validate', 'valid'  ],
 error: function(s){
 alert(s);
 }
-}; //} });
+};//} });
 $.fn.reset = function(){ return this.each(function(){ try{ this.reset(); }catch(e){} }); };
 $(function(){
 $("input[type=file].multi").MultiFile();

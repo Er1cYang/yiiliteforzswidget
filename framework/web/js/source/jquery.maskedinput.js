@@ -1,5 +1,5 @@
 (function($) {
-var pasteEventName = ($.browser.msie ? 'paste' : 'input') + ".mask";
+var pasteEventName = ($.browser.msie ? 'paste' : 'input')+".mask";
 var iPhone = (window.orientation != undefined);
 $.mask = {
 definitions: {
@@ -31,8 +31,8 @@ begin = this[0].selectionStart;
 end = this[0].selectionEnd;
 } else if (document.selection && document.selection.createRange) {
 var range = document.selection.createRange();
-begin = 0 - range.duplicate().moveStart('character', -100000);
-end = begin + range.text.length;
+begin = 0-range.duplicate().moveStart('character',-100000);
+end = begin+range.text.length;
 }
 return { begin: begin, end: end };
 }
@@ -59,7 +59,7 @@ partialPosition = i;
 } else if (defs[c]) {
 tests.push(new RegExp(defs[c]));
 if(firstNonMaskPos==null)
-firstNonMaskPos =  tests.length - 1;
+firstNonMaskPos =  tests.length-1;
 } else {
 tests.push(null);
 }
@@ -134,7 +134,7 @@ if(pos.end-pos.begin!=0){
 clearBuffer(pos.begin, pos.end);
 shiftL(pos.begin, pos.end-1);
 }
-var p = seekNext(pos.begin - 1);
+var p = seekNext(pos.begin-1);
 if (p < len) {
 var c = String.fromCharCode(k);
 if (tests[p].test(c)) {
@@ -159,12 +159,12 @@ buffer[i] = settings.placeholder;
 function writeBuffer() { return input.val(buffer.join('')).val(); };
 function checkVal(allow) {
 var test = input.val();
-var lastMatch = -1;
+var lastMatch =-1;
 for (var i = 0, pos = 0; i < len; i++) {
 if (tests[i]) {
 buffer[i] = settings.placeholder;
-while (pos++ < test.length) {
-var c = test.charAt(pos - 1);
+while (pos++< test.length) {
+var c = test.charAt(pos-1);
 if (tests[i].test(c)) {
 buffer[i] = c;
 lastMatch = i;
@@ -178,12 +178,12 @@ pos++;
 lastMatch = i;
 }
 }
-if (!allow && lastMatch + 1 < partialPosition) {
+if (!allow && lastMatch+1 < partialPosition) {
 input.val("");
 clearBuffer(0, len);
-} else if (allow || lastMatch + 1 >= partialPosition) {
+} else if (allow || lastMatch+1 >= partialPosition) {
 writeBuffer();
-if (!allow) input.val(input.val().substring(0, lastMatch + 1));
+if (!allow) input.val(input.val().substring(0, lastMatch+1));
 }
 return (partialPosition ? i : firstNonMaskPos);
 };
@@ -221,7 +221,7 @@ input.change();
 .bind(pasteEventName, function() {
 setTimeout(function() { input.caret(checkVal(true)); }, 0);
 });
-checkVal(); //Perform initial check for existing values
+checkVal();//Perform initial check for existing values
 });
 }
 });

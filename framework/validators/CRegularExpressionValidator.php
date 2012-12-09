@@ -29,11 +29,11 @@ $pattern=$this->pattern;
 $pattern=preg_replace('/\\\\x\{?([0-9a-fA-F]+)\}?/', '\u$1', $pattern);
 $delim=substr($pattern, 0, 1);
 $endpos=strrpos($pattern, $delim, 1);
-$flag=substr($pattern, $endpos + 1);
+$flag=substr($pattern, $endpos+1);
 if ($delim!=='/')
-$pattern='/' . str_replace('/', '\\/', substr($pattern, 1, $endpos - 1)) . '/';
+$pattern='/' . str_replace('/', '\\/', substr($pattern, 1, $endpos-1)) . '/';
 else
-$pattern = substr($pattern, 0, $endpos + 1);
+$pattern = substr($pattern, 0, $endpos+1);
 if (!empty($flag))
 $pattern .= preg_replace('/[^igm]/', '', $flag);
 return "

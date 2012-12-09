@@ -1,7 +1,4 @@
 <?php
-// understand how to interpret this filter if it's a static method.
-// It's all really silly, but if we go this route it might be reasonable
-// to coalesce all of these methods into one.
 function htmlpurifier_filter_extractstyleblocks_muteerrorhandler() {}
 class HTMLPurifier_Filter_ExtractStyleBlocks extends HTMLPurifier_Filter
 {
@@ -25,8 +22,8 @@ $tidy = $config->get('Filter.ExtractStyleBlocks.TidyImpl');
 if ($tidy !== null) $this->_tidy = $tidy;
 $html = preg_replace_callback('#<style(?:\s.*)?>(.+)</style>#isU', array($this, 'styleCallback'), $html);
 $style_blocks = $this->_styleMatches;
-$this->_styleMatches = array(); // reset
-$context->register('StyleBlocks', $style_blocks); // $context must not be reused
+$this->_styleMatches = array();//reset
+$context->register('StyleBlocks', $style_blocks);//$context must not be reused
 if ($this->_tidy) {
 foreach ($style_blocks as &$style) {
 $style = $this->cleanCSS($style, $config, $context);
@@ -45,8 +42,8 @@ $css = trim($css);
 if (strncmp('<!--', $css, 4) === 0) {
 $css = substr($css, 4);
 }
-if (strlen($css) > 3 && substr($css, -3) == '-->') {
-$css = substr($css, 0, -3);
+if (strlen($css) > 3 && substr($css,-3) == '-->') {
+$css = substr($css, 0,-3);
 }
 $css = trim($css);
 set_error_handler('htmlpurifier_filter_extractstyleblocks_muteerrorhandler');
@@ -59,33 +56,33 @@ foreach ($this->_tidy->css as $k=>$decls) {
 $new_decls = array();
 foreach ($decls as $selector=>$style) {
 $selector = trim($selector);
-if ($selector === '') continue; // should not happen
+if ($selector === '') continue;//should not happen
 $selectors = array_map('trim', explode(',', $selector));
 $new_selectors = array();
 foreach ($selectors as $sel) {
-$basic_selectors = preg_split('/\s*([+> ])\s*/', $sel, -1, PREG_SPLIT_DELIM_CAPTURE);
+$basic_selectors = preg_split('/\s*([+> ])\s*/', $sel,-1, PREG_SPLIT_DELIM_CAPTURE);
 $nsel = null;
-$delim = null; // guaranteed to be non-null after
+$delim = null;//guaranteed to be non-null after
 for ($i = 0, $c = count($basic_selectors); $i < $c; $i++) {
 $x = $basic_selectors[$i];
-if ($i % 2) {
+if ($i%2) {
 if ($x === ' ') {
 $delim = ' ';
 } else {
 $delim = ' ' . $x . ' ';
 }
 } else {
-$components = preg_split('/([#.:])/', $x, -1, PREG_SPLIT_DELIM_CAPTURE);
+$components = preg_split('/([#.:])/', $x,-1, PREG_SPLIT_DELIM_CAPTURE);
 $sdelim = null;
 $nx = null;
-for ($j = 0, $cc = count($components); $j < $cc; $j ++) {
+for ($j = 0, $cc = count($components); $j < $cc; $j++) {
 $y = $components[$j];
 if ($j === 0) {
 if ($y === '*' || isset($html_definition->info[$y = strtolower($y)])) {
 $nx = $y;
 } else {
 }
-} elseif ($j % 2) {
+} elseif ($j%2) {
 $sdelim = $y;
 } else {
 $attrdef = null;

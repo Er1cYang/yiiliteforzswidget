@@ -1,7 +1,7 @@
 <?php
 class CFileLogRoute extends CLogRoute
 {
-private $_maxFileSize=1024; // in KB
+private $_maxFileSize=1024;//in KB
 private $_maxLogFiles=5;
 private $_logPath;
 private $_logFile='application.log';
@@ -76,6 +76,6 @@ else
 }
 }
 if(is_file($file))
-@rename($file,$file.'.1'); // suppress errors because it's possible multiple processes enter into this section
+@rename($file,$file.'.1');//suppress errors because it's possible multiple processes enter into this section
 }
 }

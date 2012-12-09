@@ -23,7 +23,7 @@ return '<object width="425" height="350" type="application/x-shockwave-flash" '.
 '<!--[if IE]>'.
 '<embed src="http://www.youtube.com/'.$url.'"'.
 'type="application/x-shockwave-flash"'.
-'wmode="transparent" width="425" height="350" />'.
+'wmode="transparent" width="425" height="350"/>'.
 '<![endif]-->'.
 '</object>';
 }

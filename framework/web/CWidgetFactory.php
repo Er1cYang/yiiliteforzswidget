@@ -5,7 +5,7 @@ public $enableSkin=false;
 public $widgets=array();
 public $skinnableWidgets;
 public $skinPath;
-private $_skins=array();  // class name, skin name, property name=>value
+private $_skins=array();//class name, skin name, property name=>value
 public function init()
 {
 parent::init();

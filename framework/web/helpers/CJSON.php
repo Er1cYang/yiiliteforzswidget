@@ -17,7 +17,7 @@ case 'integer':
 return (int) $var;
 case 'double':
 case 'float':
-return str_replace(',','.',(float)$var); // locale-independent representation
+return str_replace(',','.',(float)$var);//locale-independent representation
 case 'string':
 if (($enc=strtoupper(Yii::app()->charset))!=='UTF-8')
 $var=iconv($enc, 'UTF-8', $var);
@@ -25,7 +25,7 @@ if(function_exists('json_encode'))
 return json_encode($var);
 $ascii = '';
 $strlen_var = strlen($var);
-for ($c = 0; $c < $strlen_var; ++$c) {
+for ($c = 0; $c < $strlen_var;++$c) {
 $ord_var_c = ord($var{$c});
 switch (true) {
 case $ord_var_c == 0x08:
@@ -99,7 +99,7 @@ break;
 }
 return '"'.$ascii.'"';
 case 'array':
-if (is_array($var) && count($var) && (array_keys($var) !== range(0, sizeof($var) - 1))) {
+if (is_array($var) && count($var) && (array_keys($var) !== range(0, sizeof($var)-1))) {
 return '{' .
 join(',', array_map(array('CJSON', 'nameValue'),
 array_keys($var),
@@ -159,32 +159,27 @@ return ((float)$str == (integer)$str)
 : (float)$str;
 } elseif (preg_match('/^("|\').+(\1)$/s', $str, $m) && $m[1] == $m[2]) {
 $delim = substr($str, 0, 1);
-$chrs = substr($str, 1, -1);
+$chrs = substr($str, 1,-1);
 $utf8 = '';
 $strlen_chrs = strlen($chrs);
-for ($c = 0; $c < $strlen_chrs; ++$c) {
+for ($c = 0; $c < $strlen_chrs;++$c) {
 $substr_chrs_c_2 = substr($chrs, $c, 2);
 $ord_chrs_c = ord($chrs{$c});
 switch (true) {
 case $substr_chrs_c_2 == '\b':
-$utf8 .= chr(0x08);
-++$c;
+$utf8 .= chr(0x08);++$c;
 break;
 case $substr_chrs_c_2 == '\t':
-$utf8 .= chr(0x09);
-++$c;
+$utf8 .= chr(0x09);++$c;
 break;
 case $substr_chrs_c_2 == '\n':
-$utf8 .= chr(0x0A);
-++$c;
+$utf8 .= chr(0x0A);++$c;
 break;
 case $substr_chrs_c_2 == '\f':
-$utf8 .= chr(0x0C);
-++$c;
+$utf8 .= chr(0x0C);++$c;
 break;
 case $substr_chrs_c_2 == '\r':
-$utf8 .= chr(0x0D);
-++$c;
+$utf8 .= chr(0x0D);++$c;
 break;
 case $substr_chrs_c_2 == '\\"':
 case $substr_chrs_c_2 == '\\\'':
@@ -205,24 +200,23 @@ case ($ord_chrs_c >= 0x20) && ($ord_chrs_c <= 0x7F):
 $utf8 .= $chrs{$c};
 break;
 case ($ord_chrs_c & 0xE0) == 0xC0:
-$utf8 .= substr($chrs, $c, 2);
-++$c;
+$utf8 .= substr($chrs, $c, 2);++$c;
 break;
 case ($ord_chrs_c & 0xF0) == 0xE0:
 $utf8 .= substr($chrs, $c, 3);
-$c += 2;
+$c+= 2;
 break;
 case ($ord_chrs_c & 0xF8) == 0xF0:
 $utf8 .= substr($chrs, $c, 4);
-$c += 3;
+$c+= 3;
 break;
 case ($ord_chrs_c & 0xFC) == 0xF8:
 $utf8 .= substr($chrs, $c, 5);
-$c += 4;
+$c+= 4;
 break;
 case ($ord_chrs_c & 0xFE) == 0xFC:
 $utf8 .= substr($chrs, $c, 6);
-$c += 5;
+$c+= 5;
 break;
 }
 }
@@ -241,7 +235,7 @@ $obj = new stdClass();
 }
 }
 $stk[] = array('what'=>self::JSON_SLICE, 'where'=>0, 'delim'=>false);
-$chrs = substr($str, 1, -1);
+$chrs = substr($str, 1,-1);
 $chrs = self::reduceString($chrs);
 if ($chrs == '') {
 if (reset($stk) == self::JSON_IN_ARR) {
@@ -251,12 +245,12 @@ return $obj;
 }
 }
 $strlen_chrs = strlen($chrs);
-for ($c = 0; $c <= $strlen_chrs; ++$c) {
+for ($c = 0; $c <= $strlen_chrs;++$c) {
 $top = end($stk);
 $substr_chrs_c_2 = substr($chrs, $c, 2);
 if (($c == $strlen_chrs) || (($chrs{$c} == ',') && ($top['what'] == self::JSON_SLICE))) {
-$slice = substr($chrs, $top['where'], ($c - $top['where']));
-$stk[] = array('what'=>self::JSON_SLICE, 'where'=>($c + 1), 'delim'=>false);
+$slice = substr($chrs, $top['where'], ($c-$top['where']));
+$stk[] = array('what'=>self::JSON_SLICE, 'where'=>($c+1), 'delim'=>false);
 if (reset($stk) == self::JSON_IN_ARR) {
 $arr[] = self::decode($slice,$useArray);
 } elseif (reset($stk) == self::JSON_IN_OBJ) {
@@ -282,8 +276,8 @@ $obj->$key = $val;
 $stk[] = array('what'=>self::JSON_IN_STR, 'where'=>$c, 'delim'=>$chrs{$c});
 } elseif (($chrs{$c} == $top['delim']) &&
 ($top['what'] == self::JSON_IN_STR) &&
-(($chrs{$c - 1} != "\\") ||
-($chrs{$c - 1} == "\\" && $chrs{$c - 2} == "\\"))) {
+(($chrs{$c-1} != "\\") ||
+($chrs{$c-1} == "\\" && $chrs{$c-2} == "\\"))) {
 array_pop($stk);
 } elseif (($chrs{$c} == '[') &&
 in_array($top['what'], array(self::JSON_SLICE, self::JSON_IN_ARR, self::JSON_IN_OBJ))) {
@@ -298,7 +292,7 @@ array_pop($stk);
 } elseif (($substr_chrs_c_2 == '') && ($top['what'] == self::JSON_IN_CMT)) {
 array_pop($stk);
 $c++;
-for ($i = $top['where']; $i <= $c; ++$i)
+for ($i = $top['where']; $i <= $c;++$i)
 $chrs = substr_replace($chrs, ' ', $i, 1);
 }
 }
@@ -315,7 +309,7 @@ protected static function utf8ToUnicode( &$str )
 $unicode = array();
 $values = array();
 $lookingFor = 1;
-for ($i = 0; $i < strlen( $str ); $i++ )
+for ($i = 0; $i < strlen( $str ); $i++)
 {
 $thisValue = ord( $str[ $i ] );
 if ( $thisValue < 128 )
@@ -328,8 +322,8 @@ $values[] = $thisValue;
 if ( count( $values ) == $lookingFor )
 {
 $number = ( $lookingFor == 3 ) ?
-( ( $values[0] % 16 ) * 4096 ) + ( ( $values[1] % 64 ) * 64 ) + ( $values[2] % 64 ):
-( ( $values[0] % 32 ) * 64 ) + ( $values[1] % 64 );
+( ( $values[0]%16 )*4096 )+( ( $values[1]%64 )*64 )+( $values[2]%64 ):
+( ( $values[0]%32 )*64 )+( $values[1]%64 );
 $unicode[] = $number;
 $values = array();
 $lookingFor = 1;
@@ -349,14 +343,14 @@ $utf8.= chr( $unicode );
 }
 elseif ( $unicode < 2048 )
 {
-$utf8.= chr( 192 +  ( ( $unicode - ( $unicode % 64 ) ) / 64 ) );
-$utf8.= chr( 128 + ( $unicode % 64 ) );
+$utf8.= chr( 192+( ( $unicode-( $unicode%64 ) )/64 ) );
+$utf8.= chr( 128+( $unicode%64 ) );
 }
 else
 {
-$utf8.= chr( 224 + ( ( $unicode - ( $unicode % 4096 ) ) / 4096 ) );
-$utf8.= chr( 128 + ( ( ( $unicode % 4096 ) - ( $unicode % 64 ) ) / 64 ) );
-$utf8.= chr( 128 + ( $unicode % 64 ) );
+$utf8.= chr( 224+( ( $unicode-( $unicode%4096 ) )/4096 ) );
+$utf8.= chr( 128+( ( ( $unicode%4096 )-( $unicode%64 ) )/64 ) );
+$utf8.= chr( 128+( $unicode%64 ) );
 }
 }
 return $utf8;

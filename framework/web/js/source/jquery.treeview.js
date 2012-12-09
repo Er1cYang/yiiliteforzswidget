@@ -1,13 +1,13 @@
 ;(function($) {
 $.extend($.fn, {
 swapClass: function(c1, c2) {
-var c1Elements = this.filter('.' + c1);
-this.filter('.' + c2).removeClass(c2).addClass(c1);
+var c1Elements = this.filter('.'+c1);
+this.filter('.'+c2).removeClass(c2).addClass(c1);
 c1Elements.removeClass(c1).addClass(c2);
 return this;
 },
 replaceClass: function(c1, c2) {
-return this.filter('.' + c1).removeClass(c1).addClass(c2).end();
+return this.filter('.'+c1).removeClass(c1).addClass(c2).end();
 },
 hoverClass: function(className) {
 className = className || "hover";
@@ -38,7 +38,7 @@ this.each(callback);
 prepareBranches: function(settings) {
 if (!settings.prerendered) {
 this.filter(":last-child:not(ul)").addClass(CLASSES.last);
-this.filter((settings.collapsed ? "" : "." + CLASSES.closed) + ":not(." + CLASSES.open + ")").find(">ul").hide();
+this.filter((settings.collapsed ? "" : "."+CLASSES.closed)+":not(."+CLASSES.open+")").find(">ul").hide();
 }
 return this.filter(":has(>ul)");
 },
@@ -54,18 +54,18 @@ this.filter(":has(>ul:hidden)")
 this.not(":has(>ul:hidden)")
 .addClass(CLASSES.collapsable)
 .replaceClass(CLASSES.last, CLASSES.lastCollapsable);
-var hitarea = this.find("div." + CLASSES.hitarea);
+var hitarea = this.find("div."+CLASSES.hitarea);
 if (!hitarea.length)
-hitarea = this.prepend("<div class=\"" + CLASSES.hitarea + "\"/>").find("div." + CLASSES.hitarea);
+hitarea = this.prepend("<div class=\""+CLASSES.hitarea+"\"/>").find("div."+CLASSES.hitarea);
 hitarea.removeClass().addClass(CLASSES.hitarea).each(function() {
 var classes = "";
 $.each($(this).parent().attr("class").split(" "), function() {
-classes += this + "-hitarea ";
+classes+= this+"-hitarea ";
 });
 $(this).addClass( classes );
 })
 }
-this.find("div." + CLASSES.hitarea).click( toggler );
+this.find("div."+CLASSES.hitarea).click( toggler );
 },
 treeview: function(settings) {
 settings = $.extend({
@@ -80,8 +80,8 @@ return callback.apply($(this).parent()[0], arguments);
 function treeController(tree, control) {
 function handler(filter) {
 return function() {
-toggler.apply( $("div." + CLASSES.hitarea, tree).filter(function() {
-return filter ? $(this).parent("." + filter).length : true;
+toggler.apply( $("div."+CLASSES.hitarea, tree).filter(function() {
+return filter ? $(this).parent("."+filter).length : true;
 }) );
 return false;
 };

@@ -48,7 +48,7 @@ $date=CTimestamp::getDate($time,false,false);
 $tokens=$this->parseFormat($pattern);
 foreach($tokens as &$token)
 {
-if(is_array($token)) // a callback: method name, sub-pattern
+if(is_array($token))//a callback: method name, sub-pattern
 $token=$this->{$token[0]}($token[1],$date);
 }
 return implode('',$tokens);
@@ -71,7 +71,7 @@ return $time;
 }
 protected function parseFormat($pattern)
 {
-static $formats=array();  // cache
+static $formats=array();//cache
 if(isset($formats[$pattern]))
 return $formats[$pattern];
 $tokens=array();

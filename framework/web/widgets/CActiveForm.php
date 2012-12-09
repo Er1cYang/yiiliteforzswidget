@@ -103,7 +103,7 @@ if($enableClientValidation)
 {
 $validators=isset($htmlOptions['clientValidation']) ? array($htmlOptions['clientValidation']) : array();
 $attributeName = $attribute;
-if(($pos=strrpos($attribute,']'))!==false && $pos!==strlen($attribute)-1) // e.g. [a]name
+if(($pos=strrpos($attribute,']'))!==false && $pos!==strlen($attribute)-1)//e.g. [a]name
 {
 $attributeName=substr($attribute,$pos+1);
 }

@@ -20,7 +20,7 @@ protected function getCaptchaAction()
 {
 if(($captcha=Yii::app()->getController()->createAction($this->captchaAction))===null)
 {
-if(strpos($this->captchaAction,'/')!==false) // contains controller or module
+if(strpos($this->captchaAction,'/')!==false)//contains controller or module
 {
 if(($ca=Yii::app()->createController($this->captchaAction))!==null)
 {
@@ -49,7 +49,7 @@ if (hash == null)
 hash = $hash;
 else
 hash = hash[".($this->caseSensitive ? 0 : 1)."];
-for(var i=value.length-1, h=0; i >= 0; --i) h+=value.".($this->caseSensitive ? '' : 'toLowerCase().')."charCodeAt(i);
+for(var i=value.length-1, h=0; i >= 0;--i) h+=value.".($this->caseSensitive ? '' : 'toLowerCase().')."charCodeAt(i);
 if(h != hash) {
 messages.push(".CJSON::encode($message).");
 }

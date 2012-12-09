@@ -53,7 +53,7 @@ public function createCommand($name)
 $name=strtolower($name);
 if(isset($this->commands[$name]))
 {
-if(is_string($this->commands[$name]))  // class file path or alias
+if(is_string($this->commands[$name]))//class file path or alias
 {
 if(strpos($this->commands[$name],'/')!==false || strpos($this->commands[$name],'\\')!==false)
 {
@@ -61,11 +61,11 @@ $className=substr(basename($this->commands[$name]),0,-4);
 if(!class_exists($className,false))
 require_once($this->commands[$name]);
 }
-else // an alias
+else//an alias
 $className=Yii::import($this->commands[$name]);
 return new $className($name,$this);
 }
-else // an array configuration
+else//an array configuration
 return Yii::createComponent($this->commands[$name],$name,$this);
 }
 else if($name==='help')

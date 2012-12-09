@@ -125,7 +125,7 @@ return null;
 if(!$caseSensitive)
 $id=strtolower($id);
 $route=(string)substr($route,$pos+1);
-if(!isset($basePath))  // first segment
+if(!isset($basePath))//first segment
 {
 if(isset($owner->controllerMap[$id]))
 {

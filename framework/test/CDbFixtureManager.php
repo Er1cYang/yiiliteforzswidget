@@ -8,8 +8,8 @@ public $connectionID='db';
 public $schemas=array('');
 private $_db;
 private $_fixtures;
-private $_rows;				// fixture name, row alias=>row
-private $_records;			// fixture name, row alias=>record (or class name)
+private $_rows;//fixture name, row alias=>row
+private $_records;//fixture name, row alias=>record (or class name)
 public function init()
 {
 parent::init();

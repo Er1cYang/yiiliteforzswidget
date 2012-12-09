@@ -91,7 +91,7 @@ $data['index']=$i;
 $data['data']=$item;
 $data['widget']=$this;
 $owner->renderFile($viewFile,$data);
-if($j++ < $n-1)
+if($j++< $n-1)
 echo $this->separator;
 }
 }

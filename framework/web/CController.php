@@ -121,7 +121,7 @@ public function createAction($actionID)
 {
 if($actionID==='')
 $actionID=$this->defaultAction;
-if(method_exists($this,'action'.$actionID) && strcasecmp($actionID,'s')) // we have actions method
+if(method_exists($this,'action'.$actionID) && strcasecmp($actionID,'s'))//we have actions method
 return new CInlineAction($this,$actionID);
 else
 {
@@ -381,9 +381,9 @@ else
 {
 $name=ucfirst(basename($this->getId()));
 if($this->getAction()!==null && strcasecmp($this->getAction()->getId(),$this->defaultAction))
-return $this->_pageTitle=Yii::app()->name.' - '.ucfirst($this->getAction()->getId()).' '.$name;
+return $this->_pageTitle=Yii::app()->name.'-'.ucfirst($this->getAction()->getId()).' '.$name;
 else
-return $this->_pageTitle=Yii::app()->name.' - '.$name;
+return $this->_pageTitle=Yii::app()->name.'-'.$name;
 }
 }
 public function setPageTitle($value)
@@ -405,7 +405,7 @@ $this->redirect(Yii::app()->getRequest()->getUrl().$anchor,$terminate);
 }
 public function recordCachingAction($context,$method,$params)
 {
-if($this->_cachingStack) // record only when there is an active output cache
+if($this->_cachingStack)//record only when there is an active output cache
 {
 foreach($this->_cachingStack as $cache)
 $cache->recordAction($context,$method,$params);

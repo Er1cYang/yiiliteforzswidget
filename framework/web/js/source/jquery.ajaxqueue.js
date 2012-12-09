@@ -17,9 +17,9 @@ var _old = settings.complete;
 settings.complete = function(){
 if ( _old )
 _old.apply( this, arguments );
-jQuery([ajax]).dequeue("ajax" + port );;
+jQuery([ajax]).dequeue("ajax"+port );;
 };
-jQuery([ ajax ]).queue("ajax" + port, function(){
+jQuery([ ajax ]).queue("ajax"+port, function(){
 ajax( settings );
 });
 return;
@@ -42,7 +42,7 @@ settings.complete = function(){
 syncedData[ pos ].complete = arguments;
 synced[ pos ].done = true;
 if ( pos == 0 || !synced[ pos-1 ] )
-for ( var i = pos; i < synced.length && synced[i].done; i++ ) {
+for ( var i = pos; i < synced.length && synced[i].done; i++) {
 if ( synced[i].error ) synced[i].error.apply( jQuery, syncedData[i].error );
 if ( synced[i].success ) synced[i].success.apply( jQuery, syncedData[i].success );
 if ( synced[i].complete ) synced[i].complete.apply( jQuery, syncedData[i].complete );

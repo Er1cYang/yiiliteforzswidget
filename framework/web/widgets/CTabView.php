@@ -78,7 +78,7 @@ else
 $data=$this->viewData;
 $this->getController()->renderPartial($tab['view'], $data);
 }
-echo "</div><!-- {$id} -->\n";
+echo "</div><!--{$id}-->\n";
 }
 }
 }

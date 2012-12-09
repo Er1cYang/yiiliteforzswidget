@@ -1,5 +1,4 @@
 <?php
-// USE XMLWRITER!
 class HTMLPurifier_Printer
 {
 protected $generator;

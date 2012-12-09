@@ -2,9 +2,9 @@
 class CPhpAuthManager extends CAuthManager
 {
 public $authFile;
-private $_items=array();			// itemName=>item
-private $_children=array();			// itemName, childName=>child
-private $_assignments=array();		// userId, itemName=>assignment
+private $_items=array();//itemName=>item
+private $_children=array();//itemName, childName=>child
+private $_assignments=array();//userId, itemName=>assignment
 public function init()
 {
 parent::init();
@@ -162,7 +162,7 @@ return isset($this->_items[$name])?$this->_items[$name]:null;
 }
 public function saveAuthItem($item,$oldName=null)
 {
-if($oldName!==null && ($newName=$item->getName())!==$oldName) // name changed
+if($oldName!==null && ($newName=$item->getName())!==$oldName)//name changed
 {
 if(isset($this->_items[$newName]))
 throw new CException(Yii::t('yii','Unable to change the item name. The name "{name}" is already used by another item.',array('{name}'=>$newName)));

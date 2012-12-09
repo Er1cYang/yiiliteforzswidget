@@ -17,11 +17,7 @@ return;
 parent::regenerateID(false);
 $newID=session_id();
 $db=$this->getDbConnection();
-$row=$db->createCommand()
-->select()
-->from($this->sessionTableName)
-->where('id=:id',array(':id'=>$oldID))
-->queryRow();
+$row=$db->createCommand()->select()->from($this->sessionTableName)->where('id=:id',array(':id'=>$oldID))->queryRow();
 if($row!==false)
 {
 if($deleteOldSession)
@@ -94,11 +90,7 @@ return true;
 }
 public function readSession($id)
 {
-$data=$this->getDbConnection()->createCommand()
-->select('data')
-->from($this->sessionTableName)
-->where('expire>:expire AND id=:id',array(':expire'=>time(),':id'=>$id))
-->queryScalar();
+$data=$this->getDbConnection()->createCommand()->select('data')->from($this->sessionTableName)->where('expire>:expire AND id=:id',array(':expire'=>time(),':id'=>$id))->queryScalar();
 return $data===false?'':$data;
 }
 public function writeSession($id,$data)
@@ -129,14 +121,12 @@ return true;
 }
 public function destroySession($id)
 {
-$this->getDbConnection()->createCommand()
-->delete($this->sessionTableName,'id=:id',array(':id'=>$id));
+$this->getDbConnection()->createCommand()->delete($this->sessionTableName,'id=:id',array(':id'=>$id));
 return true;
 }
 public function gcSession($maxLifetime)
 {
-$this->getDbConnection()->createCommand()
-->delete($this->sessionTableName,'expire<:expire',array(':expire'=>time()));
+$this->getDbConnection()->createCommand()->delete($this->sessionTableName,'expire<:expire',array(':expire'=>time()));
 return true;
 }
 }

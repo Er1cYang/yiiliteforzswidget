@@ -19,8 +19,7 @@ if(is_array($data) || ($data instanceof Traversable))
 $this->clear();
 foreach($data as $item)
 {
-$this->_d[]=$item;
-++$this->_c;
+$this->_d[]=$item;++$this->_c;
 }
 }
 else if($data!==null)
@@ -47,14 +46,12 @@ public function dequeue()
 if($this->_c===0)
 throw new CException(Yii::t('yii','The queue is empty.'));
 else
-{
---$this->_c;
+{--$this->_c;
 return array_shift($this->_d);
 }
 }
 public function enqueue($item)
-{
-++$this->_c;
+{++$this->_c;
 $this->_d[]=$item;
 }
 public function getIterator()

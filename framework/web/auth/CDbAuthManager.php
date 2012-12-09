@@ -34,11 +34,7 @@ $assignment=$assignments[$itemName];
 if($this->executeBizRule($assignment->getBizRule(),$params,$assignment->getData()))
 return true;
 }
-$parents=$this->db->createCommand()
-->select('parent')
-->from($this->itemChildTable)
-->where('child=:name', array(':name'=>$itemName))
-->queryColumn();
+$parents=$this->db->createCommand()->select('parent')->from($this->itemChildTable)->where('child=:name', array(':name'=>$itemName))->queryColumn();
 foreach($parents as $parent)
 {
 if($this->checkAccessRecursive($parent,$userId,$params,$assignments))
@@ -52,14 +48,10 @@ public function addItemChild($itemName,$childName)
 if($itemName===$childName)
 throw new CException(Yii::t('yii','Cannot add "{name}" as a child of itself.',
 array('{name}'=>$itemName)));
-$rows=$this->db->createCommand()
-->select()
-->from($this->itemTable)
-->where('name=:name1 OR name=:name2', array(
+$rows=$this->db->createCommand()->select()->from($this->itemTable)->where('name=:name1 OR name=:name2', array(
 ':name1'=>$itemName,
 ':name2'=>$childName
-))
-->queryAll();
+))->queryAll();
 if(count($rows)==2)
 {
 if($rows[0]['name']===$itemName)
@@ -76,8 +68,7 @@ $this->checkItemChildType($parentType,$childType);
 if($this->detectLoop($itemName,$childName))
 throw new CException(Yii::t('yii','Cannot add "{child}" as a child of "{name}". A loop has been detected.',
 array('{child}'=>$childName,'{name}'=>$itemName)));
-$this->db->createCommand()
-->insert($this->itemChildTable, array(
+$this->db->createCommand()->insert($this->itemChildTable, array(
 'parent'=>$itemName,
 'child'=>$childName,
 ));
@@ -88,21 +79,16 @@ throw new CException(Yii::t('yii','Either "{parent}" or "{child}" does not exist
 }
 public function removeItemChild($itemName,$childName)
 {
-return $this->db->createCommand()
-->delete($this->itemChildTable, 'parent=:parent AND child=:child', array(
+return $this->db->createCommand()->delete($this->itemChildTable, 'parent=:parent AND child=:child', array(
 ':parent'=>$itemName,
 ':child'=>$childName
 )) > 0;
 }
 public function hasItemChild($itemName,$childName)
 {
-return $this->db->createCommand()
-->select('parent')
-->from($this->itemChildTable)
-->where('parent=:parent AND child=:child', array(
+return $this->db->createCommand()->select('parent')->from($this->itemChildTable)->where('parent=:parent AND child=:child', array(
 ':parent'=>$itemName,
-':child'=>$childName))
-->queryScalar() !== false;
+':child'=>$childName))->queryScalar() !== false;
 }
 public function getItemChildren($names)
 {
@@ -114,14 +100,10 @@ foreach($names as &$name)
 $name=$this->db->quoteValue($name);
 $condition='parent IN ('.implode(', ',$names).')';
 }
-$rows=$this->db->createCommand()
-->select('name, type, description, bizrule, data')
-->from(array(
+$rows=$this->db->createCommand()->select('name, type, description, bizrule, data')->from(array(
 $this->itemTable,
 $this->itemChildTable
-))
-->where($condition.' AND name=child')
-->queryAll();
+))->where($condition.' AND name=child')->queryAll();
 $children=array();
 foreach($rows as $row)
 {
@@ -135,8 +117,7 @@ public function assign($itemName,$userId,$bizRule=null,$data=null)
 {
 if($this->usingSqlite() && $this->getAuthItem($itemName)===null)
 throw new CException(Yii::t('yii','The item "{name}" does not exist.',array('{name}'=>$itemName)));
-$this->db->createCommand()
-->insert($this->assignmentTable, array(
+$this->db->createCommand()->insert($this->assignmentTable, array(
 'itemname'=>$itemName,
 'userid'=>$userId,
 'bizrule'=>$bizRule,
@@ -146,31 +127,22 @@ return new CAuthAssignment($this,$itemName,$userId,$bizRule,$data);
 }
 public function revoke($itemName,$userId)
 {
-return $this->db->createCommand()
-->delete($this->assignmentTable, 'itemname=:itemname AND userid=:userid', array(
+return $this->db->createCommand()->delete($this->assignmentTable, 'itemname=:itemname AND userid=:userid', array(
 ':itemname'=>$itemName,
 ':userid'=>$userId
 )) > 0;
 }
 public function isAssigned($itemName,$userId)
 {
-return $this->db->createCommand()
-->select('itemname')
-->from($this->assignmentTable)
-->where('itemname=:itemname AND userid=:userid', array(
+return $this->db->createCommand()->select('itemname')->from($this->assignmentTable)->where('itemname=:itemname AND userid=:userid', array(
 ':itemname'=>$itemName,
-':userid'=>$userId))
-->queryScalar() !== false;
+':userid'=>$userId))->queryScalar() !== false;
 }
 public function getAuthAssignment($itemName,$userId)
 {
-$row=$this->db->createCommand()
-->select()
-->from($this->assignmentTable)
-->where('itemname=:itemname AND userid=:userid', array(
+$row=$this->db->createCommand()->select()->from($this->assignmentTable)->where('itemname=:itemname AND userid=:userid', array(
 ':itemname'=>$itemName,
-':userid'=>$userId))
-->queryRow();
+':userid'=>$userId))->queryRow();
 if($row!==false)
 {
 if(($data=@unserialize($row['data']))===false)
@@ -182,11 +154,7 @@ return null;
 }
 public function getAuthAssignments($userId)
 {
-$rows=$this->db->createCommand()
-->select()
-->from($this->assignmentTable)
-->where('userid=:userid', array(':userid'=>$userId))
-->queryAll();
+$rows=$this->db->createCommand()->select()->from($this->assignmentTable)->where('userid=:userid', array(':userid'=>$userId))->queryAll();
 $assignments=array();
 foreach($rows as $row)
 {
@@ -198,8 +166,7 @@ return $assignments;
 }
 public function saveAuthAssignment($assignment)
 {
-$this->db->createCommand()
-->update($this->assignmentTable, array(
+$this->db->createCommand()->update($this->assignmentTable, array(
 'bizrule'=>$assignment->getBizRule(),
 'data'=>serialize($assignment->getData()),
 ), 'itemname=:itemname AND userid=:userid', array(
@@ -211,36 +178,25 @@ public function getAuthItems($type=null,$userId=null)
 {
 if($type===null && $userId===null)
 {
-$command=$this->db->createCommand()
-->select()
-->from($this->itemTable);
+$command=$this->db->createCommand()->select()->from($this->itemTable);
 }
 else if($userId===null)
 {
-$command=$this->db->createCommand()
-->select()
-->from($this->itemTable)
-->where('type=:type', array(':type'=>$type));
+$command=$this->db->createCommand()->select()->from($this->itemTable)->where('type=:type', array(':type'=>$type));
 }
 else if($type===null)
 {
-$command=$this->db->createCommand()
-->select('name,type,description,t1.bizrule,t1.data')
-->from(array(
+$command=$this->db->createCommand()->select('name,type,description,t1.bizrule,t1.data')->from(array(
 $this->itemTable.' t1',
 $this->assignmentTable.' t2'
-))
-->where('name=itemname AND userid=:userid', array(':userid'=>$userId));
+))->where('name=itemname AND userid=:userid', array(':userid'=>$userId));
 }
 else
 {
-$command=$this->db->createCommand()
-->select('name,type,description,t1.bizrule,t1.data')
-->from(array(
+$command=$this->db->createCommand()->select('name,type,description,t1.bizrule,t1.data')->from(array(
 $this->itemTable.' t1',
 $this->assignmentTable.' t2'
-))
-->where('name=itemname AND type=:type AND userid=:userid', array(
+))->where('name=itemname AND type=:type AND userid=:userid', array(
 ':type'=>$type,
 ':userid'=>$userId
 ));
@@ -256,8 +212,7 @@ return $items;
 }
 public function createAuthItem($name,$type,$description='',$bizRule=null,$data=null)
 {
-$this->db->createCommand()
-->insert($this->itemTable, array(
+$this->db->createCommand()->insert($this->itemTable, array(
 'name'=>$name,
 'type'=>$type,
 'description'=>$description,
@@ -270,28 +225,21 @@ public function removeAuthItem($name)
 {
 if($this->usingSqlite())
 {
-$this->db->createCommand()
-->delete($this->itemChildTable, 'parent=:name1 OR child=:name2', array(
+$this->db->createCommand()->delete($this->itemChildTable, 'parent=:name1 OR child=:name2', array(
 ':name1'=>$name,
 ':name2'=>$name
 ));
-$this->db->createCommand()
-->delete($this->assignmentTable, 'itemname=:name', array(
+$this->db->createCommand()->delete($this->assignmentTable, 'itemname=:name', array(
 ':name'=>$name,
 ));
 }
-return $this->db->createCommand()
-->delete($this->itemTable, 'name=:name', array(
+return $this->db->createCommand()->delete($this->itemTable, 'name=:name', array(
 ':name'=>$name
 )) > 0;
 }
 public function getAuthItem($name)
 {
-$row=$this->db->createCommand()
-->select()
-->from($this->itemTable)
-->where('name=:name', array(':name'=>$name))
-->queryRow();
+$row=$this->db->createCommand()->select()->from($this->itemTable)->where('name=:name', array(':name'=>$name))->queryRow();
 if($row!==false)
 {
 if(($data=@unserialize($row['data']))===false)
@@ -305,27 +253,23 @@ public function saveAuthItem($item,$oldName=null)
 {
 if($this->usingSqlite() && $oldName!==null && $item->getName()!==$oldName)
 {
-$this->db->createCommand()
-->update($this->itemChildTable, array(
+$this->db->createCommand()->update($this->itemChildTable, array(
 'parent'=>$item->getName(),
 ), 'parent=:whereName', array(
 ':whereName'=>$oldName,
 ));
-$this->db->createCommand()
-->update($this->itemChildTable, array(
+$this->db->createCommand()->update($this->itemChildTable, array(
 'child'=>$item->getName(),
 ), 'child=:whereName', array(
 ':whereName'=>$oldName,
 ));
-$this->db->createCommand()
-->update($this->assignmentTable, array(
+$this->db->createCommand()->update($this->assignmentTable, array(
 'itemname'=>$item->getName(),
 ), 'itemname=:whereName', array(
 ':whereName'=>$oldName,
 ));
 }
-$this->db->createCommand()
-->update($this->itemTable, array(
+$this->db->createCommand()->update($this->itemTable, array(
 'name'=>$item->getName(),
 'type'=>$item->getType(),
 'description'=>$item->getDescription(),

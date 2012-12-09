@@ -23,21 +23,16 @@ $this->context[] = "id '$id_string'";
 if (!$id instanceof HTMLPurifier_ConfigSchema_Interchange_Id) {
 $this->error(false, 'is not an instance of HTMLPurifier_ConfigSchema_Interchange_Id');
 }
-$this->with($id, 'key')
-->assertNotEmpty()
-->assertIsString(); // implicit assertIsString handled by InterchangeBuilder
+$this->with($id, 'key')->assertNotEmpty()->assertIsString();//implicit assertIsString handled by InterchangeBuilder
 array_pop($this->context);
 }
 public function validateDirective($d) {
 $id = $d->id->toString();
 $this->context[] = "directive '$id'";
 $this->validateId($d->id);
-$this->with($d, 'description')
-->assertNotEmpty();
-$this->with($d, 'type')
-->assertNotEmpty();
-$this->with($d, 'typeAllowsNull')
-->assertIsBool();
+$this->with($d, 'description')->assertNotEmpty();
+$this->with($d, 'type')->assertNotEmpty();
+$this->with($d, 'typeAllowsNull')->assertIsBool();
 try {
 $this->parser->parse($d->default, $d->type, $d->typeAllowsNull);
 } catch (HTMLPurifier_VarParserException $e) {
@@ -56,9 +51,7 @@ array_pop($this->context);
 }
 public function validateDirectiveAllowed($d) {
 if (is_null($d->allowed)) return;
-$this->with($d, 'allowed')
-->assertNotEmpty()
-->assertIsLookup(); // handled by InterchangeBuilder
+$this->with($d, 'allowed')->assertNotEmpty()->assertIsLookup();//handled by InterchangeBuilder
 if (is_string($d->default) && !isset($d->allowed[$d->default])) {
 $this->error('default', 'must be an allowed value');
 }
@@ -70,8 +63,7 @@ array_pop($this->context);
 }
 public function validateDirectiveValueAliases($d) {
 if (is_null($d->valueAliases)) return;
-$this->with($d, 'valueAliases')
-->assertIsArray(); // handled by InterchangeBuilder
+$this->with($d, 'valueAliases')->assertIsArray();//handled by InterchangeBuilder
 $this->context[] = 'valueAliases';
 foreach ($d->valueAliases as $alias=>$real) {
 if (!is_string($alias)) $this->error("alias $alias", 'must be a string');
@@ -92,8 +84,7 @@ $this->error("alias '$alias'", 'must be an alias to an allowed value');
 array_pop($this->context);
 }
 public function validateDirectiveAliases($d) {
-$this->with($d, 'aliases')
-->assertIsArray(); // handled by InterchangeBuilder
+$this->with($d, 'aliases')->assertIsArray();//handled by InterchangeBuilder
 $this->context[] = 'aliases';
 foreach ($d->aliases as $alias) {
 $this->validateId($alias);

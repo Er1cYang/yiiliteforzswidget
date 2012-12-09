@@ -80,7 +80,7 @@ if(preg_match('/^(.*?)[#,\.0]+(.*?)$/',$patterns[0],$matches))
 $format['positivePrefix']=$matches[1];
 $format['positiveSuffix']=$matches[2];
 }
-if(isset($patterns[1]) && preg_match('/^(.*?)[#,\.0]+(.*?)$/',$patterns[1],$matches))  // with a negative pattern
+if(isset($patterns[1]) && preg_match('/^(.*?)[#,\.0]+(.*?)$/',$patterns[1],$matches))//with a negative pattern
 {
 $format['negativePrefix']=$matches[1];
 $format['negativeSuffix']=$matches[2];
@@ -109,7 +109,7 @@ else
 $format['maxDecimalDigits']=$format['decimalDigits'];
 $pat=substr($pat,0,$pos);
 }
-else   // no decimal part
+else//no decimal part
 {
 $format['decimalDigits']=0;
 $format['maxDecimalDigits']=0;

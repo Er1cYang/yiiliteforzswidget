@@ -56,7 +56,7 @@ protected function createPageButtons()
 if(($pageCount=$this->getPageCount())<=1)
 return array();
 list($beginPage,$endPage)=$this->getPageRange();
-$currentPage=$this->getCurrentPage(false); // currentPage is calculated in getPageRange()
+$currentPage=$this->getCurrentPage(false);//currentPage is calculated in getPageRange()
 $buttons=array();
 $buttons[]=$this->createPageButton($this->firstPageLabel,0,$this->firstPageCssClass,$currentPage<=0,false);
 if(($page=$currentPage-1)<0)

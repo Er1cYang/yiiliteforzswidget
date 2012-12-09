@@ -7,7 +7,7 @@ private $_runner;
 protected function init()
 {
 parent::init();
-if(!isset($_SERVER['argv'])) // || strncasecmp(php_sapi_name(),'cli',3))
+if(!isset($_SERVER['argv']))//|| strncasecmp(php_sapi_name(),'cli',3))
 die('This script must be run from the command line.');
 $this->_runner=$this->createCommandRunner();
 $this->_runner->commands=$this->commandMap;

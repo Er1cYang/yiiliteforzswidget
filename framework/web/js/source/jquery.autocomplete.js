@@ -60,7 +60,7 @@ blockSubmit = false;
 return false;
 }
 });
-$input.bind(($.browser.opera ? "keypress" : "keydown") + ".autocomplete", function(event) {
+$input.bind(($.browser.opera ? "keypress" : "keydown")+".autocomplete", function(event) {
 hasFocus = 1;
 lastKeyPressCode = event.keyCode;
 switch(event.keyCode) {
@@ -121,7 +121,7 @@ if (!config.mouseDownOnSelect) {
 hideResults();
 }
 }).click(function() {
-if ( hasFocus++ > 1 && !select.visible() ) {
+if ( hasFocus++> 1 && !select.visible() ) {
 onChange(0, true);
 }
 }).bind("search", function() {
@@ -166,16 +166,16 @@ var seperator = options.multipleSeparator.length;
 var cursorAt = $(input).selection().start;
 var wordAt, progress = 0;
 $.each(words, function(i, word) {
-progress += word.length;
+progress+= word.length;
 if (cursorAt <= progress) {
 wordAt = i;
 }
-progress += seperator;
+progress+= seperator;
 });
 words[wordAt] = v;
 v = words.join( options.multipleSeparator );
 }
-v += options.multipleSeparator;
+v+= options.multipleSeparator;
 }
 $input.val(v);
 hideResultsNow();
@@ -223,12 +223,12 @@ words = trimWords(value)
 } else {
 words = trimWords(value.replace(value.substring(cursorAt), ""));
 }
-return words[words.length - 1];
+return words[words.length-1];
 }
 function autoFill(q, sValue){
 if( options.autoFill && (lastWord($input.val()).toLowerCase() == q.toLowerCase()) && lastKeyPressCode != KEY.BACKSPACE ) {
-$input.val($input.val() + sValue.substring(lastWord(previousValue).length));
-$(input).selection(previousValue.length, previousValue.length + sValue.length);
+$input.val($input.val()+sValue.substring(lastWord(previousValue).length));
+$(input).selection(previousValue.length, previousValue.length+sValue.length);
 }
 };
 function hideResults() {
@@ -245,8 +245,8 @@ $input.search(
 function (result){
 if( !result ) {
 if (options.multiple) {
-var words = trimWords($input.val()).slice(0, -1);
-$input.val( words.join(options.multipleSeparator) + (words.length ? options.multipleSeparator : "") );
+var words = trimWords($input.val()).slice(0,-1);
+$input.val( words.join(options.multipleSeparator)+(words.length ? options.multipleSeparator : "") );
 }
 else {
 $input.val( "" );
@@ -275,14 +275,14 @@ if (data && data.length) {
 success(term, data);
 } else if( (typeof options.url == "string") && (options.url.length > 0) ){
 var extraParams = {
-timestamp: +new Date()
+timestamp:+new Date()
 };
 $.each(options.extraParams, function(key, param) {
 extraParams[key] = typeof param == "function" ? param() : param;
 });
 $.ajax({
 mode: "abort",
-port: "autocomplete" + input.name,
+port: "autocomplete"+input.name,
 dataType: options.dataType,
 url: options.url,
 data: $.extend({
@@ -341,7 +341,7 @@ width: 0,
 multiple: false,
 multipleSeparator: ", ",
 highlight: function(value, term) {
-return value.replace(new RegExp("(?![^&;]+;)(?!<[^<>]*)(" + term.replace(/([\^\$\(\)\[\]\{\}\*\.\+\?\|\\])/gi, "\\$1") + ")(?![^<>]*>)(?![^&;]+;)", "gi"), "<strong>$1</strong>");
+return value.replace(new RegExp("(?![^&;]+;)(?!<[^<>]*)("+term.replace(/([\^\$\(\)\[\]\{\}\*\.\+\?\|\\])/gi, "\\$1")+")(?![^<>]*>)(?![^&;]+;)", "gi"), "<strong>$1</strong>");
 },
 scroll: true,
 scrollHeight: 180
@@ -354,9 +354,9 @@ if (!options.matchCase)
 s = s.toLowerCase();
 var i = s.indexOf(sub);
 if (options.matchContains == "word"){
-i = s.toLowerCase().search("\\b" + sub.toLowerCase());
+i = s.toLowerCase().search("\\b"+sub.toLowerCase());
 }
-if (i == -1) return false;
+if (i ==-1) return false;
 return i == 0 || options.matchContains;
 };
 function add(q, value) {
@@ -374,7 +374,7 @@ var stMatchSets = {},
 nullData = 0;
 if( !options.url ) options.cacheLength = 1;
 stMatchSets[""] = [];
-for ( var i = 0, ol = options.data.length; i < ol; i++ ) {
+for ( var i = 0, ol = options.data.length; i < ol; i++) {
 var rawValue = options.data[i];
 rawValue = (typeof rawValue == "string") ? [rawValue] : rawValue;
 var value = options.formatMatch(rawValue, i+1, options.data.length);
@@ -389,7 +389,7 @@ data: rawValue,
 result: options.formatResult && options.formatResult(rawValue) || value
 };
 stMatchSets[firstChar].push(row);
-if ( nullData++ < options.max ) {
+if ( nullData++< options.max ) {
 stMatchSets[""].push(row);
 }
 };
@@ -428,7 +428,7 @@ if (data[q]){
 return data[q];
 } else
 if (options.matchSubset) {
-for (var i = q.length - 1; i >= options.minChars; i--) {
+for (var i = q.length-1; i >= options.minChars; i--) {
 var c = data[q.substr(0, i)];
 if (c) {
 var csub = [];
@@ -450,7 +450,7 @@ var CLASSES = {
 ACTIVE: "ac_over"
 };
 var listItems,
-active = -1,
+active =-1,
 data,
 term = "",
 needsInit = true,
@@ -492,25 +492,25 @@ return [];
 return element;
 }
 function moveSelect(step) {
-listItems.slice(active, active + 1).removeClass(CLASSES.ACTIVE);
+listItems.slice(active, active+1).removeClass(CLASSES.ACTIVE);
 movePosition(step);
-var activeItem = listItems.slice(active, active + 1).addClass(CLASSES.ACTIVE);
+var activeItem = listItems.slice(active, active+1).addClass(CLASSES.ACTIVE);
 if(options.scroll) {
 var offset = 0;
 listItems.slice(0, active).each(function() {
-offset += this.offsetHeight;
+offset+= this.offsetHeight;
 });
-if((offset + activeItem[0].offsetHeight - list.scrollTop()) > list[0].clientHeight) {
-list.scrollTop(offset + activeItem[0].offsetHeight - list.innerHeight());
+if((offset+activeItem[0].offsetHeight-list.scrollTop()) > list[0].clientHeight) {
+list.scrollTop(offset+activeItem[0].offsetHeight-list.innerHeight());
 } else if(offset < list.scrollTop()) {
 list.scrollTop(offset);
 }
 }
 };
 function movePosition(step) {
-active += step;
+active+= step;
 if (active < 0) {
-active = listItems.size() - 1;
+active = listItems.size()-1;
 } else if (active >= listItems.size()) {
 active = 0;
 }
@@ -554,15 +554,15 @@ prev: function() {
 moveSelect(-1);
 },
 pageUp: function() {
-if (active != 0 && active - 8 < 0) {
-moveSelect( -active );
+if (active != 0 && active-8 < 0) {
+moveSelect(-active );
 } else {
 moveSelect(-8);
 }
 },
 pageDown: function() {
-if (active != listItems.size() - 1 && active + 8 > listItems.size()) {
-moveSelect( listItems.size() - 1 - active );
+if (active != listItems.size()-1 && active+8 > listItems.size()) {
+moveSelect( listItems.size()-1-active );
 } else {
 moveSelect(8);
 }
@@ -570,19 +570,19 @@ moveSelect(8);
 hide: function() {
 element && element.hide();
 listItems && listItems.removeClass(CLASSES.ACTIVE);
-active = -1;
+active =-1;
 },
 visible : function() {
 return element && element.is(":visible");
 },
 current: function() {
-return this.visible() && (listItems.filter("." + CLASSES.ACTIVE)[0] || options.selectFirst && listItems[0]);
+return this.visible() && (listItems.filter("."+CLASSES.ACTIVE)[0] || options.selectFirst && listItems[0]);
 },
 show: function() {
 var offset = $(input).offset();
 element.css({
 width: typeof options.width == "string" || options.width > 0 ? options.width : $(input).width(),
-top: offset.top + input.offsetHeight,
+top: offset.top+input.offsetHeight,
 left: offset.left
 }).show();
 if(options.scroll) {
@@ -594,18 +594,18 @@ overflow: 'auto'
 if($.browser.msie && typeof document.body.style.maxHeight === "undefined") {
 var listHeight = 0;
 listItems.each(function() {
-listHeight += this.offsetHeight;
+listHeight+= this.offsetHeight;
 });
 var scrollbarsVisible = listHeight > options.scrollHeight;
 list.css('height', scrollbarsVisible ? options.scrollHeight : listHeight );
 if (!scrollbarsVisible) {
-listItems.width( list.width() - parseInt(listItems.css("padding-left")) - parseInt(listItems.css("padding-right")) );
+listItems.width( list.width()-parseInt(listItems.css("padding-left"))-parseInt(listItems.css("padding-right")) );
 }
 }
 }
 },
 selected: function() {
-var selected = listItems && listItems.filter("." + CLASSES.ACTIVE).removeClass(CLASSES.ACTIVE);
+var selected = listItems && listItems.filter("."+CLASSES.ACTIVE).removeClass(CLASSES.ACTIVE);
 return selected && selected.length && $.data(selected[0], "ac_data");
 },
 emptyList: function (){
@@ -647,10 +647,10 @@ textLength = range.text.length;
 range.text = teststring;
 var caretAt = field.value.indexOf(teststring);
 field.value = orig;
-this.selection(caretAt, caretAt + textLength);
+this.selection(caretAt, caretAt+textLength);
 return {
 start: caretAt,
-end: caretAt + textLength
+end: caretAt+textLength
 }
 } else if( field.selectionStart !== undefined ){
 return {

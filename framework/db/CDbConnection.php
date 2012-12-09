@@ -19,15 +19,15 @@ public $enableProfiling=false;
 public $tablePrefix;
 public $initSQLs;
 public $driverMap=array(
-'pgsql'=>'CPgsqlSchema',    // PostgreSQL
-'mysqli'=>'CMysqlSchema',   // MySQL
-'mysql'=>'CMysqlSchema',    // MySQL
-'sqlite'=>'CSqliteSchema',  // sqlite 3
-'sqlite2'=>'CSqliteSchema', // sqlite 2
-'mssql'=>'CMssqlSchema',    // Mssql driver on windows hosts
-'dblib'=>'CMssqlSchema',    // dblib drivers on linux (and maybe others os) hosts
-'sqlsrv'=>'CMssqlSchema',   // Mssql
-'oci'=>'COciSchema',        // Oracle driver
+'pgsql'=>'CPgsqlSchema',//PostgreSQL
+'mysqli'=>'CMysqlSchema',//MySQL
+'mysql'=>'CMysqlSchema',//MySQL
+'sqlite'=>'CSqliteSchema',//sqlite 3
+'sqlite2'=>'CSqliteSchema',//sqlite 2
+'mssql'=>'CMssqlSchema',//Mssql driver on windows hosts
+'dblib'=>'CMssqlSchema',//dblib drivers on linux (and maybe others os) hosts
+'sqlsrv'=>'CMssqlSchema',//Mssql
+'oci'=>'COciSchema',//Oracle driver
 );
 public $pdoClass = 'PDO';
 private $_attributes=array();
@@ -196,7 +196,7 @@ return $str;
 $this->setActive(true);
 if(($value=$this->_pdo->quote($str))!==false)
 return $value;
-else  // the driver doesn't support quote (e.g. oci)
+else//the driver doesn't support quote (e.g. oci)
 return "'" . addcslashes(str_replace("'", "''", $str), "\000\n\r\\\032") . "'";
 }
 public function quoteTableName($name)

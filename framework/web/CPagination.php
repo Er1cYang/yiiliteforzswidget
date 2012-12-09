@@ -64,7 +64,7 @@ $_GET[$this->pageVar]=$value+1;
 public function createPageUrl($controller,$page)
 {
 $params=$this->params===null ? $_GET : $this->params;
-if($page>0) // page 0 is the default
+if($page>0)//page 0 is the default
 $params[$this->pageVar]=$page+1;
 else
 unset($params[$this->pageVar]);

@@ -58,7 +58,7 @@ else if($error==UPLOAD_ERR_NO_TMP_DIR)
 throw new CException(Yii::t('yii','Missing the temporary folder to store the uploaded file "{file}".',array('{file}'=>$file->getName())));
 else if($error==UPLOAD_ERR_CANT_WRITE)
 throw new CException(Yii::t('yii','Failed to write the uploaded file "{file}" to disk.',array('{file}'=>$file->getName())));
-else if(defined('UPLOAD_ERR_EXTENSION') && $error==UPLOAD_ERR_EXTENSION)  // available for PHP 5.2.0 or above
+else if(defined('UPLOAD_ERR_EXTENSION') && $error==UPLOAD_ERR_EXTENSION)//available for PHP 5.2.0 or above
 throw new CException(Yii::t('yii','File upload was stopped by extension.'));
 if($this->minSize!==null && $file->getSize()<$this->minSize)
 {
@@ -120,12 +120,12 @@ return $limit;
 }
 public function sizeToBytes($sizeStr)
 {
-switch (strtolower(substr($sizeStr, -1)))
+switch (strtolower(substr($sizeStr,-1)))
 {
-case 'm': return (int)$sizeStr * 1048576; // 1024 * 1024
-case 'k': return (int)$sizeStr * 1024; // 1024
-case 'g': return (int)$sizeStr * 1073741824; // 1024 * 1024 * 1024
-default: return (int)$sizeStr; // do nothing
+case 'm': return (int)$sizeStr*1048576;//1024*1024
+case 'k': return (int)$sizeStr*1024;//1024
+case 'g': return (int)$sizeStr*1073741824;//1024*1024*1024
+default: return (int)$sizeStr;//do nothing
 }
 }
 }

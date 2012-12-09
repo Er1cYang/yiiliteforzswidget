@@ -22,8 +22,8 @@ return false;
 });
 }
 if (settings.enableHistory && settings.ajaxUpdate !== false && window.History.enabled) {
-$(window).bind('statechange', function() { // Note: We are using statechange instead of popstate
-var State = window.History.getState(); // Note: We are using History.getState() instead of event.state
+$(window).bind('statechange', function() {//Note: We are using statechange instead of popstate
+var State = window.History.getState();//Note: We are using History.getState() instead of event.state
 $.fn.yiiListView.update(id, {url: State.url});
 });
 }

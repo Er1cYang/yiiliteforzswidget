@@ -26,7 +26,7 @@ if (settings.validationUrl === undefined) {
 settings.validationUrl = $form.attr('action');
 }
 $.each(settings.attributes, function (i) {
-this.value = getAFValue($form.find('#' + this.inputID));
+this.value = getAFValue($form.find('#'+this.inputID));
 settings.attributes[i] = $.extend({}, {
 validationDelay: settings.validationDelay,
 validateOnChange: settings.validateOnChange,
@@ -41,13 +41,13 @@ validatingCssClass: settings.validatingCssClass
 }, this);
 });
 $form.data('settings', settings);
-settings.submitting = false;  // whether it is waiting for ajax submission result
+settings.submitting = false;//whether it is waiting for ajax submission result
 var validate = function (attribute, forceValidate) {
 if (forceValidate) {
 attribute.status = 2;
 }
 $.each(settings.attributes, function () {
-if (this.value !== getAFValue($form.find('#' + this.inputID))) {
+if (this.value !== getAFValue($form.find('#'+this.inputID))) {
 this.status = 2;
 forceValidate = true;
 }
@@ -85,7 +85,7 @@ attribute.afterValidateAttribute($form, attribute, data, hasError);
 };
 $.each(settings.attributes, function (i, attribute) {
 if (this.validateOnChange) {
-$form.find('#' + this.inputID).change(function () {
+$form.find('#'+this.inputID).change(function () {
 validate(attribute, false);
 }).blur(function () {
 if (attribute.status !== 2 && attribute.status !== 3) {
@@ -94,7 +94,7 @@ validate(attribute, !attribute.status);
 });
 }
 if (this.validateOnType) {
-$form.find('#' + this.inputID).keyup(function () {
+$form.find('#'+this.inputID).keyup(function () {
 if (attribute.value !== getAFValue($(this))) {
 validate(attribute, false);
 }
@@ -128,7 +128,7 @@ validated = true;
 var $button = $form.data('submitObject') || $form.find(':submit:first');
 if ($button.length) {
 $button.click();
-} else {  // no submit button in the form
+} else {//no submit button in the form
 $form.submit();
 }
 return;
@@ -146,20 +146,18 @@ $form.bind('reset', function () {
 setTimeout(function () {
 $.each(settings.attributes, function () {
 this.status = 0;
-var $error = $form.find('#' + this.errorID),
+var $error = $form.find('#'+this.errorID),
 $container = $.fn.yiiactiveform.getInputContainer(this, $form);
 $container.removeClass(
-this.validatingCssClass + ' ' +
-this.errorCssClass + ' ' +
-this.successCssClass
+this.validatingCssClass+' '+this.errorCssClass+' '+this.successCssClass
 );
 $error.html('').hide();
-this.value = getAFValue($form.find('#' + this.inputID));
+this.value = getAFValue($form.find('#'+this.inputID));
 });
 $form.find('label, input').each(function () {
 $(this).removeClass('error');
 });
-$('#' + settings.summaryID).hide().find('ul').html('');
+$('#'+settings.summaryID).hide().find('ul').html('');
 if (settings.focus !== undefined && !window.location.hash) {
 $form.find(settings.focus).focus();
 }
@@ -172,24 +170,22 @@ $form.find(settings.focus).focus();
 };
 $.fn.yiiactiveform.getInputContainer = function (attribute, form) {
 if (attribute.inputContainer === undefined) {
-return form.find('#' + attribute.inputID).closest('div');
+return form.find('#'+attribute.inputID).closest('div');
 } else {
-return form.find(attribute.inputContainer).filter(':has("#' + attribute.inputID + '")');
+return form.find(attribute.inputContainer).filter(':has("#'+attribute.inputID+'")');
 }
 };
 $.fn.yiiactiveform.updateInput = function (attribute, messages, form) {
 attribute.status = 1;
 var $error, $container,
 hasError = false,
-$el = form.find('#' + attribute.inputID);
+$el = form.find('#'+attribute.inputID);
 if ($el.length) {
 hasError = messages !== null && $.isArray(messages[attribute.id]) && messages[attribute.id].length > 0;
-$error = form.find('#' + attribute.errorID);
+$error = form.find('#'+attribute.errorID);
 $container = $.fn.yiiactiveform.getInputContainer(attribute, form);
 $container.removeClass(
-attribute.validatingCssClass + ' ' + 
-attribute.errorCssClass + ' ' + 
-attribute.successCssClass
+attribute.validatingCssClass+' '+attribute.errorCssClass+' '+attribute.successCssClass
 );
 if (hasError) {
 $error.html(messages[attribute.id][0]);
@@ -214,12 +210,12 @@ if (messages) {
 $.each(settings.attributes, function () {
 if ($.isArray(messages[this.id])) {
 $.each(messages[this.id], function (j, message) {
-content = content + '<li>' + message + '</li>';
+content = content+'<li>'+message+'</li>';
 });
 }
 });
 }
-$('#' + settings.summaryID).toggle(content !== '').find('ul').html(content);
+$('#'+settings.summaryID).toggle(content !== '').find('ul').html(content);
 };
 $.fn.yiiactiveform.validate = function (form, successCallback, errorCallback) {
 var $form = $(form),
@@ -230,7 +226,7 @@ $.each(settings.attributes, function () {
 var value,
 msg = [];
 if (this.clientValidation !== undefined && (settings.submitting || this.status === 2 || this.status === 3)) {
-value = getAFValue($form.find('#' + this.inputID));
+value = getAFValue($form.find('#'+this.inputID));
 this.clientValidation(value, msg, this);
 if (msg.length) {
 messages[this.id] = msg;
@@ -251,14 +247,14 @@ successCallback(messages);
 return;
 }
 var $button = $form.data('submitObject'),
-extData = '&' + settings.ajaxVar + '=' + $form.attr('id');
+extData = '&'+settings.ajaxVar+'='+$form.attr('id');
 if ($button && $button.length) {
-extData += '&' + $button.attr('name') + '=' + $button.attr('value');
+extData+= '&'+$button.attr('name')+'='+$button.attr('value');
 }
 $.ajax({
 url : settings.validationUrl,
 type : $form.attr('method'),
-data : $form.serialize() + extData,
+data : $form.serialize()+extData,
 dataType : 'json',
 success : function (data) {
 if (data !== null && typeof data === 'object') {
@@ -296,10 +292,10 @@ successCssClass : 'success',
 validatingCssClass : 'validating',
 summaryID : undefined,
 timer: undefined,
-beforeValidateAttribute: undefined, // function (form, attribute) : boolean
-afterValidateAttribute: undefined,  // function (form, attribute, data, hasError)
-beforeValidate: undefined, // function (form) : boolean
-afterValidate: undefined,  // function (form, data, hasError) : boolean
+beforeValidateAttribute: undefined,//function (form, attribute) : boolean
+afterValidateAttribute: undefined,//function (form, attribute, data, hasError)
+beforeValidate: undefined,//function (form) : boolean
+afterValidate: undefined,//function (form, data, hasError) : boolean
 attributes : []
 };
 })(jQuery);

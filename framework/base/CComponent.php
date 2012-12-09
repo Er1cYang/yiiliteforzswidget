@@ -242,7 +242,7 @@ else if(is_callable($handler,true))
 if(is_array($handler))
 {
 list($object,$method)=$handler;
-if(is_string($object))	// static method call
+if(is_string($object))//static method call
 call_user_func($handler,$event);
 else if(method_exists($object,$method))
 $object->$method($event);
@@ -250,7 +250,7 @@ else
 throw new CException(Yii::t('yii','Event "{class}.{event}" is attached with an invalid handler "{handler}".',
 array('{class}'=>get_class($this), '{event}'=>$name, '{handler}'=>$handler[1])));
 }
-else // PHP 5.3: anonymous function
+else//PHP 5.3: anonymous function
 call_user_func($handler,$event);
 }
 else

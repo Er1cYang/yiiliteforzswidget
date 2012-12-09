@@ -8,14 +8,14 @@ $parser = new HTML5($new_html);
 $doc = $parser->save();
 } catch (DOMException $e) {
 $lexer = new HTMLPurifier_Lexer_DirectLex();
-$context->register('PH5PError', $e); // save the error, so we can detect it
-return $lexer->tokenizeHTML($html, $config, $context); // use original HTML
+$context->register('PH5PError', $e);//save the error, so we can detect it
+return $lexer->tokenizeHTML($html, $config, $context);//use original HTML
 }
 $tokens = array();
 $this->tokenizeDOM(
-$doc->getElementsByTagName('html')->item(0)-> // <html>
-getElementsByTagName('body')->item(0)-> //   <body>
-getElementsByTagName('div')->item(0)    //     <div>
+$doc->getElementsByTagName('html')->item(0)->//<html>
+getElementsByTagName('body')->item(0)->//<body>
+getElementsByTagName('div')->item(0)//<div>
 , $tokens);
 return $tokens;
 }
@@ -83,7 +83,7 @@ const CHARACTR = 4;
 const EOF      = 5;
 public function __construct($data) {
 $this->data = $data;
-$this->char = -1;
+$this->char =-1;
 $this->EOF  = strlen($data);
 $this->tree = new HTML5TreeConstructer;
 $this->content_model = self::PCDATA;
@@ -101,7 +101,7 @@ return ($this->char < $this->EOF)
 : false;
 }
 private function character($s, $l = 0) {
-if($s + $l < $this->EOF) {
+if($s+$l < $this->EOF) {
 if($l === 0) {
 return $this->data[$s];
 } else {
@@ -120,7 +120,7 @@ $this->state = 'entityData';
 } elseif($char === '-') {
 if(($this->content_model === self::RCDATA || $this->content_model ===
 self::CDATA) && $this->escape === false &&
-$this->char >= 3 && $this->character($this->char - 4, 4) === '<!--') {
+$this->char >= 3 && $this->character($this->char-4, 4) === '<!--') {
 $this->escape = true;
 }
 $this->emitToken(array(
@@ -152,7 +152,7 @@ $this->EOF();
 } else {
 $len  = strcspn($this->data, '<&', $this->char);
 $char = substr($this->data, $this->char, $len);
-$this->char += $len - 1;
+$this->char+= $len-1;
 $this->emitToken(array(
 'type'=>self::CHARACTR,
 'data'=>$char
@@ -173,7 +173,7 @@ private function tagOpenState() {
 switch($this->content_model) {
 case self::RCDATA:
 case self::CDATA:
-if($this->character($this->char + 1) === '/') {
+if($this->character($this->char+1) === '/') {
 $this->char++;
 $this->state = 'closeTagOpen';
 } else {
@@ -218,11 +218,11 @@ break;
 }
 }
 private function closeTagOpenState() {
-$next_node = strtolower($this->characters('A-Za-z', $this->char + 1));
+$next_node = strtolower($this->characters('A-Za-z', $this->char+1));
 $the_same = count($this->tree->stack) > 0 && $next_node === end($this->tree->stack)->nodeName;
 if(($this->content_model === self::RCDATA || $this->content_model === self::CDATA) &&
 (!$the_same || ($the_same && (!preg_match('/[\t\n\x0b\x0c >\/]/',
-$this->character($this->char + 1 + strlen($next_node))) || $this->EOF === $this->char)))) {
+$this->character($this->char+1+strlen($next_node))) || $this->EOF === $this->char)))) {
 $this->emitToken(array(
 'type'=>self::CHARACTR,
 'data'=>'</'
@@ -302,14 +302,14 @@ $this->state = 'beforeAttributeValue';
 } elseif($char === '>') {
 $this->emitToken($this->token);
 $this->state = 'data';
-} elseif($char === '/' && $this->character($this->char + 1) !== '>') {
+} elseif($char === '/' && $this->character($this->char+1) !== '>') {
 $this->state = 'beforeAttributeName';
 } elseif($this->char === $this->EOF) {
 $this->emitToken($this->token);
 $this->char--;
 $this->state = 'data';
 } else {
-$last = count($this->token['attr']) - 1;
+$last = count($this->token['attr'])-1;
 $this->token['attr'][$last]['name'] .= strtolower($char);
 $this->state = 'attributeName';
 }
@@ -324,7 +324,7 @@ $this->state = 'beforeAttributeValue';
 } elseif($char === '>') {
 $this->emitToken($this->token);
 $this->state = 'data';
-} elseif($char === '/' && $this->character($this->char + 1) !== '>') {
+} elseif($char === '/' && $this->character($this->char+1) !== '>') {
 $this->state = 'beforeAttributeName';
 } elseif($this->char === $this->EOF) {
 $this->emitToken($this->token);
@@ -354,7 +354,7 @@ $this->state = 'attributeValueSingleQuoted';
 $this->emitToken($this->token);
 $this->state = 'data';
 } else {
-$last = count($this->token['attr']) - 1;
+$last = count($this->token['attr'])-1;
 $this->token['attr'][$last]['value'] .= $char;
 $this->state = 'attributeValueUnquoted';
 }
@@ -371,7 +371,7 @@ $this->emitToken($this->token);
 $this->char--;
 $this->state = 'data';
 } else {
-$last = count($this->token['attr']) - 1;
+$last = count($this->token['attr'])-1;
 $this->token['attr'][$last]['value'] .= $char;
 $this->state = 'attributeValueDoubleQuoted';
 }
@@ -388,7 +388,7 @@ $this->emitToken($this->token);
 $this->char--;
 $this->state = 'data';
 } else {
-$last = count($this->token['attr']) - 1;
+$last = count($this->token['attr'])-1;
 $this->token['attr'][$last]['value'] .= $char;
 $this->state = 'attributeValueSingleQuoted';
 }
@@ -404,7 +404,7 @@ $this->entityInAttributeValueState();
 $this->emitToken($this->token);
 $this->state = 'data';
 } else {
-$last = count($this->token['attr']) - 1;
+$last = count($this->token['attr'])-1;
 $this->token['attr'][$last]['value'] .= $char;
 $this->state = 'attributeValueUnquoted';
 }
@@ -414,7 +414,7 @@ $entity = $this->entity();
 $char = (!$entity)
 ? '&'
 : $entity;
-$last = count($this->token['attr']) - 1;
+$last = count($this->token['attr'])-1;
 $this->token['attr'][$last]['value'] .= $char;
 }
 private function bogusCommentState() {
@@ -423,22 +423,22 @@ $this->emitToken(array(
 'data'=>$data,
 'type'=>self::COMMENT
 ));
-$this->char += strlen($data);
+$this->char+= strlen($data);
 $this->state = 'data';
 if($this->char === $this->EOF) {
-$this->char = $this->EOF - 1;
+$this->char = $this->EOF-1;
 }
 }
 private function markupDeclarationOpenState() {
-if($this->character($this->char + 1, 2) === '--') {
-$this->char += 2;
+if($this->character($this->char+1, 2) === '--') {
+$this->char+= 2;
 $this->state = 'comment';
 $this->token = array(
 'data'=>null,
 'type'=>self::COMMENT
 );
-} elseif(strtolower($this->character($this->char + 1, 7)) === 'doctype') {
-$this->char += 7;
+} elseif(strtolower($this->character($this->char+1, 7)) === 'doctype') {
+$this->char+= 7;
 $this->state = 'doctype';
 } else {
 $this->char++;
@@ -586,9 +586,9 @@ $this->state = 'data';
 }
 private function entity() {
 $start = $this->char;
-switch($this->character($this->char + 1)) {
+switch($this->character($this->char+1)) {
 case '#':
-switch($this->character($this->char + 1)) {
+switch($this->character($this->char+1)) {
 case 'x':
 case 'X':
 $char = 1;
@@ -600,12 +600,12 @@ $char_class = '0-9';
 break;
 }
 $this->char++;
-$e_name = $this->characters($char_class, $this->char + $char + 1);
+$e_name = $this->characters($char_class, $this->char+$char+1);
 $entity = $this->character($start, $this->char);
 $cond = strlen($e_name) > 0;
 break;
 default:
-$e_name = $this->characters('0-9A-Za-z;', $this->char + 1);
+$e_name = $this->characters('0-9A-Za-z;', $this->char+1);
 $len = strlen($e_name);
 for($c = 1; $c <= $len; $c++) {
 $id = substr($e_name, 0, $c);
@@ -613,7 +613,7 @@ $this->char++;
 if(in_array($id, $this->entities)) {
 if ($e_name[$c-1] !== ';') {
 if ($c < $len && $e_name[$c] == ';') {
-$this->char++; // consume extra semicolon
+$this->char++;//consume extra semicolon
 }
 }
 $entity = $id;
@@ -939,7 +939,7 @@ $this->emitToken(array(
 'type'=>HTML5::ENDTAG
 ));
 }
-$stack_length = count($this->stack) - 1;
+$stack_length = count($this->stack)-1;
 for($n = $stack_length; 0 <= $n; $n--) {
 $stop = false;
 $node = $this->stack[$n];
@@ -982,7 +982,7 @@ $this->insertElement($token);
 break;
 case 'a':
 $leng = count($this->a_formatting);
-for($n = $leng - 1; $n >= 0; $n--) {
+for($n = $leng-1; $n >= 0; $n--) {
 if($this->a_formatting[$n] === self::MARKER) {
 break;
 } elseif($this->a_formatting[$n]->nodeName === 'a') {
@@ -1163,9 +1163,9 @@ case 'div': case 'dl': case 'fieldset': case 'listing':
 case 'menu': case 'ol': case 'pre': case 'ul':
 if($this->elementInScope($token['name'])) {
 $this->generateImpliedEndTags();
-for($n = count($this->stack) - 1; $n >= 0; $n--) {
+for($n = count($this->stack)-1; $n >= 0; $n--) {
 if($this->stack[$n]->nodeName === $token['name']) {
-$n = -1;
+$n =-1;
 }
 array_pop($this->stack);
 }
@@ -1184,7 +1184,7 @@ break;
 case 'p':
 if($this->elementInScope('p')) {
 $this->generateImpliedEndTags(array('p'));
-for($n = count($this->stack) - 1; $n >= 0; $n--) {
+for($n = count($this->stack)-1; $n >= 0; $n--) {
 if($this->elementInScope('p')) {
 array_pop($this->stack);
 } else {
@@ -1196,9 +1196,9 @@ break;
 case 'dd': case 'dt': case 'li':
 if($this->elementInScope($token['name'])) {
 $this->generateImpliedEndTags(array($token['name']));
-for($n = count($this->stack) - 1; $n >= 0; $n--) {
+for($n = count($this->stack)-1; $n >= 0; $n--) {
 if($this->stack[$n]->nodeName === $token['name']) {
-$n = -1;
+$n =-1;
 }
 array_pop($this->stack);
 }
@@ -1217,7 +1217,7 @@ case 'a': case 'b': case 'big': case 'em': case 'font':
 case 'i': case 'nobr': case 's': case 'small': case 'strike':
 case 'strong': case 'tt': case 'u':
 while(true) {
-for($a = count($this->a_formatting) - 1; $a >= 0; $a--) {
+for($a = count($this->a_formatting)-1; $a >= 0; $a--) {
 if($this->a_formatting[$a] === self::MARKER) {
 break;
 } elseif($this->a_formatting[$a]->tagName === $token['name']) {
@@ -1237,21 +1237,21 @@ break;
 }
 $fe_s_pos = array_search($formatting_element, $this->stack, true);
 $length = count($this->stack);
-for($s = $fe_s_pos + 1; $s < $length; $s++) {
+for($s = $fe_s_pos+1; $s < $length; $s++) {
 $category = $this->getElementCategory($this->stack[$s]->nodeName);
 if($category !== self::PHRASING && $category !== self::FORMATTING) {
 $furthest_block = $this->stack[$s];
 }
 }
 if(!isset($furthest_block)) {
-for($n = $length - 1; $n >= $fe_s_pos; $n--) {
+for($n = $length-1; $n >= $fe_s_pos; $n--) {
 array_pop($this->stack);
 }
 unset($this->a_formatting[$fe_af_pos]);
 $this->a_formatting = array_merge($this->a_formatting);
 break;
 }
-$common_ancestor = $this->stack[$fe_s_pos - 1];
+$common_ancestor = $this->stack[$fe_s_pos-1];
 if($furthest_block->parentNode !== null) {
 $furthest_block->parentNode->removeChild($furthest_block);
 }
@@ -1259,7 +1259,7 @@ $bookmark = $fe_af_pos;
 $node = $furthest_block;
 $last_node = $furthest_block;
 while(true) {
-for($n = array_search($node, $this->stack, true) - 1; $n >= 0; $n--) {
+for($n = array_search($node, $this->stack, true)-1; $n >= 0; $n--) {
 $node = $this->stack[$n];
 if(!in_array($node, $this->a_formatting, true)) {
 unset($this->stack[$n]);
@@ -1271,7 +1271,7 @@ break;
 if($node === $formatting_element) {
 break;
 } elseif($last_node === $furthest_block) {
-$bookmark = array_search($node, $this->a_formatting, true) + 1;
+$bookmark = array_search($node, $this->a_formatting, true)+1;
 }
 if($node->hasChildNodes()) {
 $clone = $node->cloneNode();
@@ -1301,14 +1301,14 @@ $furthest_block->appendChild($clone);
 $fe_af_pos = array_search($formatting_element, $this->a_formatting, true);
 unset($this->a_formatting[$fe_af_pos]);
 $this->a_formatting = array_merge($this->a_formatting);
-$af_part1 = array_slice($this->a_formatting, 0, $bookmark - 1);
+$af_part1 = array_slice($this->a_formatting, 0, $bookmark-1);
 $af_part2 = array_slice($this->a_formatting, $bookmark, count($this->a_formatting));
 $this->a_formatting = array_merge($af_part1, array($clone), $af_part2);
 $fe_s_pos = array_search($formatting_element, $this->stack, true);
 $fb_s_pos = array_search($furthest_block, $this->stack, true);
 unset($this->stack[$fe_s_pos]);
 $s_part1 = array_slice($this->stack, 0, $fb_s_pos);
-$s_part2 = array_slice($this->stack, $fb_s_pos + 1, count($this->stack));
+$s_part2 = array_slice($this->stack, $fb_s_pos+1, count($this->stack));
 $this->stack = array_merge($s_part1, array($clone), $s_part2);
 unset($formatting_element, $fe_af_pos, $fe_s_pos, $furthest_block);
 }
@@ -1316,14 +1316,14 @@ break;
 case 'button': case 'marquee': case 'object':
 if($this->elementInScope($token['name'])) {
 $this->generateImpliedEndTags();
-for($n = count($this->stack) - 1; $n >= 0; $n--) {
+for($n = count($this->stack)-1; $n >= 0; $n--) {
 if($this->stack[$n]->nodeName === $token['name']) {
-$n = -1;
+$n =-1;
 }
 array_pop($this->stack);
 }
 $marker = end(array_keys($this->a_formatting, self::MARKER, true));
-for($n = count($this->a_formatting) - 1; $n > $marker; $n--) {
+for($n = count($this->a_formatting)-1; $n > $marker; $n--) {
 array_pop($this->a_formatting);
 }
 }
@@ -1335,11 +1335,11 @@ case 'noframes': case 'param': case 'select': case 'spacer':
 case 'table': case 'textarea': case 'wbr':
 break;
 default:
-for($n = count($this->stack) - 1; $n >= 0; $n--) {
+for($n = count($this->stack)-1; $n >= 0; $n--) {
 $node = end($this->stack);
 if($token['name'] === $node->nodeName) {
 $this->generateImpliedEndTags();
-for($x = count($this->stack) - $n; $x >= $n; $x--) {
+for($x = count($this->stack)-$n; $x >= $n; $x--) {
 array_pop($this->stack);
 }
 } else {
@@ -1423,7 +1423,7 @@ array('body', 'caption', 'col', 'colgroup', 'html', 'tbody', 'td',
 } else {
 if(in_array(end($this->stack)->nodeName,
 array('table', 'tbody', 'tfoot', 'thead', 'tr'))) {
-for($n = count($this->stack) - 1; $n >= 0; $n--) {
+for($n = count($this->stack)-1; $n >= 0; $n--) {
 if($this->stack[$n]->nodeName === 'table') {
 $table = $this->stack[$n];
 break;
@@ -1435,7 +1435,7 @@ $this->foster_parent = $table->parentNode;
 $this->foster_parent = $this->stack[0];
 } elseif(isset($table) && ($table->parentNode === null ||
 $table->parentNode->nodeType !== XML_ELEMENT_NODE)) {
-$this->foster_parent = $this->stack[$n - 1];
+$this->foster_parent = $this->stack[$n-1];
 }
 }
 $this->inBody($token);
@@ -1654,14 +1654,14 @@ $this->insertElement($token);
 } elseif($token['type'] === HTML5::ENDTAG &&
 $token['name'] === 'optgroup') {
 $elements_in_stack = count($this->stack);
-if($this->stack[$elements_in_stack - 1]->nodeName === 'option' &&
-$this->stack[$elements_in_stack - 2]->nodeName === 'optgroup') {
+if($this->stack[$elements_in_stack-1]->nodeName === 'option' &&
+$this->stack[$elements_in_stack-2]->nodeName === 'optgroup') {
 $this->inSelect(array(
 'name'=>'option',
 'type'=>HTML5::ENDTAG
 ));
 }
-if($this->stack[$elements_in_stack - 1] === 'optgroup') {
+if($this->stack[$elements_in_stack-1] === 'optgroup') {
 array_pop($this->stack);
 }
 } elseif($token['type'] === HTML5::ENDTAG &&
@@ -1775,7 +1775,7 @@ private function insertElement($token, $append = true, $check = false) {
 if ($check) {
 $token['name'] = preg_replace('/[^a-z0-9-]/i', '', $token['name']);
 $token['name'] = ltrim($token['name'], '-0..9');
-if ($token['name'] === '') $token['name'] = 'span'; // arbitrary generic choice
+if ($token['name'] === '') $token['name'] = 'span';//arbitrary generic choice
 }
 $el = $this->dom->createElement($token['name']);
 foreach($token['attr'] as $attr) {
@@ -1799,7 +1799,7 @@ private function appendToRealParent($node) {
 if($this->foster_parent === null) {
 end($this->stack)->appendChild($node);
 } elseif($this->foster_parent !== null) {
-for($n = count($this->stack) - 1; $n >= 0; $n--) {
+for($n = count($this->stack)-1; $n >= 0; $n--) {
 if($this->stack[$n]->nodeName === 'table' &&
 $this->stack[$n]->parentNode !== null) {
 $table = $this->stack[$n];
@@ -1824,7 +1824,7 @@ return false;
 }
 $leng = count($this->stack);
 for($n = 0; $n < $leng; $n++) {
-$node = $this->stack[$leng - 1 - $n];
+$node = $this->stack[$leng-1-$n];
 if($node->tagName === $el) {
 return true;
 } elseif($node->tagName === 'table') {
@@ -1846,7 +1846,7 @@ $entry = end($this->a_formatting);
 if($entry === self::MARKER || in_array($entry, $this->stack, true)) {
 return false;
 }
-for($a = $formatting_elements - 1; $a >= 0; true) {
+for($a = $formatting_elements-1; $a >= 0; true) {
 if($a === 0) {
 $step_seven = false;
 break;
@@ -1913,7 +1913,7 @@ array_pop($this->stack);
 private function resetInsertionMode() {
 $last = false;
 $leng = count($this->stack);
-for($n = $leng - 1; $n >= 0; $n--) {
+for($n = $leng-1; $n >= 0; $n--) {
 $node = $this->stack[$n];
 if($this->stack[0]->isSameNode($node)) {
 $last = true;

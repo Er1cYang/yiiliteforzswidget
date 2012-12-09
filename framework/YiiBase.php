@@ -10,9 +10,9 @@ class YiiBase
 {
 public static $classMap=array();
 public static $enableIncludePath=true;
-private static $_aliases=array('system'=>YII_PATH,'zii'=>YII_ZII_PATH); // alias=>path
-private static $_imports=array();					// alias=>class name or directory
-private static $_includePaths;						// list of include paths
+private static $_aliases=array('system'=>YII_PATH,'zii'=>YII_ZII_PATH);//alias=>path
+private static $_imports=array();//alias=>class name or directory
+private static $_includePaths;//list of include paths
 private static $_app;
 private static $_logger;
 public static function getVersion()
@@ -86,11 +86,11 @@ return $object;
 }
 public static function import($alias,$forceInclude=false)
 {
-if(isset(self::$_imports[$alias]))  // previously imported
+if(isset(self::$_imports[$alias]))//previously imported
 return self::$_imports[$alias];
 if(class_exists($alias,false) || interface_exists($alias,false))
 return self::$_imports[$alias]=$alias;
-if(($pos=strrpos($alias,'\\'))!==false) // a class name in PHP 5.3 namespace format
+if(($pos=strrpos($alias,'\\'))!==false)//a class name in PHP 5.3 namespace format
 {
 $namespace=str_replace('\\','.',ltrim(substr($alias,0,$pos),'\\'));
 if(($path=self::getPathOfAlias($namespace))!==false)
@@ -112,7 +112,7 @@ else
 throw new CException(Yii::t('yii','Alias "{alias}" is invalid. Make sure it points to an existing directory.',
 array('{alias}'=>$namespace)));
 }
-if(($pos=strrpos($alias,'.'))===false)  // a simple class name
+if(($pos=strrpos($alias,'.'))===false)//a simple class name
 {
 if($forceInclude && self::autoload($alias))
 self::$_imports[$alias]=$alias;
@@ -138,7 +138,7 @@ else
 self::$classMap[$className]=$path.'.php';
 return $className;
 }
-else  // a directory
+else//a directory
 {
 if(self::$_includePaths===null)
 {
@@ -188,7 +188,7 @@ else if(isset(self::$_coreClasses[$className]))
 include(YII_PATH.self::$_coreClasses[$className]);
 else
 {
-if(strpos($className,'\\')===false)  // class without namespace
+if(strpos($className,'\\')===false)//class without namespace
 {
 if(self::$enableIncludePath===false)
 {
@@ -210,7 +210,7 @@ break;
 else
 include($className.'.php');
 }
-else  // class name with namespace in PHP 5.3
+else//class name with namespace in PHP 5.3
 {
 $namespace=str_replace('\\','.',ltrim($className,'\\'));
 if(($path=self::getPathOfAlias($namespace))!==false)
@@ -283,7 +283,7 @@ if($params===array())
 return $message;
 if(!is_array($params))
 $params=array($params);
-if(isset($params[0])) // number choice
+if(isset($params[0]))//number choice
 {
 if(strpos($message,'|')!==false)
 {

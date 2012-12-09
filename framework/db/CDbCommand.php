@@ -264,8 +264,8 @@ if(!empty($query['having']))
 $sql.="\nHAVING ".$query['having'];
 if(!empty($query['order']))
 $sql.="\nORDER BY ".$query['order'];
-$limit=isset($query['limit']) ? (int)$query['limit'] : -1;
-$offset=isset($query['offset']) ? (int)$query['offset'] : -1;
+$limit=isset($query['limit']) ? (int)$query['limit'] :-1;
+$offset=isset($query['offset']) ? (int)$query['offset'] :-1;
 if($limit>=0 || $offset>0)
 $sql=$this->_connection->getCommandBuilder()->applyLimit($sql,$limit,$offset);
 if(!empty($query['union']))
@@ -331,7 +331,7 @@ foreach($tables as $i=>$table)
 {
 if(strpos($table,'(')===false)
 {
-if(preg_match('/^(.*?)(?i:\s+as\s+|\s+)(.*)$/',$table,$matches))  // with alias
+if(preg_match('/^(.*?)(?i:\s+as\s+|\s+)(.*)$/',$table,$matches))//with alias
 $tables[$i]=$this->_connection->quoteTableName($matches[1]).' '.$this->_connection->quoteTableName($matches[2]);
 else
 $tables[$i]=$this->_connection->quoteTableName($table);
@@ -475,7 +475,7 @@ return $this;
 }
 public function getLimit()
 {
-return isset($this->_query['limit']) ? $this->_query['limit'] : -1;
+return isset($this->_query['limit']) ? $this->_query['limit'] :-1;
 }
 public function setLimit($value)
 {
@@ -488,7 +488,7 @@ return $this;
 }
 public function getOffset()
 {
-return isset($this->_query['offset']) ? $this->_query['offset'] : -1;
+return isset($this->_query['offset']) ? $this->_query['offset'] :-1;
 }
 public function setOffset($value)
 {
@@ -677,7 +677,7 @@ private function joinInternal($type, $table, $conditions='', $params=array())
 {
 if(strpos($table,'(')===false)
 {
-if(preg_match('/^(.*?)(?i:\s+as\s+|\s+)(.*)$/',$table,$matches))  // with alias
+if(preg_match('/^(.*?)(?i:\s+as\s+|\s+)(.*)$/',$table,$matches))//with alias
 $table=$this->_connection->quoteTableName($matches[1]).' '.$this->_connection->quoteTableName($matches[2]);
 else
 $table=$this->_connection->quoteTableName($table);

@@ -60,7 +60,7 @@ $selection=$this->model->$attr;
 else
 $selection=$this->value;
 $options=$starSplit>1 ? array('class'=>"{split:{$starSplit}}") : array();
-for($value=$this->minRating, $i=0;$i<$inputCount; ++$i, $value+=$this->ratingStepSize)
+for($value=$this->minRating, $i=0;$i<$inputCount;++$i, $value+=$this->ratingStepSize)
 {
 $options['id']=$id.'_'.$i;
 $options['value']=$value;

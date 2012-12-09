@@ -37,7 +37,7 @@ public static function tag($tag,$htmlOptions=array(),$content=false,$closeTag=tr
 {
 $html='<' . $tag . self::renderAttributes($htmlOptions);
 if($content===false)
-return $closeTag ? $html.' />' : $html.'>';
+return $closeTag ? $html.'/>' : $html.'>';
 else
 return $closeTag ? $html.'>'.$content.'</'.$tag.'>' : $html.'>'.$content;
 }
@@ -91,7 +91,7 @@ public static function cssFile($url,$media='')
 {
 if($media!=='')
 $media=' media="'.$media.'"';
-return '<link rel="stylesheet" type="text/css" href="'.self::encode($url).'"'.$media.' />';
+return '<link rel="stylesheet" type="text/css" href="'.self::encode($url).'"'.$media.'/>';
 }
 public static function script($text)
 {
@@ -137,7 +137,7 @@ self::tag('div',array('style'=>'display:none'),self::pageStateField(''));
 }
 public static function pageStateField($value)
 {
-return '<input type="hidden" name="'.CController::STATE_INPUT_NAME.'" value="'.$value.'" />';
+return '<input type="hidden" name="'.CController::STATE_INPUT_NAME.'" value="'.$value.'"/>';
 }
 public static function link($text,$url='#',$htmlOptions=array())
 {
@@ -518,7 +518,7 @@ return self::label($label,$for,$htmlOptions);
 public static function activeLabelEx($model,$attribute,$htmlOptions=array())
 {
 $realAttribute=$attribute;
-self::resolveName($model,$attribute); // strip off square brackets if any
+self::resolveName($model,$attribute);//strip off square brackets if any
 $htmlOptions['required']=$model->isAttributeRequired($attribute);
 return self::activeLabel($model,$realAttribute,$htmlOptions);
 }
@@ -720,7 +720,7 @@ return '';
 }
 public static function error($model,$attribute,$htmlOptions=array())
 {
-self::resolveName($model,$attribute); // turn [a][b]attr into attr
+self::resolveName($model,$attribute);//turn [a][b]attr into attr
 $error=$model->getError($attribute);
 if($error!='')
 {
@@ -778,7 +778,7 @@ return self::getIdByName(self::activeName($model,$attribute));
 }
 public static function activeName($model,$attribute)
 {
-$a=$attribute; // because the attribute name may be changed by resolveName
+$a=$attribute;//because the attribute name may be changed by resolveName
 return self::resolveName($model,$a);
 }
 protected static function activeInputField($type,$model,$attribute,$htmlOptions)
@@ -940,9 +940,9 @@ public static function resolveName($model,&$attribute)
 {
 if(($pos=strpos($attribute,'['))!==false)
 {
-if($pos!==0)  // e.g. name[a][b]
+if($pos!==0)//e.g. name[a][b]
 return get_class($model).'['.substr($attribute,0,$pos).']'.substr($attribute,$pos);
-if(($pos=strrpos($attribute,']'))!==false && $pos!==strlen($attribute)-1)  // e.g. [a][b]name
+if(($pos=strrpos($attribute,']'))!==false && $pos!==strlen($attribute)-1)//e.g. [a][b]name
 {
 $sub=substr($attribute,0,$pos+1);
 $attribute=substr($attribute,$pos+1);
@@ -961,10 +961,10 @@ public static function resolveValue($model,$attribute)
 {
 if(($pos=strpos($attribute,'['))!==false)
 {
-if($pos===0) // [a]name[b][c], should ignore [a]
+if($pos===0)//[a]name[b][c], should ignore [a]
 {
 if(preg_match('/\](\w+(\[.+)?)/',$attribute,$matches))
-$attribute=$matches[1]; // we get: name[b][c]
+$attribute=$matches[1];//we get: name[b][c]
 if(($pos=strpos($attribute,'['))===false)
 return $model->$attribute;
 }

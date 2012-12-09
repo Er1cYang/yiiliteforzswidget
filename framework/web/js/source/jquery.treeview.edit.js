@@ -23,9 +23,9 @@ var prev = $(branches).prev();
 var parent = $(branches).parent();
 $(branches).remove();
 prev.filter(":last-child").addClass(CLASSES.last)
-.filter("." + CLASSES.expandable).replaceClass(CLASSES.last, CLASSES.lastExpandable).end()
+.filter("."+CLASSES.expandable).replaceClass(CLASSES.last, CLASSES.lastExpandable).end()
 .find(">.hitarea").replaceClass(CLASSES.expandableHitarea, CLASSES.lastExpandableHitarea).end()
-.filter("." + CLASSES.collapsable).replaceClass(CLASSES.last, CLASSES.lastCollapsable).end()
+.filter("."+CLASSES.collapsable).replaceClass(CLASSES.last, CLASSES.lastCollapsable).end()
 .find(">.hitarea").replaceClass(CLASSES.collapsableHitarea, CLASSES.lastCollapsableHitarea);
 if (parent.is(":not(:has(>))") && parent[0] != this) {
 parent.parent().removeClass(CLASSES.collapsable).removeClass(CLASSES.expandable);

@@ -20,7 +20,7 @@ $this->addError($object,$attribute,$message);
 }
 public function validateValue($value)
 {
-if(is_string($value) && strlen($value)<2000)  // make sure the length is limited to avoid DOS attacks
+if(is_string($value) && strlen($value)<2000)//make sure the length is limited to avoid DOS attacks
 {
 if($this->defaultScheme!==null && strpos($value,'://')===false)
 $value=$this->defaultScheme.'://'.$value;

@@ -7,9 +7,9 @@ private $_sourceFile;
 protected function generateViewFile($sourceFile,$viewFile)
 {
 static $regexRules=array(
-'<%=?\s*(.*?)\s*%>',		// PHP statements or expressions
-'<\/?(com|cache|clip):([\w\.]+)\s*((?:\s*\w+\s*=\s*\'.*?(?<!\\\\)\'|\s*\w+\s*=\s*".*?(?<!\\\\)"|\s*\w+\s*=\s*\{.*?\})*)\s*\/?>', // component tags
-'<!---.*?--->',	// template comments
+'<%=?\s*(.*?)\s*%>',//PHP statements or expressions
+'<\/?(com|cache|clip):([\w\.]+)\s*((?:\s*\w+\s*=\s*\'.*?(?<!\\\\)\'|\s*\w+\s*=\s*".*?(?<!\\\\)"|\s*\w+\s*=\s*\{.*?\})*)\s*\/?>',//component tags
+'<!---.*?--->',//template comments
 );
 $this->_sourceFile=$sourceFile;
 $this->_input=file_get_contents($sourceFile);
@@ -25,39 +25,39 @@ $matchEnd=$matchStart+strlen($str)-1;
 if($matchStart>$textStart)
 $this->_output.=substr($this->_input,$textStart,$matchStart-$textStart);
 $textStart=$matchEnd+1;
-if(strpos($str,'<com:')===0)	// opening component tag
+if(strpos($str,'<com:')===0)//opening component tag
 {
 $type=$match[3][0];
-if($str[strlen($str)-2]!=='/')  // open tag
+if($str[strlen($str)-2]!=='/')//open tag
 $this->_output.=$this->processBeginWidget($type,$match[4][0],$match[2][1]);
 else
 $this->_output.=$this->processWidget($type,$match[4][0],$match[2][1]);
 }
-else if(strpos($str,'</com:')===0)	// closing component tag
+else if(strpos($str,'</com:')===0)//closing component tag
 $this->_output.=$this->processEndWidget($match[3][0],$match[2][1]);
-else if(strpos($str,'<cache:')===0)	// opening cache tag
+else if(strpos($str,'<cache:')===0)//opening cache tag
 {
 $id=$match[3][0];
-if($str[strlen($str)-2]!=='/')  // open tag
+if($str[strlen($str)-2]!=='/')//open tag
 $this->_output.=$this->processBeginCache($id,$match[4][0],$match[2][1]);
 else
 $this->_output.=$this->processCache($id,$match[4][0],$match[2][1]);
 }
-else if(strpos($str,'</cache:')===0)	// closing cache tag
+else if(strpos($str,'</cache:')===0)//closing cache tag
 $this->_output.=$this->processEndCache($match[3][0],$match[2][1]);
-else if(strpos($str,'<clip:')===0)	// opening clip tag
+else if(strpos($str,'<clip:')===0)//opening clip tag
 {
 $id=$match[3][0];
-if($str[strlen($str)-2]!=='/')  // open tag
+if($str[strlen($str)-2]!=='/')//open tag
 $this->_output.=$this->processBeginClip($id,$match[4][0],$match[2][1]);
 else
 $this->_output.=$this->processClip($id,$match[4][0],$match[2][1]);
 }
-else if(strpos($str,'</clip:')===0)	// closing clip tag
+else if(strpos($str,'</clip:')===0)//closing clip tag
 $this->_output.=$this->processEndClip($match[3][0],$match[2][1]);
-else if(strpos($str,'<%=')===0)	// expression
+else if(strpos($str,'<%=')===0)//expression
 $this->_output.=$this->processExpression($match[1][0],$match[1][1]);
-else if(strpos($str,'<%')===0)	// statement
+else if(strpos($str,'<%')===0)//statement
 $this->_output.=$this->processStatement($match[1][0],$match[1][1]);
 }
 if($textStart<strlen($this->_input))

@@ -26,7 +26,7 @@ ob_clean();
 }
 if($gzHandler && !headers_sent() && ob_list_handlers()===array())
 {
-if(function_exists('header_remove')) // php >= 5.3
+if(function_exists('header_remove'))//php >= 5.3
 {
 header_remove('Vary');
 header_remove('Content-Encoding');
@@ -40,7 +40,7 @@ header('Content-Encoding:');
 }
 if($event instanceof CExceptionEvent)
 $this->handleException($event->exception);
-else // CErrorEvent
+else//CErrorEvent
 $this->handleError($event);
 }
 public function getError()
@@ -288,7 +288,7 @@ return false;
 }
 protected function renderSourceCode($file,$errorLine,$maxLines)
 {
-$errorLine--;	// adjust line number to 0-based from 1-based
+$errorLine--;//adjust line number to 0-based from 1-based
 if($errorLine<0 || ($lines=@file($file))===false || ($lineCount=count($lines))<=$errorLine)
 return '';
 $halfLines=(int)($maxLines/2);
@@ -299,7 +299,7 @@ $output='';
 for($i=$beginLine;$i<=$endLine;++$i)
 {
 $isErrorLine = $i===$errorLine;
-$code=sprintf("<span class=\"ln".($isErrorLine?' error-ln':'')."\">%0{$lineNumberWidth}d</span> %s",$i+1,CHtml::encode(str_replace("\t",'    ',$lines[$i])));
+$code=sprintf("<span class=\"ln".($isErrorLine?' error-ln':'')."\">%0{$lineNumberWidth}d</span>%s",$i+1,CHtml::encode(str_replace("\t",'    ',$lines[$i])));
 if(!$isErrorLine)
 $output.=$code;
 else

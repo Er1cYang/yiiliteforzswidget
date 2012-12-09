@@ -60,7 +60,7 @@ $sort->applyOrder($criteria);
 }
 $this->model->setDbCriteria($baseCriteria!==null ? clone $baseCriteria : null);
 $data=$this->model->findAll($criteria);
-$this->model->setDbCriteria($baseCriteria);  // restore original criteria
+$this->model->setDbCriteria($baseCriteria);//restore original criteria
 return $data;
 }
 protected function fetchKeys()

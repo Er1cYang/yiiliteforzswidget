@@ -19,8 +19,7 @@ if(is_array($data) || ($data instanceof Traversable))
 $this->clear();
 foreach($data as $item)
 {
-$this->_d[]=$item;
-++$this->_c;
+$this->_d[]=$item;++$this->_c;
 }
 }
 else if($data!==null)
@@ -45,16 +44,14 @@ throw new CException(Yii::t('yii','The stack is empty.'));
 public function pop()
 {
 if($this->_c)
-{
---$this->_c;
+{--$this->_c;
 return array_pop($this->_d);
 }
 else
 throw new CException(Yii::t('yii','The stack is empty.'));
 }
 public function push($item)
-{
-++$this->_c;
+{++$this->_c;
 $this->_d[]=$item;
 }
 public function getIterator()

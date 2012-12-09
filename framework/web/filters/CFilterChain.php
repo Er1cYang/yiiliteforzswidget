@@ -15,7 +15,7 @@ $chain=new CFilterChain($controller,$action);
 $actionID=$action->getId();
 foreach($filters as $filter)
 {
-if(is_string($filter))  // filterName [+|- action1 action2]
+if(is_string($filter))//filterName [+|-action1 action2]
 {
 if(($pos=strpos($filter,'+'))!==false || ($pos=strpos($filter,'-'))!==false)
 {
@@ -26,7 +26,7 @@ $filter=CInlineFilter::create($controller,trim(substr($filter,0,$pos)));
 else
 $filter=CInlineFilter::create($controller,$filter);
 }
-else if(is_array($filter))  // array('path.to.class [+|- action1, action2]','param1'=>'value1',...)
+else if(is_array($filter))//array('path.to.class [+|-action1, action2]','param1'=>'value1',...)
 {
 if(!isset($filter[0]))
 throw new CException(Yii::t('yii','The first element in a filter configuration must be the filter class.'));

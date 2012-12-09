@@ -401,7 +401,7 @@ $tr[$this->references[$key]]=$value;
 else if(isset($this->params[$key]))
 $_REQUEST[$key]=$_GET[$key]=$value;
 }
-if($pathInfo!==$matches[0]) // there're additional GET params
+if($pathInfo!==$matches[0])//there're additional GET params
 $manager->parsePathInfo(ltrim(substr($pathInfo,strlen($matches[0])),'/'));
 if($this->routePattern!==null)
 return strtr($this->route,$tr);

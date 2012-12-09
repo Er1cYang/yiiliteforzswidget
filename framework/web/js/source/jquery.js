@@ -9,23 +9,23 @@ return new jQuery.fn.init( selector, context, rootjQuery );
 _jQuery = window.jQuery,
 _$ = window.$,
 rootjQuery,
-quickExpr = /^(?:[^#<]*(<[\w\W]+>)[^>]*$|#([\w\-]*)$)/,
-rnotwhite = /\S/,
-trimLeft = /^\s+/,
-trimRight = /\s+$/,
-rsingleTag = /^<(\w+)\s*\/?>(?:<\/\1>)?$/,
-rvalidchars = /^[\],:{}\s]*$/,
-rvalidescape = /\\(?:["\\\/bfnrt]|u[0-9a-fA-F]{4})/g,
-rvalidtokens = /"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g,
-rvalidbraces = /(?:^|:|,)(?:\s*\[)+/g,
-rwebkit = /(webkit)[ \/]([\w.]+)/,
-ropera = /(opera)(?:.*version)?[ \/]([\w.]+)/,
-rmsie = /(msie) ([\w.]+)/,
-rmozilla = /(mozilla)(?:.*? rv:([\w.]+))?/,
-rdashAlpha = /-([a-z]|[0-9])/ig,
-rmsPrefix = /^-ms-/,
+quickExpr =/^(?:[^#<]*(<[\w\W]+>)[^>]*$|#([\w\-]*)$)/,
+rnotwhite =/\S/,
+trimLeft =/^\s+/,
+trimRight =/\s+$/,
+rsingleTag =/^<(\w+)\s*\/?>(?:<\/\1>)?$/,
+rvalidchars =/^[\],:{}\s]*$/,
+rvalidescape =/\\(?:["\\\/bfnrt]|u[0-9a-fA-F]{4})/g,
+rvalidtokens =/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g,
+rvalidbraces =/(?:^|:|,)(?:\s*\[)+/g,
+rwebkit =/(webkit)[ \/]([\w.]+)/,
+ropera =/(opera)(?:.*version)?[ \/]([\w.]+)/,
+rmsie =/(msie) ([\w.]+)/,
+rmozilla =/(mozilla)(?:.*? rv:([\w.]+))?/,
+rdashAlpha =/-([a-z]|[0-9])/ig,
+rmsPrefix =/^-ms-/,
 fcamelCase = function( all, letter ) {
-return ( letter + "" ).toUpperCase();
+return ( letter+"" ).toUpperCase();
 },
 userAgent = navigator.userAgent,
 browserMatch,
@@ -58,7 +58,7 @@ this.length = 1;
 return this;
 }
 if ( typeof selector === "string" ) {
-if ( selector.charAt(0) === "<" && selector.charAt( selector.length - 1 ) === ">" && selector.length >= 3 ) {
+if ( selector.charAt(0) === "<" && selector.charAt( selector.length-1 ) === ">" && selector.length >= 3 ) {
 match = [ null, selector, null ];
 } else {
 match = quickExpr.exec( selector );
@@ -119,7 +119,7 @@ return slice.call( this, 0 );
 get: function( num ) {
 return num == null ?
 this.toArray() :
-( num < 0 ? this[ this.length + num ] : this[ num ] );
+( num < 0 ? this[ this.length+num ] : this[ num ] );
 },
 pushStack: function( elems, name, selector ) {
 var ret = this.constructor();
@@ -131,9 +131,9 @@ jQuery.merge( ret, elems );
 ret.prevObject = this;
 ret.context = this.context;
 if ( name === "find" ) {
-ret.selector = this.selector + ( this.selector ? " " : "" ) + selector;
+ret.selector = this.selector+( this.selector ? " " : "" )+selector;
 } else if ( name ) {
-ret.selector = this.selector + "." + name + "(" + selector + ")";
+ret.selector = this.selector+"."+name+"("+selector+")";
 }
 return ret;
 },
@@ -146,16 +146,16 @@ readyList.add( fn );
 return this;
 },
 eq: function( i ) {
-i = +i;
-return i === -1 ?
+i =+i;
+return i ===-1 ?
 this.slice( i ) :
-this.slice( i, i + 1 );
+this.slice( i, i+1 );
 },
 first: function() {
 return this.eq( 0 );
 },
 last: function() {
-return this.eq( -1 );
+return this.eq(-1 );
 },
 slice: function() {
 return this.pushStack( slice.apply( this, arguments ),
@@ -189,10 +189,9 @@ if ( typeof target !== "object" && !jQuery.isFunction(target) ) {
 target = {};
 }
 if ( length === i ) {
-target = this;
---i;
+target = this;--i;
 }
-for ( ; i < length; i++ ) {
+for ( ; i < length; i++) {
 if ( (options = arguments[ i ]) != null ) {
 for ( name in options ) {
 src = target[ name ];
@@ -241,7 +240,7 @@ if ( !document.body ) {
 return setTimeout( jQuery.ready, 1 );
 }
 jQuery.isReady = true;
-if ( wait !== true && --jQuery.readyWait > 0 ) {
+if ( wait !== true &&--jQuery.readyWait > 0 ) {
 return;
 }
 readyList.fireWith( document, [ jQuery ] );
@@ -327,9 +326,9 @@ return window.JSON.parse( data );
 if ( rvalidchars.test( data.replace( rvalidescape, "@" )
 .replace( rvalidtokens, "]" )
 .replace( rvalidbraces, "")) ) {
-return ( new Function( "return " + data ) )();
+return ( new Function( "return "+data ) )();
 }
-jQuery.error( "Invalid JSON: " + data );
+jQuery.error( "Invalid JSON: "+data );
 },
 parseXML: function( data ) {
 if ( typeof data !== "string" || !data ) {
@@ -337,10 +336,10 @@ return null;
 }
 var xml, tmp;
 try {
-if ( window.DOMParser ) { // Standard
+if ( window.DOMParser ) {//Standard
 tmp = new DOMParser();
 xml = tmp.parseFromString( data , "text/xml" );
-} else { // IE
+} else {//IE
 xml = new ActiveXObject( "Microsoft.XMLDOM" );
 xml.async = "false";
 xml.loadXML( data );
@@ -349,7 +348,7 @@ xml.loadXML( data );
 xml = undefined;
 }
 if ( !xml || !xml.documentElement || xml.getElementsByTagName( "parsererror" ).length ) {
-jQuery.error( "Invalid XML: " + data );
+jQuery.error( "Invalid XML: "+data );
 }
 return xml;
 },
@@ -380,7 +379,7 @@ break;
 }
 } else {
 for ( ; i < length; ) {
-if ( callback.apply( object[ i++ ], args ) === false ) {
+if ( callback.apply( object[ i++], args ) === false ) {
 break;
 }
 }
@@ -394,7 +393,7 @@ break;
 }
 } else {
 for ( ; i < length; ) {
-if ( callback.call( object[ i ], i, object[ i++ ] ) === false ) {
+if ( callback.call( object[ i ], i, object[ i++] ) === false ) {
 break;
 }
 }
@@ -432,25 +431,25 @@ if ( indexOf ) {
 return indexOf.call( array, elem, i );
 }
 len = array.length;
-i = i ? i < 0 ? Math.max( 0, len + i ) : i : 0;
-for ( ; i < len; i++ ) {
+i = i ? i < 0 ? Math.max( 0, len+i ) : i : 0;
+for ( ; i < len; i++) {
 if ( i in array && array[ i ] === elem ) {
 return i;
 }
 }
 }
-return -1;
+return-1;
 },
 merge: function( first, second ) {
 var i = first.length,
 j = 0;
 if ( typeof second.length === "number" ) {
-for ( var l = second.length; j < l; j++ ) {
-first[ i++ ] = second[ j ];
+for ( var l = second.length; j < l; j++) {
+first[ i++] = second[ j ];
 }
 } else {
 while ( second[j] !== undefined ) {
-first[ i++ ] = second[ j++ ];
+first[ i++] = second[ j++];
 }
 }
 first.length = i;
@@ -459,7 +458,7 @@ return first;
 grep: function( elems, callback, inv ) {
 var ret = [], retVal;
 inv = !!inv;
-for ( var i = 0, length = elems.length; i < length; i++ ) {
+for ( var i = 0, length = elems.length; i < length; i++) {
 retVal = !!callback( elems[ i ], i );
 if ( inv !== retVal ) {
 ret.push( elems[ i ] );
@@ -471,9 +470,9 @@ map: function( elems, callback, arg ) {
 var value, key, ret = [],
 i = 0,
 length = elems.length,
-isArray = elems instanceof jQuery || length !== undefined && typeof length === "number" && ( ( length > 0 && elems[ 0 ] && elems[ length -1 ] ) || length === 0 || jQuery.isArray( elems ) ) ;
+isArray = elems instanceof jQuery || length !== undefined && typeof length === "number" && ( ( length > 0 && elems[ 0 ] && elems[ length-1 ] ) || length === 0 || jQuery.isArray( elems ) ) ;
 if ( isArray ) {
-for ( ; i < length; i++ ) {
+for ( ; i < length; i++) {
 value = callback( elems[ i ], i, arg );
 if ( value != null ) {
 ret[ ret.length ] = value;
@@ -530,7 +529,7 @@ fn = null;
 }
 }
 if ( fn ) {
-for (; i < length; i++ ) {
+for (; i < length; i++) {
 fn( elems[i], key, exec ? value.call( elems[i], i, fn( elems[i], key ) ) : value, pass );
 }
 }
@@ -551,7 +550,7 @@ var match = rwebkit.exec( ua ) ||
 ropera.exec( ua ) ||
 rmsie.exec( ua ) ||
 ua.indexOf("compatible") < 0 && rmozilla.exec( ua ) ||
-[];
+;
 return { browser: match[1] || "", version: match[2] || "0" };
 },
 sub: function() {
@@ -576,7 +575,7 @@ return jQuerySub;
 browser: {}
 });
 jQuery.each("Boolean Number String Function Array Date RegExp Object".split(" "), function(i, name) {
-class2type[ "[object " + name + "]" ] = name.toLowerCase();
+class2type[ "[object "+name+"]" ] = name.toLowerCase();
 });
 browserMatch = jQuery.uaMatch( userAgent );
 if ( browserMatch.browser ) {
@@ -587,8 +586,8 @@ if ( jQuery.browser.webkit ) {
 jQuery.browser.safari = true;
 }
 if ( rnotwhite.test( "\xA0" ) ) {
-trimLeft = /^[\s\xA0]+/;
-trimRight = /[\s\xA0]+$/;
+trimLeft =/^[\s\xA0]+/;
+trimRight =/[\s\xA0]+$/;
 }
 rootjQuery = jQuery(document);
 if ( document.addEventListener ) {
@@ -622,15 +621,15 @@ var flagsCache = {};
 function createFlags( flags ) {
 var object = flagsCache[ flags ] = {},
 i, length;
-flags = flags.split( /\s+/ );
-for ( i = 0, length = flags.length; i < length; i++ ) {
+flags = flags.split(/\s+/);
+for ( i = 0, length = flags.length; i < length; i++) {
 object[ flags[i] ] = true;
 }
 return object;
 }
 jQuery.Callbacks = function( flags ) {
 flags = flags ? ( flagsCache[ flags ] || createFlags( flags ) ) : {};
-var // Actual callback list
+var//Actual callback list
 list = [],
 stack = [],
 memory,
@@ -645,7 +644,7 @@ length,
 elem,
 type,
 actual;
-for ( i = 0, length = args.length; i < length; i++ ) {
+for ( i = 0, length = args.length; i < length; i++) {
 elem = args[ i ];
 type = jQuery.type( elem );
 if ( type === "array" ) {
@@ -665,9 +664,9 @@ firing = true;
 firingIndex = firingStart || 0;
 firingStart = 0;
 firingLength = list.length;
-for ( ; list && firingIndex < firingLength; firingIndex++ ) {
+for ( ; list && firingIndex < firingLength; firingIndex++) {
 if ( list[ firingIndex ].apply( context, args ) === false && flags.stopOnFalse ) {
-memory = true; // Mark as halted
+memory = true;//Mark as halted
 break;
 }
 }
@@ -704,8 +703,8 @@ if ( list ) {
 var args = arguments,
 argIndex = 0,
 argLength = args.length;
-for ( ; argIndex < argLength ; argIndex++ ) {
-for ( var i = 0; i < list.length; i++ ) {
+for ( ; argIndex < argLength ; argIndex++) {
+for ( var i = 0; i < list.length; i++) {
 if ( args[ argIndex ] === list[ i ] ) {
 if ( firing ) {
 if ( i <= firingLength ) {
@@ -729,7 +728,7 @@ has: function( fn ) {
 if ( list ) {
 var i = 0,
 length = list.length;
-for ( ; i < length; i++ ) {
+for ( ; i < length; i++) {
 if ( fn === list[ i ] ) {
 return true;
 }
@@ -780,7 +779,7 @@ return !!fired;
 };
 return self;
 };
-var // Static reference to slice
+var//Static reference to slice
 sliceDeferred = [].slice;
 jQuery.extend({
 Deferred: function( func ) {
@@ -826,7 +825,7 @@ returned = fn.apply( this, arguments );
 if ( returned && jQuery.isFunction( returned.promise ) ) {
 returned.promise().then( newDefer.resolve, newDefer.reject, newDefer.notify );
 } else {
-newDefer[ action + "With" ]( this === deferred ? newDefer : this, [ returned ] );
+newDefer[ action+"With" ]( this === deferred ? newDefer : this, [ returned ] );
 }
 });
 } else {
@@ -850,7 +849,7 @@ deferred = promise.promise({}),
 key;
 for ( key in lists ) {
 deferred[ key ] = lists[ key ].fire;
-deferred[ key + "With" ] = lists[ key ].fireWith;
+deferred[ key+"With" ] = lists[ key ].fireWith;
 }
 deferred.done( function() {
 state = "resolved";
@@ -876,7 +875,7 @@ promise = deferred.promise();
 function resolveFunc( i ) {
 return function( value ) {
 args[ i ] = arguments.length > 1 ? sliceDeferred.call( arguments, 0 ) : value;
-if ( !( --count ) ) {
+if ( !(--count ) ) {
 deferred.resolveWith( deferred, args );
 }
 };
@@ -888,11 +887,10 @@ deferred.notifyWith( promise, pValues );
 };
 }
 if ( length > 1 ) {
-for ( ; i < length; i++ ) {
+for ( ; i < length; i++) {
 if ( args[ i ] && args[ i ].promise && jQuery.isFunction( args[ i ].promise ) ) {
 args[ i ].promise().then( resolveFunc(i), deferred.reject, progressFunc(i) );
-} else {
---count;
+} else {--count;
 }
 }
 if ( !count ) {
@@ -933,9 +931,9 @@ support = {
 leadingWhitespace: ( div.firstChild.nodeType === 3 ),
 tbody: !div.getElementsByTagName("tbody").length,
 htmlSerialize: !!div.getElementsByTagName("link").length,
-style: /top/.test( a.getAttribute("style") ),
+style:/top/.test( a.getAttribute("style") ),
 hrefNormalized: ( a.getAttribute("href") === "/a" ),
-opacity: /^0.55/.test( a.style.opacity ),
+opacity:/^0.55/.test( a.style.opacity ),
 cssFloat: !!a.style.cssFloat,
 checkOn: ( input.value === "on" ),
 optSelected: opt.selected,
@@ -987,13 +985,13 @@ submit: 1,
 change: 1,
 focusin: 1
 }) {
-eventName = "on" + i;
+eventName = "on"+i;
 isSupported = ( eventName in div );
 if ( !isSupported ) {
 div.setAttribute( eventName, "return;" );
 isSupported = ( typeof div[ eventName ] === "function" );
 }
-support[ i + "Bubbles" ] = isSupported;
+support[ i+"Bubbles" ] = isSupported;
 }
 }
 fragment.removeChild( div );
@@ -1009,17 +1007,15 @@ return;
 conMarginTop = 1;
 paddingMarginBorder = "padding:0;margin:0;border:";
 positionTopLeftWidthHeight = "position:absolute;top:0;left:0;width:1px;height:1px;";
-paddingMarginBorderVisibility = paddingMarginBorder + "0;visibility:hidden;";
-style = "style='" + positionTopLeftWidthHeight + paddingMarginBorder + "5px solid #000;";
-html = "<div " + style + "display:block;'><div style='" + paddingMarginBorder + "0;display:block;overflow:hidden;'></div></div>" +
-"<table " + style + "' cellpadding='0' cellspacing='0'>" +
-"<tr><td></td></tr></table>";
+paddingMarginBorderVisibility = paddingMarginBorder+"0;visibility:hidden;";
+style = "style='"+positionTopLeftWidthHeight+paddingMarginBorder+"5px solid #000;";
+html = "<div "+style+"display:block;'><div style='"+paddingMarginBorder+"0;display:block;overflow:hidden;'></div></div>"+"<table "+style+"' cellpadding='0' cellspacing='0'>"+"<tr><td></td></tr></table>";
 container = document.createElement("div");
-container.style.cssText = paddingMarginBorderVisibility + "width:0;height:0;position:static;top:0;margin-top:" + conMarginTop + "px";
+container.style.cssText = paddingMarginBorderVisibility+"width:0;height:0;position:static;top:0;margin-top:"+conMarginTop+"px";
 body.insertBefore( container, body.firstChild );
 div = document.createElement("div");
 container.appendChild( div );
-div.innerHTML = "<table><tr><td style='" + paddingMarginBorder + "0;display:none'></td><td>t</td></tr></table>";
+div.innerHTML = "<table><tr><td style='"+paddingMarginBorder+"0;display:none'></td><td>t</td></tr></table>";
 tds = div.getElementsByTagName( "td" );
 isSupported = ( tds[ 0 ].offsetHeight === 0 );
 tds[ 0 ].style.display = "";
@@ -1048,7 +1044,7 @@ div.style.overflow = "visible";
 div.innerHTML = "<div style='width:5px;'></div>";
 support.shrinkWrapBlocks = ( div.offsetWidth !== 3 );
 }
-div.style.cssText = positionTopLeftWidthHeight + paddingMarginBorderVisibility;
+div.style.cssText = positionTopLeftWidthHeight+paddingMarginBorderVisibility;
 div.innerHTML = html;
 outer = div.firstChild;
 inner = outer.firstChild;
@@ -1063,7 +1059,7 @@ offsetSupport.fixedPosition = ( inner.offsetTop === 20 || inner.offsetTop === 15
 inner.style.position = inner.style.top = "";
 outer.style.overflow = "hidden";
 outer.style.position = "relative";
-offsetSupport.subtractsBorderForOverflowNotVisible = ( inner.offsetTop === -5 );
+offsetSupport.subtractsBorderForOverflowNotVisible = ( inner.offsetTop ===-5 );
 offsetSupport.doesNotIncludeMarginInBodyOffset = ( body.offsetTop !== conMarginTop );
 if ( window.getComputedStyle ) {
 div.style.marginTop = "1%";
@@ -1078,12 +1074,12 @@ jQuery.extend( support, offsetSupport );
 });
 return support;
 })();
-var rbrace = /^(?:\{.*\}|\[.*\])$/,
-rmultiDash = /([A-Z])/g;
+var rbrace =/^(?:\{.*\}|\[.*\])$/,
+rmultiDash =/([A-Z])/g;
 jQuery.extend({
 cache: {},
 uuid: 0,
-expando: "jQuery" + ( jQuery.fn.jquery + Math.random() ).replace( /\D/g, "" ),
+expando: "jQuery"+( jQuery.fn.jquery+Math.random() ).replace(/\D/g, "" ),
 noData: {
 "embed": true,
 "object": "clsid:D27CDB6E-AE6D-11cf-96B8-444553540000",
@@ -1109,7 +1105,7 @@ return;
 }
 if ( !id ) {
 if ( isNode ) {
-elem[ internalKey ] = id = ++jQuery.uuid;
+elem[ internalKey ] = id =++jQuery.uuid;
 } else {
 id = internalKey;
 }
@@ -1177,7 +1173,7 @@ name = name.split( " " );
 }
 }
 }
-for ( i = 0, l = name.length; i < l; i++ ) {
+for ( i = 0, l = name.length; i < l; i++) {
 delete thisCache[ name[i] ];
 }
 if ( !( pvt ? isEmptyDataObject : jQuery.isEmptyObject )( thisCache ) ) {
@@ -1230,7 +1226,7 @@ if ( this.length ) {
 data = jQuery.data( elem );
 if ( elem.nodeType === 1 && !jQuery._data( elem, "parsedAttrs" ) ) {
 attr = elem.attributes;
-for ( l = attr.length; i < l; i++ ) {
+for ( l = attr.length; i < l; i++) {
 name = attr[i].name;
 if ( name.indexOf( "data-" ) === 0 ) {
 name = jQuery.camelCase( name.substring(5) );
@@ -1248,11 +1244,11 @@ jQuery.data( this, key );
 });
 }
 parts = key.split( ".", 2 );
-parts[1] = parts[1] ? "." + parts[1] : "";
-part = parts[1] + "!";
+parts[1] = parts[1] ? "."+parts[1] : "";
+part = parts[1]+"!";
 return jQuery.access( this, function( value ) {
 if ( value === undefined ) {
-data = this.triggerHandler( "getData" + part, [ parts[0] ] );
+data = this.triggerHandler( "getData"+part, [ parts[0] ] );
 if ( data === undefined && elem ) {
 data = jQuery.data( elem, key );
 data = dataAttr( elem, key, data );
@@ -1264,9 +1260,9 @@ data;
 parts[1] = value;
 this.each(function() {
 var self = jQuery( this );
-self.triggerHandler( "setData" + part, parts );
+self.triggerHandler( "setData"+part, parts );
 jQuery.data( this, key, value );
-self.triggerHandler( "changeData" + part, parts );
+self.triggerHandler( "changeData"+part, parts );
 });
 }, null, value, arguments.length > 1, null, false );
 },
@@ -1278,14 +1274,14 @@ jQuery.removeData( this, key );
 });
 function dataAttr( elem, key, data ) {
 if ( data === undefined && elem.nodeType === 1 ) {
-var name = "data-" + key.replace( rmultiDash, "-$1" ).toLowerCase();
+var name = "data-"+key.replace( rmultiDash, "-$1" ).toLowerCase();
 data = elem.getAttribute( name );
 if ( typeof data === "string" ) {
 try {
 data = data === "true" ? true :
 data === "false" ? false :
 data === "null" ? null :
-jQuery.isNumeric( data ) ? +data :
+jQuery.isNumeric( data ) ?+data :
 rbrace.test( data ) ? jQuery.parseJSON( data ) :
 data;
 } catch( e ) {}
@@ -1308,9 +1304,9 @@ return false;
 return true;
 }
 function handleQueueMarkDefer( elem, type, src ) {
-var deferDataKey = type + "defer",
-queueDataKey = type + "queue",
-markDataKey = type + "mark",
+var deferDataKey = type+"defer",
+queueDataKey = type+"queue",
+markDataKey = type+"mark",
 defer = jQuery._data( elem, deferDataKey );
 if ( defer &&
 ( src === "queue" || !jQuery._data(elem, queueDataKey) ) &&
@@ -1327,8 +1323,8 @@ defer.fire();
 jQuery.extend({
 _mark: function( elem, type ) {
 if ( elem ) {
-type = ( type || "fx" ) + "mark";
-jQuery._data( elem, type, (jQuery._data( elem, type ) || 0) + 1 );
+type = ( type || "fx" )+"mark";
+jQuery._data( elem, type, (jQuery._data( elem, type ) || 0)+1 );
 }
 },
 _unmark: function( force, elem, type ) {
@@ -1339,8 +1335,8 @@ force = false;
 }
 if ( elem ) {
 type = type || "fx";
-var key = type + "mark",
-count = force ? 0 : ( (jQuery._data( elem, key ) || 1) - 1 );
+var key = type+"mark",
+count = force ? 0 : ( (jQuery._data( elem, key ) || 1)-1 );
 if ( count ) {
 jQuery._data( elem, key, count );
 } else {
@@ -1352,7 +1348,7 @@ handleQueueMarkDefer( elem, type, "mark" );
 queue: function( elem, type, data ) {
 var q;
 if ( elem ) {
-type = ( type || "fx" ) + "queue";
+type = ( type || "fx" )+"queue";
 q = jQuery._data( elem, type );
 if ( data ) {
 if ( !q || jQuery.isArray(data) ) {
@@ -1376,13 +1372,13 @@ if ( fn ) {
 if ( type === "fx" ) {
 queue.unshift( "inprogress" );
 }
-jQuery._data( elem, type + ".run", hooks );
+jQuery._data( elem, type+".run", hooks );
 fn.call( elem, function() {
 jQuery.dequeue( elem, type );
 }, hooks );
 }
 if ( !queue.length ) {
-jQuery.removeData( elem, type + "queue " + type + ".run", true );
+jQuery.removeData( elem, type+"queue "+type+".run", true );
 handleQueueMarkDefer( elem, type, "queue" );
 }
 }
@@ -1435,16 +1431,16 @@ var defer = jQuery.Deferred(),
 elements = this,
 i = elements.length,
 count = 1,
-deferDataKey = type + "defer",
-queueDataKey = type + "queue",
-markDataKey = type + "mark",
+deferDataKey = type+"defer",
+queueDataKey = type+"queue",
+markDataKey = type+"mark",
 tmp;
 function resolve() {
-if ( !( --count ) ) {
+if ( !(--count ) ) {
 defer.resolveWith( elements, [ elements ] );
 }
 }
-while( i-- ) {
+while( i--) {
 if (( tmp = jQuery.data( elements[ i ], deferDataKey, undefined, true ) ||
 ( jQuery.data( elements[ i ], queueDataKey, undefined, true ) ||
 jQuery.data( elements[ i ], markDataKey, undefined, true ) ) &&
@@ -1457,13 +1453,13 @@ resolve();
 return defer.promise( object );
 }
 });
-var rclass = /[\n\t\r]/g,
-rspace = /\s+/,
-rreturn = /\r/g,
-rtype = /^(?:button|input)$/i,
-rfocusable = /^(?:button|input|object|select|textarea)$/i,
-rclickable = /^a(?:rea)?$/i,
-rboolean = /^(?:autofocus|autoplay|async|checked|controls|defer|disabled|hidden|loop|multiple|open|readonly|required|scoped|selected)$/i,
+var rclass =/[\n\t\r]/g,
+rspace =/\s+/,
+rreturn =/\r/g,
+rtype =/^(?:button|input)$/i,
+rfocusable =/^(?:button|input|object|select|textarea)$/i,
+rclickable =/^a(?:rea)?$/i,
+rboolean =/^(?:autofocus|autoplay|async|checked|controls|defer|disabled|hidden|loop|multiple|open|readonly|required|scoped|selected)$/i,
 getSetAttribute = jQuery.support.getSetAttribute,
 nodeHook, boolHook, fixSpecified;
 jQuery.fn.extend({
@@ -1497,16 +1493,16 @@ jQuery( this ).addClass( value.call(this, j, this.className) );
 }
 if ( value && typeof value === "string" ) {
 classNames = value.split( rspace );
-for ( i = 0, l = this.length; i < l; i++ ) {
+for ( i = 0, l = this.length; i < l; i++) {
 elem = this[ i ];
 if ( elem.nodeType === 1 ) {
 if ( !elem.className && classNames.length === 1 ) {
 elem.className = value;
 } else {
-setClass = " " + elem.className + " ";
-for ( c = 0, cl = classNames.length; c < cl; c++ ) {
-if ( !~setClass.indexOf( " " + classNames[ c ] + " " ) ) {
-setClass += classNames[ c ] + " ";
+setClass = " "+elem.className+" ";
+for ( c = 0, cl = classNames.length; c < cl; c++) {
+if ( !~setClass.indexOf( " "+classNames[ c ]+" " ) ) {
+setClass+= classNames[ c ]+" ";
 }
 }
 elem.className = jQuery.trim( setClass );
@@ -1525,13 +1521,13 @@ jQuery( this ).removeClass( value.call(this, j, this.className) );
 }
 if ( (value && typeof value === "string") || value === undefined ) {
 classNames = ( value || "" ).split( rspace );
-for ( i = 0, l = this.length; i < l; i++ ) {
+for ( i = 0, l = this.length; i < l; i++) {
 elem = this[ i ];
 if ( elem.nodeType === 1 && elem.className ) {
 if ( value ) {
-className = (" " + elem.className + " ").replace( rclass, " " );
-for ( c = 0, cl = classNames.length; c < cl; c++ ) {
-className = className.replace(" " + classNames[ c ] + " ", " ");
+className = (" "+elem.className+" ").replace( rclass, " " );
+for ( c = 0, cl = classNames.length; c < cl; c++) {
+className = className.replace(" "+classNames[ c ]+" ", " ");
 }
 elem.className = jQuery.trim( className );
 } else {
@@ -1557,7 +1553,7 @@ i = 0,
 self = jQuery( this ),
 state = stateVal,
 classNames = value.split( rspace );
-while ( (className = classNames[ i++ ]) ) {
+while ( (className = classNames[ i++]) ) {
 state = isBool ? state : !self.hasClass( className );
 self[ state ? "addClass" : "removeClass" ]( className );
 }
@@ -1570,11 +1566,11 @@ this.className = this.className || value === false ? "" : jQuery._data( this, "_
 });
 },
 hasClass: function( selector ) {
-var className = " " + selector + " ",
+var className = " "+selector+" ",
 i = 0,
 l = this.length;
-for ( ; i < l; i++ ) {
-if ( this[i].nodeType === 1 && (" " + this[i].className + " ").replace(rclass, " ").indexOf( className ) > -1 ) {
+for ( ; i < l; i++) {
+if ( this[i].nodeType === 1 && (" "+this[i].className+" ").replace(rclass, " ").indexOf( className ) >-1 ) {
 return true;
 }
 }
@@ -1610,10 +1606,10 @@ val = value;
 if ( val == null ) {
 val = "";
 } else if ( typeof val === "number" ) {
-val += "";
+val+= "";
 } else if ( jQuery.isArray( val ) ) {
 val = jQuery.map(val, function ( value ) {
-return value == null ? "" : value + "";
+return value == null ? "" : value+"";
 });
 }
 hooks = jQuery.valHooks[ this.type ] || jQuery.valHooks[ this.nodeName.toLowerCase() ];
@@ -1642,8 +1638,8 @@ if ( index < 0 ) {
 return null;
 }
 i = one ? index : 0;
-max = one ? index + 1 : options.length;
-for ( ; i < max; i++ ) {
+max = one ? index+1 : options.length;
+for ( ; i < max; i++) {
 option = options[ i ];
 if ( option.selected && (jQuery.support.optDisabled ? !option.disabled : option.getAttribute("disabled") === null) &&
 (!option.parentNode.disabled || !jQuery.nodeName( option.parentNode, "optgroup" )) ) {
@@ -1665,7 +1661,7 @@ jQuery(elem).find("option").each(function() {
 this.selected = jQuery.inArray( jQuery(this).val(), values ) >= 0;
 });
 if ( !values.length ) {
-elem.selectedIndex = -1;
+elem.selectedIndex =-1;
 }
 return values;
 }
@@ -1705,7 +1701,7 @@ return;
 } else if ( hooks && "set" in hooks && notxml && (ret = hooks.set( elem, value, name )) !== undefined ) {
 return ret;
 } else {
-elem.setAttribute( name, "" + value );
+elem.setAttribute( name, ""+value );
 return value;
 }
 } else if ( hooks && "get" in hooks && notxml && (ret = hooks.get( elem, name )) !== null ) {
@@ -1723,7 +1719,7 @@ i = 0;
 if ( value && elem.nodeType === 1 ) {
 attrNames = value.toLowerCase().split( rspace );
 l = attrNames.length;
-for ( ; i < l; i++ ) {
+for ( ; i < l; i++) {
 name = attrNames[ i ];
 if ( name ) {
 propName = jQuery.propFix[ name ] || name;
@@ -1866,7 +1862,7 @@ if ( !ret ) {
 ret = document.createAttribute( name );
 elem.setAttributeNode( ret );
 }
-return ( ret.nodeValue = value + "" );
+return ( ret.nodeValue = value+"" );
 }
 };
 jQuery.attrHooks.tabindex.set = nodeHook.set;
@@ -1906,11 +1902,10 @@ get: function( elem ) {
 return elem.style.cssText.toLowerCase() || undefined;
 },
 set: function( elem, value ) {
-return ( elem.style.cssText = "" + value );
+return ( elem.style.cssText = ""+value );
 }
 };
-}
-// Accessing the parent's selectedIndex property fixes it
+}//Accessing the parent's selectedIndex property fixes it
 if ( !jQuery.support.optSelected ) {
 jQuery.propHooks.selected = jQuery.extend( jQuery.propHooks.selected, {
 get: function( elem ) {
@@ -1946,18 +1941,18 @@ return ( elem.checked = jQuery.inArray( jQuery(elem).val(), value ) >= 0 );
 }
 });
 });
-var rformElems = /^(?:textarea|input|select)$/i,
-rtypenamespace = /^([^\.]*)?(?:\.(.+))?$/,
-rhoverHack = /(?:^|\s)hover(\.\S+)?\b/,
-rkeyEvent = /^key/,
-rmouseEvent = /^(?:mouse|contextmenu)|click/,
-rfocusMorph = /^(?:focusinfocus|focusoutblur)$/,
-rquickIs = /^(\w*)(?:#([\w\-]+))?(?:\.([\w\-]+))?$/,
+var rformElems =/^(?:textarea|input|select)$/i,
+rtypenamespace =/^([^\.]*)?(?:\.(.+))?$/,
+rhoverHack =/(?:^|\s)hover(\.\S+)?\b/,
+rkeyEvent =/^key/,
+rmouseEvent =/^(?:mouse|contextmenu)|click/,
+rfocusMorph =/^(?:focusinfocus|focusoutblur)$/,
+rquickIs =/^(\w*)(?:#([\w\-]+))?(?:\.([\w\-]+))?$/,
 quickParse = function( selector ) {
 var quick = rquickIs.exec( selector );
 if ( quick ) {
 quick[1] = ( quick[1] || "" ).toLowerCase();
-quick[3] = quick[3] && new RegExp( "(?:^|\\s)" + quick[3] + "(?:\\s|$)" );
+quick[3] = quick[3] && new RegExp( "(?:^|\\s)"+quick[3]+"(?:\\s|$)" );
 }
 return quick;
 },
@@ -2002,7 +1997,7 @@ undefined;
 eventHandle.elem = elem;
 }
 types = jQuery.trim( hoverHack(types) ).split( " " );
-for ( t = 0; t < types.length; t++ ) {
+for ( t = 0; t < types.length; t++) {
 tns = rtypenamespace.exec( types[t] ) || [];
 type = tns[1];
 namespaces = ( tns[2] || "" ).split( "." ).sort();
@@ -2027,7 +2022,7 @@ if ( !special.setup || special.setup.call( elem, data, namespaces, eventHandle )
 if ( elem.addEventListener ) {
 elem.addEventListener( type, eventHandle, false );
 } else if ( elem.attachEvent ) {
-elem.attachEvent( "on" + type, eventHandle );
+elem.attachEvent( "on"+type, eventHandle );
 }
 }
 }
@@ -2055,13 +2050,13 @@ if ( !elemData || !(events = elemData.events) ) {
 return;
 }
 types = jQuery.trim( hoverHack( types || "" ) ).split(" ");
-for ( t = 0; t < types.length; t++ ) {
+for ( t = 0; t < types.length; t++) {
 tns = rtypenamespace.exec( types[t] ) || [];
 type = origType = tns[1];
 namespaces = tns[2];
 if ( !type ) {
 for ( type in events ) {
-jQuery.event.remove( elem, type + types[ t ], handler, selector, true );
+jQuery.event.remove( elem, type+types[ t ], handler, selector, true );
 }
 continue;
 }
@@ -2069,8 +2064,8 @@ special = jQuery.event.special[ type ] || {};
 type = ( selector? special.delegateType : special.bindType ) || type;
 eventType = events[ type ] || [];
 origCount = eventType.length;
-namespaces = namespaces ? new RegExp("(^|\\.)" + namespaces.split(".").sort().join("\\.(?:.*\\.)?") + "(\\.|$)") : null;
-for ( j = 0; j < eventType.length; j++ ) {
+namespaces = namespaces ? new RegExp("(^|\\.)"+namespaces.split(".").sort().join("\\.(?:.*\\.)?")+"(\\.|$)") : null;
+for ( j = 0; j < eventType.length; j++) {
 handleObj = eventType[ j ];
 if ( ( mappedTypes || origType === handleObj.origType ) &&
 ( !handler || handler.guid === handleObj.guid ) &&
@@ -2112,11 +2107,11 @@ return;
 var type = event.type || event,
 namespaces = [],
 cache, exclusive, i, cur, old, ontype, special, handle, eventPath, bubbleType;
-if ( rfocusMorph.test( type + jQuery.event.triggered ) ) {
+if ( rfocusMorph.test( type+jQuery.event.triggered ) ) {
 return;
 }
 if ( type.indexOf( "!" ) >= 0 ) {
-type = type.slice(0, -1);
+type = type.slice(0,-1);
 exclusive = true;
 }
 if ( type.indexOf( "." ) >= 0 ) {
@@ -2135,8 +2130,8 @@ event.type = type;
 event.isTrigger = true;
 event.exclusive = exclusive;
 event.namespace = namespaces.join( "." );
-event.namespace_re = event.namespace? new RegExp("(^|\\.)" + namespaces.join("\\.(?:.*\\.)?") + "(\\.|$)") : null;
-ontype = type.indexOf( ":" ) < 0 ? "on" + type : "";
+event.namespace_re = event.namespace? new RegExp("(^|\\.)"+namespaces.join("\\.(?:.*\\.)?")+"(\\.|$)") : null;
+ontype = type.indexOf( ":" ) < 0 ? "on"+type : "";
 if ( !elem ) {
 cache = jQuery.cache;
 for ( i in cache ) {
@@ -2159,7 +2154,7 @@ return;
 eventPath = [[ elem, special.bindType || type ]];
 if ( !onlyHandlers && !special.noBubble && !jQuery.isWindow( elem ) ) {
 bubbleType = special.delegateType || type;
-cur = rfocusMorph.test( bubbleType + type ) ? elem : elem.parentNode;
+cur = rfocusMorph.test( bubbleType+type ) ? elem : elem.parentNode;
 old = null;
 for ( ; cur; cur = cur.parentNode ) {
 eventPath.push([ cur, bubbleType ]);
@@ -2169,7 +2164,7 @@ if ( old && old === elem.ownerDocument ) {
 eventPath.push([ old.defaultView || old.parentWindow || window, bubbleType ]);
 }
 }
-for ( i = 0; i < eventPath.length && !event.isPropagationStopped(); i++ ) {
+for ( i = 0; i < eventPath.length && !event.isPropagationStopped(); i++) {
 cur = eventPath[i][0];
 event.type = eventPath[i][1];
 handle = ( jQuery._data( cur, "events" ) || {} )[ event.type ] && jQuery._data( cur, "handle" );
@@ -2223,7 +2218,7 @@ if ( cur.disabled !== true ) {
 selMatch = {};
 matches = [];
 jqcur[0] = cur;
-for ( i = 0; i < delegateCount; i++ ) {
+for ( i = 0; i < delegateCount; i++) {
 handleObj = handlers[ i ];
 sel = handleObj.selector;
 if ( selMatch[ sel ] === undefined ) {
@@ -2244,10 +2239,10 @@ handlerQueue.push({ elem: cur, matches: matches });
 if ( handlers.length > delegateCount ) {
 handlerQueue.push({ elem: this, matches: handlers.slice( delegateCount ) });
 }
-for ( i = 0; i < handlerQueue.length && !event.isPropagationStopped(); i++ ) {
+for ( i = 0; i < handlerQueue.length && !event.isPropagationStopped(); i++) {
 matched = handlerQueue[ i ];
 event.currentTarget = matched.elem;
-for ( j = 0; j < matched.matches.length && !event.isImmediatePropagationStopped(); j++ ) {
+for ( j = 0; j < matched.matches.length && !event.isImmediatePropagationStopped(); j++) {
 handleObj = matched.matches[ j ];
 if ( run_all || (!event.namespace && !handleObj.namespace) || event.namespace_re && event.namespace_re.test( handleObj.namespace ) ) {
 event.data = handleObj.data;
@@ -2290,8 +2285,8 @@ if ( event.pageX == null && original.clientX != null ) {
 eventDoc = event.target.ownerDocument || document;
 doc = eventDoc.documentElement;
 body = eventDoc.body;
-event.pageX = original.clientX + ( doc && doc.scrollLeft || body && body.scrollLeft || 0 ) - ( doc && doc.clientLeft || body && body.clientLeft || 0 );
-event.pageY = original.clientY + ( doc && doc.scrollTop  || body && body.scrollTop  || 0 ) - ( doc && doc.clientTop  || body && body.clientTop  || 0 );
+event.pageX = original.clientX+( doc && doc.scrollLeft || body && body.scrollLeft || 0 )-( doc && doc.clientLeft || body && body.clientLeft || 0 );
+event.pageY = original.clientY+( doc && doc.scrollTop  || body && body.scrollTop  || 0 )-( doc && doc.clientTop  || body && body.clientTop  || 0 );
 }
 if ( !event.relatedTarget && fromElement ) {
 event.relatedTarget = fromElement === event.target ? original.toElement : fromElement;
@@ -2312,7 +2307,7 @@ fixHook = jQuery.event.fixHooks[ event.type ] || {},
 copy = fixHook.props ? this.props.concat( fixHook.props ) : this.props;
 event = jQuery.Event( originalEvent );
 for ( i = copy.length; i; ) {
-prop = copy[ --i ];
+prop = copy[--i ];
 event[ prop ] = originalEvent[ prop ];
 }
 if ( !event.target ) {
@@ -2370,8 +2365,7 @@ if ( e.isDefaultPrevented() ) {
 event.preventDefault();
 }
 }
-};
-// The 1.7 special event interface should provide all the hooks needed now.
+};//The 1.7 special event interface should provide all the hooks needed now.
 jQuery.event.handle = jQuery.event.dispatch;
 jQuery.removeEvent = document.removeEventListener ?
 function( elem, type, handle ) {
@@ -2381,7 +2375,7 @@ elem.removeEventListener( type, handle, false );
 } :
 function( elem, type, handle ) {
 if ( elem.detachEvent ) {
-elem.detachEvent( "on" + type, handle );
+elem.detachEvent( "on"+type, handle );
 }
 };
 jQuery.Event = function( src, props ) {
@@ -2407,8 +2401,7 @@ return false;
 }
 function returnTrue() {
 return true;
-}
-// http://www.w3.org/TR/2003/WD-DOM-Level-3-Events-20030331/ecma-script-binding.html
+}//http://www.w3.org/TR/2003/WD-DOM-Level-3-Events-20030331/ecma-script-binding.html
 jQuery.Event.prototype = {
 preventDefault: function() {
 this.isDefaultPrevented = returnTrue;
@@ -2547,12 +2540,12 @@ jQuery.event.simulate( fix, event.target, jQuery.event.fix( event ), true );
 };
 jQuery.event.special[ fix ] = {
 setup: function() {
-if ( attaches++ === 0 ) {
+if ( attaches++=== 0 ) {
 document.addEventListener( orig, handler, true );
 }
 },
 teardown: function() {
-if ( --attaches === 0 ) {
+if (--attaches === 0 ) {
 document.removeEventListener( orig, handler, true );
 }
 }
@@ -2563,7 +2556,7 @@ jQuery.fn.extend({
 on: function( types, selector, data, fn,  one ) {
 var origFn, type;
 if ( typeof types === "object" ) {
-if ( typeof selector !== "string" ) { // && selector != null
+if ( typeof selector !== "string" ) {//&& selector != null
 data = data || selector;
 selector = undefined;
 }
@@ -2596,7 +2589,7 @@ fn = function( event ) {
 jQuery().off( event );
 return origFn.apply( this, arguments );
 };
-fn.guid = origFn.guid || ( origFn.guid = jQuery.guid++ );
+fn.guid = origFn.guid || ( origFn.guid = jQuery.guid++);
 }
 return this.each( function() {
 jQuery.event.add( this, types, fn, data, selector );
@@ -2609,7 +2602,7 @@ off: function( types, selector, fn ) {
 if ( types && types.preventDefault && types.handleObj ) {
 var handleObj = types.handleObj;
 jQuery( types.delegateTarget ).off(
-handleObj.namespace ? handleObj.origType + "." + handleObj.namespace : handleObj.origType,
+handleObj.namespace ? handleObj.origType+"."+handleObj.namespace : handleObj.origType,
 handleObj.selector,
 handleObj.handler
 );
@@ -2667,14 +2660,14 @@ var args = arguments,
 guid = fn.guid || jQuery.guid++,
 i = 0,
 toggler = function( event ) {
-var lastToggle = ( jQuery._data( this, "lastToggle" + fn.guid ) || 0 ) % i;
-jQuery._data( this, "lastToggle" + fn.guid, lastToggle + 1 );
+var lastToggle = ( jQuery._data( this, "lastToggle"+fn.guid ) || 0 )%i;
+jQuery._data( this, "lastToggle"+fn.guid, lastToggle+1 );
 event.preventDefault();
 return args[ lastToggle ].apply( this, arguments ) || false;
 };
 toggler.guid = guid;
 while ( i < args.length ) {
-args[ i++ ].guid = guid;
+args[ i++].guid = guid;
 }
 return this.click( toggler );
 },
@@ -2682,9 +2675,7 @@ hover: function( fnOver, fnOut ) {
 return this.mouseenter( fnOver ).mouseleave( fnOut || fnOver );
 }
 });
-jQuery.each( ("blur focus focusin focusout load resize scroll unload click dblclick " +
-"mousedown mouseup mousemove mouseover mouseout mouseenter mouseleave " +
-"change select submit keydown keypress keyup error contextmenu").split(" "), function( i, name ) {
+jQuery.each( ("blur focus focusin focusout load resize scroll unload click dblclick "+"mousedown mouseup mousemove mouseover mouseout mouseenter mouseleave "+"change select submit keydown keypress keyup error contextmenu").split(" "), function( i, name ) {
 jQuery.fn[ name ] = function( data, fn ) {
 if ( fn == null ) {
 fn = data;
@@ -2705,18 +2696,15 @@ jQuery.event.fixHooks[ name ] = jQuery.event.mouseHooks;
 }
 });
 (function(){
-var chunker = /((?:\((?:\([^()]+\)|[^()]+)+\)|\[(?:\[[^\[\]]*\]|['"][^'"]*['"]|[^\[\]'"]+)+\]|\\.|[^ >+~,(\[\\]+)+|[>+~])(\s*,\s*)?((?:.|\r|\n)*)/g,
-expando = "sizcache" + (Math.random() + '').replace('.', ''),
+var chunker =/((?:\((?:\([^()]+\)|[^()]+)+\)|\[(?:\[[^\[\]]*\]|['"][^'"]*['"]|[^\[\]'"]+)+\]|\\.|[^ >+~,(\[\\]+)+|[>+~])(\s*,\s*)?((?:.|\r|\n)*)/g,
+expando = "sizcache"+(Math.random()+'').replace('.', ''),
 done = 0,
 toString = Object.prototype.toString,
 hasDuplicate = false,
 baseHasDuplicate = true,
-rBackslash = /\\/g,
-rReturn = /\r\n/g,
-rNonWord = /\W/;
-// optimization where it does not always call our comparision
-// function. If that is the case, discard the hasDuplicate value.
-//   Thus far that includes Google Chrome.
+rBackslash =/\\/g,
+rReturn =/\r\n/g,
+rNonWord =/\W/;//optimization where it does not always call our comparision//function. If that is the case, discard the hasDuplicate value.//Thus far that includes Google Chrome.
 [0, 0].sort(function() {
 baseHasDuplicate = false;
 return 0;
@@ -2750,7 +2738,7 @@ break;
 } while ( m );
 if ( parts.length > 1 && origPOS.exec( selector ) ) {
 if ( parts.length === 2 && Expr.relative[ parts[0] ] ) {
-set = posProcess( parts[0] + parts[1], context, seed );
+set = posProcess( parts[0]+parts[1], context, seed );
 } else {
 set = Expr.relative[ parts[0] ] ?
 [ context ] :
@@ -2758,14 +2746,14 @@ Sizzle( parts.shift(), context );
 while ( parts.length ) {
 selector = parts.shift();
 if ( Expr.relative[ selector ] ) {
-selector += parts.shift();
+selector+= parts.shift();
 }
 set = posProcess( selector, set, seed );
 }
 }
 } else {
 if ( !seed && parts.length > 1 && context.nodeType === 9 && !contextXML &&
-Expr.match.ID.test(parts[0]) && !Expr.match.ID.test(parts[parts.length - 1]) ) {
+Expr.match.ID.test(parts[0]) && !Expr.match.ID.test(parts[parts.length-1]) ) {
 ret = Sizzle.find( parts.shift(), context, contextXML );
 context = ret.expr ?
 Sizzle.filter( ret.expr, ret.set )[0] :
@@ -2810,13 +2798,13 @@ if ( toString.call(checkSet) === "[object Array]" ) {
 if ( !prune ) {
 results.push.apply( results, checkSet );
 } else if ( context && context.nodeType === 1 ) {
-for ( i = 0; checkSet[i] != null; i++ ) {
+for ( i = 0; checkSet[i] != null; i++) {
 if ( checkSet[i] && (checkSet[i] === true || checkSet[i].nodeType === 1 && Sizzle.contains(context, checkSet[i])) ) {
 results.push( set[i] );
 }
 }
 } else {
-for ( i = 0; checkSet[i] != null; i++ ) {
+for ( i = 0; checkSet[i] != null; i++) {
 if ( checkSet[i] && checkSet[i].nodeType === 1 ) {
 results.push( set[i] );
 }
@@ -2836,8 +2824,8 @@ if ( sortOrder ) {
 hasDuplicate = baseHasDuplicate;
 results.sort( sortOrder );
 if ( hasDuplicate ) {
-for ( var i = 1; i < results.length; i++ ) {
-if ( results[i] === results[ i - 1 ] ) {
+for ( var i = 1; i < results.length; i++) {
+if ( results[i] === results[ i-1 ] ) {
 results.splice( i--, 1 );
 }
 }
@@ -2856,12 +2844,12 @@ var set, i, len, match, type, left;
 if ( !expr ) {
 return [];
 }
-for ( i = 0, len = Expr.order.length; i < len; i++ ) {
+for ( i = 0, len = Expr.order.length; i < len; i++) {
 type = Expr.order[i];
 if ( (match = Expr.leftMatch[ type ].exec( expr )) ) {
 left = match[1];
 match.splice( 1, 1 );
-if ( left.substr( left.length - 1 ) !== "\\" ) {
+if ( left.substr( left.length-1 ) !== "\\" ) {
 match[1] = (match[1] || "").replace( rBackslash, "" );
 set = Expr.find[ type ]( match, context, isXML );
 if ( set != null ) {
@@ -2874,7 +2862,7 @@ break;
 if ( !set ) {
 set = typeof context.getElementsByTagName !== "undefined" ?
 context.getElementsByTagName( "*" ) :
-[];
+;
 }
 return { set: set, expr: expr };
 };
@@ -2893,7 +2881,7 @@ filter = Expr.filter[ type ];
 left = match[1];
 anyFound = false;
 match.splice(1,1);
-if ( left.substr( left.length - 1 ) === "\\" ) {
+if ( left.substr( left.length-1 ) === "\\" ) {
 continue;
 }
 if ( curLoop === result ) {
@@ -2908,7 +2896,7 @@ continue;
 }
 }
 if ( match ) {
-for ( i = 0; (item = curLoop[i]) != null; i++ ) {
+for ( i = 0; (item = curLoop[i]) != null; i++) {
 if ( item ) {
 found = filter( item, match, i, curLoop );
 pass = not ^ found;
@@ -2949,7 +2937,7 @@ old = expr;
 return curLoop;
 };
 Sizzle.error = function( msg ) {
-throw new Error( "Syntax error, unrecognized expression: " + msg );
+throw new Error( "Syntax error, unrecognized expression: "+msg );
 };
 var getText = Sizzle.getText = function( elem ) {
 var i, node,
@@ -2963,16 +2951,16 @@ return elem.textContent;
 return elem.innerText.replace( rReturn, '' );
 } else {
 for ( elem = elem.firstChild; elem; elem = elem.nextSibling) {
-ret += getText( elem );
+ret+= getText( elem );
 }
 }
 } else if ( nodeType === 3 || nodeType === 4 ) {
 return elem.nodeValue;
 }
 } else {
-for ( i = 0; (node = elem[i]); i++ ) {
+for ( i = 0; (node = elem[i]); i++) {
 if ( node.nodeType !== 8 ) {
-ret += getText( node );
+ret+= getText( node );
 }
 }
 }
@@ -2981,15 +2969,14 @@ return ret;
 var Expr = Sizzle.selectors = {
 order: [ "ID", "NAME", "TAG" ],
 match: {
-ID: /#((?:[\w\u00c0-\uFFFF\-]|\\.)+)/,
-CLASS: /\.((?:[\w\u00c0-\uFFFF\-]|\\.)+)/,
-NAME: /\[name=['"]*((?:[\w\u00c0-\uFFFF\-]|\\.)+)['"]*\]/,
-ATTR: /\[\s*((?:[\w\u00c0-\uFFFF\-]|\\.)+)\s*(?:(\S?=)\s*(?:(['"])(.*?)\3|(#?(?:[\w\u00c0-\uFFFF\-]|\\.)*)|)|)\s*\]/,
-TAG: /^((?:[\w\u00c0-\uFFFF\*\-]|\\.)+)/,
-CHILD: /:(only|nth|last|first)-child(?:\(\s*(even|odd|(?:[+\-]?\d+|(?:[+\-]?\d*)?n\s*(?:[+\-]\s*\d+)?))\s*\))?/,
-POS: /:(nth|eq|gt|lt|first|last|even|odd)(?:\((\d*)\))?(?=[^\-]|$)/,
-PSEUDO: /:((?:[\w\u00c0-\uFFFF\-]|\\.)+)(?:\((['"]?)((?:\([^\)]+\)|[^\(\)]*)+)\2\))?/
-},
+ID:/#((?:[\w\u00c0-\uFFFF\-]|\\.)+)/,
+CLASS:/\.((?:[\w\u00c0-\uFFFF\-]|\\.)+)/,
+NAME:/\[name=['"]*((?:[\w\u00c0-\uFFFF\-]|\\.)+)['"]*\]/,
+ATTR:/\[\s*((?:[\w\u00c0-\uFFFF\-]|\\.)+)\s*(?:(\S?=)\s*(?:(['"])(.*?)\3|(#?(?:[\w\u00c0-\uFFFF\-]|\\.)*)|)|)\s*\]/,
+TAG:/^((?:[\w\u00c0-\uFFFF\*\-]|\\.)+)/,
+CHILD:/:(only|nth|last|first)-child(?:\(\s*(even|odd|(?:[+\-]?\d+|(?:[+\-]?\d*)?n\s*(?:[+\-]\s*\d+)?))\s*\))?/,
+POS:/:(nth|eq|gt|lt|first|last|even|odd)(?:\((\d*)\))?(?=[^\-]|$)/,
+PSEUDO:/:((?:[\w\u00c0-\uFFFF\-]|\\.)+)(?:\((['"]?)((?:\([^\)]+\)|[^\(\)]*)+)\2\))?/},
 leftMatch: {},
 attrMap: {
 "class": "className",
@@ -3011,7 +2998,7 @@ isPartStrNotTag = isPartStr && !isTag;
 if ( isTag ) {
 part = part.toLowerCase();
 }
-for ( var i = 0, l = checkSet.length, elem; i < l; i++ ) {
+for ( var i = 0, l = checkSet.length, elem; i < l; i++) {
 if ( (elem = checkSet[i]) ) {
 while ( (elem = elem.previousSibling) && elem.nodeType !== 1 ) {}
 checkSet[i] = isPartStrNotTag || elem && elem.nodeName.toLowerCase() === part ?
@@ -3030,7 +3017,7 @@ i = 0,
 l = checkSet.length;
 if ( isPartStr && !rNonWord.test( part ) ) {
 part = part.toLowerCase();
-for ( ; i < l; i++ ) {
+for ( ; i < l; i++) {
 elem = checkSet[i];
 if ( elem ) {
 var parent = elem.parentNode;
@@ -3038,7 +3025,7 @@ checkSet[i] = parent.nodeName.toLowerCase() === part ? parent : false;
 }
 }
 } else {
-for ( ; i < l; i++ ) {
+for ( ; i < l; i++) {
 elem = checkSet[i];
 if ( elem ) {
 checkSet[i] = isPartStr ?
@@ -3085,7 +3072,7 @@ NAME: function( match, context ) {
 if ( typeof context.getElementsByName !== "undefined" ) {
 var ret = [],
 results = context.getElementsByName( match[1] );
-for ( var i = 0, l = results.length; i < l; i++ ) {
+for ( var i = 0, l = results.length; i < l; i++) {
 if ( results[i].getAttribute("name") === match[1] ) {
 ret.push( results[i] );
 }
@@ -3101,13 +3088,13 @@ return context.getElementsByTagName( match[1] );
 },
 preFilter: {
 CLASS: function( match, curLoop, inplace, result, not, isXML ) {
-match = " " + match[1].replace( rBackslash, "" ) + " ";
+match = " "+match[1].replace( rBackslash, "" )+" ";
 if ( isXML ) {
 return match;
 }
-for ( var i = 0, elem; (elem = curLoop[i]) != null; i++ ) {
+for ( var i = 0, elem; (elem = curLoop[i]) != null; i++) {
 if ( elem ) {
-if ( not ^ (elem.className && (" " + elem.className + " ").replace(/[\t\n\r]/g, " ").indexOf(match) >= 0) ) {
+if ( not ^ (elem.className && (" "+elem.className+" ").replace(/[\t\n\r]/g, " ").indexOf(match) >= 0) ) {
 if ( !inplace ) {
 result.push( elem );
 }
@@ -3130,11 +3117,11 @@ if ( !match[2] ) {
 Sizzle.error( match[0] );
 }
 match[2] = match[2].replace(/^\+|\s*/g, '');
-var test = /(-?)(\d*)(?:n([+\-]?\d*))?/.exec(
+var test =/(-?)(\d*)(?:n([+\-]?\d*))?/.exec(
 match[2] === "even" && "2n" || match[2] === "odd" && "2n+1" ||
-!/\D/.test( match[2] ) && "0n+" + match[2] || match[2]);
-match[2] = (test[1] + (test[2] || 1)) - 0;
-match[3] = test[3] - 0;
+!/\D/.test( match[2] ) && "0n+"+match[2] || match[2]);
+match[2] = (test[1]+(test[2] || 1))-0;
+match[3] = test[3]-0;
 }
 else if ( match[2] ) {
 Sizzle.error( match[0] );
@@ -3149,13 +3136,13 @@ match[1] = Expr.attrMap[name];
 }
 match[4] = ( match[4] || match[5] || "" ).replace( rBackslash, "" );
 if ( match[2] === "~=" ) {
-match[4] = " " + match[4] + " ";
+match[4] = " "+match[4]+" ";
 }
 return match;
 },
 PSEUDO: function( match, curLoop, inplace, result, not ) {
 if ( match[1] === "not" ) {
-if ( ( chunker.exec(match[3]) || "" ).length > 1 || /^\w/.test(match[3]) ) {
+if ( ( chunker.exec(match[3]) || "" ).length > 1 ||/^\w/.test(match[3]) ) {
 match[3] = Sizzle(match[3], null, null, curLoop);
 } else {
 var ret = Sizzle.filter(match[3], curLoop, inplace, true ^ not);
@@ -3245,25 +3232,25 @@ first: function( elem, i ) {
 return i === 0;
 },
 last: function( elem, i, match, array ) {
-return i === array.length - 1;
+return i === array.length-1;
 },
 even: function( elem, i ) {
-return i % 2 === 0;
+return i%2 === 0;
 },
 odd: function( elem, i ) {
-return i % 2 === 1;
+return i%2 === 1;
 },
 lt: function( elem, i, match ) {
-return i < match[3] - 0;
+return i < match[3]-0;
 },
 gt: function( elem, i, match ) {
-return i > match[3] - 0;
+return i > match[3]-0;
 },
 nth: function( elem, i, match ) {
-return match[3] - 0 === i;
+return match[3]-0 === i;
 },
 eq: function( elem, i, match ) {
-return match[3] - 0 === i;
+return match[3]-0 === i;
 }
 },
 filter: {
@@ -3276,7 +3263,7 @@ return filter( elem, i, match, array );
 return (elem.textContent || elem.innerText || getText([ elem ]) || "").indexOf(match[3]) >= 0;
 } else if ( name === "not" ) {
 var not = match[3];
-for ( var j = 0, l = not.length; j < l; j++ ) {
+for ( var j = 0, l = not.length; j < l; j++) {
 if ( not[j] === elem ) {
 return false;
 }
@@ -3323,16 +3310,16 @@ if ( parent && (parent[ expando ] !== doneName || !elem.nodeIndex) ) {
 count = 0;
 for ( node = parent.firstChild; node; node = node.nextSibling ) {
 if ( node.nodeType === 1 ) {
-node.nodeIndex = ++count;
+node.nodeIndex =++count;
 }
 }
 parent[ expando ] = doneName;
 }
-diff = elem.nodeIndex - last;
+diff = elem.nodeIndex-last;
 if ( first === 0 ) {
 return diff === 0;
 } else {
-return ( diff % first === 0 && diff / first >= 0 );
+return ( diff%first === 0 && diff/first >= 0 );
 }
 }
 },
@@ -3343,8 +3330,8 @@ TAG: function( elem, match ) {
 return (match === "*" && elem.nodeType === 1) || !!elem.nodeName && elem.nodeName.toLowerCase() === match;
 },
 CLASS: function( elem, match ) {
-return (" " + (elem.className || elem.getAttribute("class")) + " ")
-.indexOf( match ) > -1;
+return (" "+(elem.className || elem.getAttribute("class"))+" ")
+.indexOf( match ) >-1;
 },
 ATTR: function( elem, match ) {
 var name = match[1],
@@ -3355,7 +3342,7 @@ Expr.attrHandle[ name ]( elem ) :
 elem[ name ] != null ?
 elem[ name ] :
 elem.getAttribute( name ),
-value = result + "",
+value = result+"",
 type = match[2],
 check = match[4];
 return result == null ?
@@ -3367,7 +3354,7 @@ value === check :
 type === "*=" ?
 value.indexOf(check) >= 0 :
 type === "~=" ?
-(" " + value + " ").indexOf(check) >= 0 :
+(" "+value+" ").indexOf(check) >= 0 :
 !check ?
 value && result !== false :
 type === "!=" ?
@@ -3375,9 +3362,9 @@ value !== check :
 type === "^=" ?
 value.indexOf(check) === 0 :
 type === "$=" ?
-value.substr(value.length - check.length) === check :
+value.substr(value.length-check.length) === check :
 type === "|=" ?
-value === check || value.substr(0, check.length + 1) === check + "-" :
+value === check || value.substr(0, check.length+1) === check+"-" :
 false;
 },
 POS: function( elem, match, i, array ) {
@@ -3391,14 +3378,12 @@ return filter( elem, i, match, array );
 };
 var origPOS = Expr.match.POS,
 fescape = function(all, num){
-return "\\" + (num - 0 + 1);
+return "\\"+(num-0+1);
 };
 for ( var type in Expr.match ) {
-Expr.match[ type ] = new RegExp( Expr.match[ type ].source + (/(?![^\[]*\])(?![^\(]*\))/.source) );
-Expr.leftMatch[ type ] = new RegExp( /(^(?:.|\r|\n)*?)/.source + Expr.match[ type ].source.replace(/\\(\d+)/g, fescape) );
-}
-// Expose origPOS
-// "global" as in regardless of relation to brackets/parens
+Expr.match[ type ] = new RegExp( Expr.match[ type ].source+(/(?![^\[]*\])(?![^\(]*\))/.source) );
+Expr.leftMatch[ type ] = new RegExp(/(^(?:.|\r|\n)*?)/.source+Expr.match[ type ].source.replace(/\\(\d+)/g, fescape) );
+}//Expose origPOS//"global" as in regardless of relation to brackets/parens
 Expr.match.globalPOS = origPOS;
 var makeArray = function( array, results ) {
 array = Array.prototype.slice.call( array, 0 );
@@ -3407,10 +3392,7 @@ results.push.apply( results, array );
 return results;
 }
 return array;
-};
-// converting a NodeList to an array using builtin methods.
-// Also verifies that the returned array holds DOM nodes
-// (which is not the case in the Blackberry browser)
+};//converting a NodeList to an array using builtin methods.//Also verifies that the returned array holds DOM nodes//(which is not the case in the Blackberry browser)
 try {
 Array.prototype.slice.call( document.documentElement.childNodes, 0 )[0].nodeType;
 } catch( e ) {
@@ -3421,11 +3403,11 @@ if ( toString.call(array) === "[object Array]" ) {
 Array.prototype.push.apply( ret, array );
 } else {
 if ( typeof array.length === "number" ) {
-for ( var l = array.length; i < l; i++ ) {
+for ( var l = array.length; i < l; i++) {
 ret.push( array[i] );
 }
 } else {
-for ( ; array[i]; i++ ) {
+for ( ; array[i]; i++) {
 ret.push( array[i] );
 }
 }
@@ -3441,9 +3423,9 @@ hasDuplicate = true;
 return 0;
 }
 if ( !a.compareDocumentPosition || !b.compareDocumentPosition ) {
-return a.compareDocumentPosition ? -1 : 1;
+return a.compareDocumentPosition ?-1 : 1;
 }
-return a.compareDocumentPosition(b) & 4 ? -1 : 1;
+return a.compareDocumentPosition(b) & 4 ?-1 : 1;
 };
 } else {
 sortOrder = function( a, b ) {
@@ -3451,7 +3433,7 @@ if ( a === b ) {
 hasDuplicate = true;
 return 0;
 } else if ( a.sourceIndex && b.sourceIndex ) {
-return a.sourceIndex - b.sourceIndex;
+return a.sourceIndex-b.sourceIndex;
 }
 var al, bl,
 ap = [],
@@ -3462,7 +3444,7 @@ cur = aup;
 if ( aup === bup ) {
 return siblingCheck( a, b );
 } else if ( !aup ) {
-return -1;
+return-1;
 } else if ( !bup ) {
 return 1;
 }
@@ -3477,13 +3459,13 @@ cur = cur.parentNode;
 }
 al = ap.length;
 bl = bp.length;
-for ( var i = 0; i < al && i < bl; i++ ) {
+for ( var i = 0; i < al && i < bl; i++) {
 if ( ap[i] !== bp[i] ) {
 return siblingCheck( ap[i], bp[i] );
 }
 }
 return i === al ?
-siblingCheck( a, bp[i], -1 ) :
+siblingCheck( a, bp[i],-1 ) :
 siblingCheck( ap[i], b, 1 );
 };
 siblingCheck = function( a, b, ret ) {
@@ -3493,19 +3475,18 @@ return ret;
 var cur = a.nextSibling;
 while ( cur ) {
 if ( cur === b ) {
-return -1;
+return-1;
 }
 cur = cur.nextSibling;
 }
 return 1;
 };
-}
-// querying by getElementById (and provide a workaround)
+}//querying by getElementById (and provide a workaround)
 (function(){
 var form = document.createElement("div"),
-id = "script" + (new Date()).getTime(),
+id = "script"+(new Date()).getTime(),
 root = document.documentElement;
-form.innerHTML = "<a name='" + id + "'/>";
+form.innerHTML = "<a name='"+id+"'/>";
 root.insertBefore( form, root.firstChild );
 if ( document.getElementById( id ) ) {
 Expr.find.ID = function( match, context, isXML ) {
@@ -3515,7 +3496,7 @@ return m ?
 m.id === match[1] || typeof m.getAttributeNode !== "undefined" && m.getAttributeNode("id").nodeValue === match[1] ?
 [m] :
 undefined :
-[];
+;
 }
 };
 Expr.filter.ID = function( elem, match ) {
@@ -3534,7 +3515,7 @@ Expr.find.TAG = function( match, context ) {
 var results = context.getElementsByTagName( match[1] );
 if ( match[1] === "*" ) {
 var tmp = [];
-for ( var i = 0; results[i]; i++ ) {
+for ( var i = 0; results[i]; i++) {
 if ( results[i].nodeType === 1 ) {
 tmp.push( results[i] );
 }
@@ -3565,7 +3546,7 @@ return;
 Sizzle = function( query, context, extra, seed ) {
 context = context || document;
 if ( !seed && !Sizzle.isXML(context) ) {
-var match = /^(\w+$)|^\.([\w\-]+$)|^#([\w\-]+$)/.exec( query );
+var match =/^(\w+$)|^\.([\w\-]+$)|^#([\w\-]+$)/.exec( query );
 if ( match && (context.nodeType === 1 || context.nodeType === 9) ) {
 if ( match[1] ) {
 return makeArray( context.getElementsByTagName( query ), extra );
@@ -3594,18 +3575,18 @@ var oldContext = context,
 old = context.getAttribute( "id" ),
 nid = old || id,
 hasParent = context.parentNode,
-relativeHierarchySelector = /^\s*[+~]/.test( query );
+relativeHierarchySelector =/^\s*[+~]/.test( query );
 if ( !old ) {
 context.setAttribute( "id", nid );
 } else {
-nid = nid.replace( /'/g, "\\$&" );
+nid = nid.replace(/'/g, "\\$&" );
 }
 if ( relativeHierarchySelector && hasParent ) {
 context = context.parentNode;
 }
 try {
 if ( !relativeHierarchySelector || hasParent ) {
-return makeArray( context.querySelectorAll( "[id='" + nid + "'] " + query ), extra );
+return makeArray( context.querySelectorAll( "[id='"+nid+"'] "+query ), extra );
 }
 } catch(pseudoError) {
 } finally {
@@ -3670,7 +3651,7 @@ return context.getElementsByClassName(match[1]);
 div = null;
 })();
 function dirNodeCheck( dir, cur, doneName, checkSet, nodeCheck, isXML ) {
-for ( var i = 0, l = checkSet.length; i < l; i++ ) {
+for ( var i = 0, l = checkSet.length; i < l; i++) {
 var elem = checkSet[i];
 if ( elem ) {
 var match = false;
@@ -3695,7 +3676,7 @@ checkSet[i] = match;
 }
 }
 function dirCheck( dir, cur, doneName, checkSet, nodeCheck, isXML ) {
-for ( var i = 0, l = checkSet.length; i < l; i++ ) {
+for ( var i = 0, l = checkSet.length; i < l; i++) {
 var elem = checkSet[i];
 if ( elem ) {
 var match = false;
@@ -3749,16 +3730,15 @@ tmpSet = [],
 later = "",
 root = context.nodeType ? [context] : context;
 while ( (match = Expr.match.PSEUDO.exec( selector )) ) {
-later += match[0];
+later+= match[0];
 selector = selector.replace( Expr.match.PSEUDO, "" );
 }
-selector = Expr.relative[selector] ? selector + "*" : selector;
-for ( var i = 0, l = root.length; i < l; i++ ) {
+selector = Expr.relative[selector] ? selector+"*" : selector;
+for ( var i = 0, l = root.length; i < l; i++) {
 Sizzle( selector, root[i], tmpSet, seed );
 }
 return Sizzle.filter( later, tmpSet );
-};
-// Override sizzle attribute retrieval
+};//Override sizzle attribute retrieval
 Sizzle.attr = jQuery.attr;
 Sizzle.selectors.attrMap = {};
 jQuery.find = Sizzle;
@@ -3769,10 +3749,10 @@ jQuery.text = Sizzle.getText;
 jQuery.isXMLDoc = Sizzle.isXML;
 jQuery.contains = Sizzle.contains;
 })();
-var runtil = /Until$/,
-rparentsprev = /^(?:parents|prevUntil|prevAll)/,
-rmultiselector = /,/,
-isSimple = /^.[^:#\[\.,]*$/,
+var runtil =/Until$/,
+rparentsprev =/^(?:parents|prevUntil|prevAll)/,
+rmultiselector =/,/,
+isSimple =/^.[^:#\[\.,]*$/,
 slice = Array.prototype.slice,
 POS = jQuery.expr.match.globalPOS,
 guaranteedUnique = {
@@ -3787,7 +3767,7 @@ var self = this,
 i, l;
 if ( typeof selector !== "string" ) {
 return jQuery( selector ).filter(function() {
-for ( i = 0, l = self.length; i < l; i++ ) {
+for ( i = 0, l = self.length; i < l; i++) {
 if ( jQuery.contains( self[ i ], this ) ) {
 return true;
 }
@@ -3796,12 +3776,12 @@ return true;
 }
 var ret = this.pushStack( "", "find", selector ),
 length, n, r;
-for ( i = 0, l = this.length; i < l; i++ ) {
+for ( i = 0, l = this.length; i < l; i++) {
 length = ret.length;
 jQuery.find( selector, this[i], ret );
 if ( i > 0 ) {
-for ( n = length; n < ret.length; n++ ) {
-for ( r = 0; r < length; r++ ) {
+for ( n = length; n < ret.length; n++) {
+for ( r = 0; r < length; r++) {
 if ( ret[r] === ret[n] ) {
 ret.splice(n--, 1);
 break;
@@ -3815,7 +3795,7 @@ return ret;
 has: function( target ) {
 var targets = jQuery( target );
 return this.filter(function() {
-for ( var i = 0, l = targets.length; i < l; i++ ) {
+for ( var i = 0, l = targets.length; i < l; i++) {
 if ( jQuery.contains( this, targets[i] ) ) {
 return true;
 }
@@ -3841,7 +3821,7 @@ var ret = [], i, l, cur = this[0];
 if ( jQuery.isArray( selectors ) ) {
 var level = 1;
 while ( cur && cur.ownerDocument && cur !== context ) {
-for ( i = 0; i < selectors.length; i++ ) {
+for ( i = 0; i < selectors.length; i++) {
 if ( jQuery( cur ).is( selectors[ i ] ) ) {
 ret.push({ selector: selectors[ i ], elem: cur, level: level });
 }
@@ -3854,10 +3834,10 @@ return ret;
 var pos = POS.test( selectors ) || typeof selectors !== "string" ?
 jQuery( selectors, context || this.context ) :
 0;
-for ( i = 0, l = this.length; i < l; i++ ) {
+for ( i = 0, l = this.length; i < l; i++) {
 cur = this[i];
 while ( cur ) {
-if ( pos ? pos.index(cur) > -1 : jQuery.find.matchesSelector(cur, selectors) ) {
+if ( pos ? pos.index(cur) >-1 : jQuery.find.matchesSelector(cur, selectors) ) {
 ret.push( cur );
 break;
 } else {
@@ -3873,7 +3853,7 @@ return this.pushStack( ret, "closest", selectors );
 },
 index: function( elem ) {
 if ( !elem ) {
-return ( this[0] && this[0].parentNode ) ? this.prevAll().length : -1;
+return ( this[0] && this[0].parentNode ) ? this.prevAll().length :-1;
 }
 if ( typeof elem === "string" ) {
 return jQuery.inArray( this[0], jQuery( elem ) );
@@ -3893,8 +3873,7 @@ jQuery.unique( all ) );
 andSelf: function() {
 return this.add( this.prevObject );
 }
-});
-// from a document (should be improved, where feasible).
+});//from a document (should be improved, where feasible).
 function isDisconnected( node ) {
 return !node || !node.parentNode || node.parentNode.nodeType === 11;
 }
@@ -3957,7 +3936,7 @@ return this.pushStack( ret, name, slice.call( arguments ).join(",") );
 jQuery.extend({
 filter: function( expr, elems, not ) {
 if ( not ) {
-expr = ":not(" + expr + ")";
+expr = ":not("+expr+")";
 }
 return elems.length === 1 ?
 jQuery.find.matchesSelector(elems[0], expr) ? [ elems[0] ] : [] :
@@ -3978,7 +3957,7 @@ nth: function( cur, result, dir, elem ) {
 result = result || 1;
 var num = 0;
 for ( ; cur; cur = cur[dir] ) {
-if ( cur.nodeType === 1 && ++num === result ) {
+if ( cur.nodeType === 1 &&++num === result ) {
 break;
 }
 }
@@ -4031,20 +4010,19 @@ list.pop()
 }
 return safeFrag;
 }
-var nodeNames = "abbr|article|aside|audio|bdi|canvas|data|datalist|details|figcaption|figure|footer|" +
-"header|hgroup|mark|meter|nav|output|progress|section|summary|time|video",
-rinlinejQuery = / jQuery\d+="(?:\d+|null)"/g,
-rleadingWhitespace = /^\s+/,
-rxhtmlTag = /<(?!area|br|col|embed|hr|img|input|link|meta|param)(([\w:]+)[^>]*)\/>/ig,
-rtagName = /<([\w:]+)/,
-rtbody = /<tbody/i,
-rhtml = /<|&#?\w+;/,
-rnoInnerhtml = /<(?:script|style)/i,
-rnocache = /<(?:script|object|embed|option|style)/i,
-rnoshimcache = new RegExp("<(?:" + nodeNames + ")[\\s/>]", "i"),
-rchecked = /checked\s*(?:[^=]|=\s*.checked.)/i,
-rscriptType = /\/(java|ecma)script/i,
-rcleanScript = /^\s*<!(?:\[CDATA\[|\-\-)/,
+var nodeNames = "abbr|article|aside|audio|bdi|canvas|data|datalist|details|figcaption|figure|footer|"+"header|hgroup|mark|meter|nav|output|progress|section|summary|time|video",
+rinlinejQuery =/jQuery\d+="(?:\d+|null)"/g,
+rleadingWhitespace =/^\s+/,
+rxhtmlTag =/<(?!area|br|col|embed|hr|img|input|link|meta|param)(([\w:]+)[^>]*)\/>/ig,
+rtagName =/<([\w:]+)/,
+rtbody =/<tbody/i,
+rhtml =/<|&#?\w+;/,
+rnoInnerhtml =/<(?:script|style)/i,
+rnocache =/<(?:script|object|embed|option|style)/i,
+rnoshimcache = new RegExp("<(?:"+nodeNames+")[\\s/>]", "i"),
+rchecked =/checked\s*(?:[^=]|=\s*.checked.)/i,
+rscriptType =/\/(java|ecma)script/i,
+rcleanScript =/^\s*<!(?:\[CDATA\[|\-\-)/,
 wrapMap = {
 option: [ 1, "<select multiple='multiple'>", "</select>" ],
 legend: [ 1, "<fieldset>", "</fieldset>" ],
@@ -4157,7 +4135,7 @@ return set;
 }
 },
 remove: function( selector, keepData ) {
-for ( var i = 0, elem; (elem = this[i]) != null; i++ ) {
+for ( var i = 0, elem; (elem = this[i]) != null; i++) {
 if ( !selector || jQuery.filter( selector, [ elem ] ).length ) {
 if ( !keepData && elem.nodeType === 1 ) {
 jQuery.cleanData( elem.getElementsByTagName("*") );
@@ -4171,7 +4149,7 @@ elem.parentNode.removeChild( elem );
 return this;
 },
 empty: function() {
-for ( var i = 0, elem; (elem = this[i]) != null; i++ ) {
+for ( var i = 0, elem; (elem = this[i]) != null; i++) {
 if ( elem.nodeType === 1 ) {
 jQuery.cleanData( elem.getElementsByTagName("*") );
 }
@@ -4203,7 +4181,7 @@ if ( typeof value === "string" && !rnoInnerhtml.test( value ) &&
 !wrapMap[ ( rtagName.exec( value ) || ["", ""] )[1].toLowerCase() ] ) {
 value = value.replace( rxhtmlTag, "<$1></$2>" );
 try {
-for (; i < l; i++ ) {
+for (; i < l; i++) {
 elem = this[i] || {};
 if ( elem.nodeType === 1 ) {
 jQuery.cleanData( elem.getElementsByTagName( "*" ) );
@@ -4279,7 +4257,7 @@ first = fragment.firstChild;
 }
 if ( first ) {
 table = table && jQuery.nodeName( first, "tr" );
-for ( var i = 0, l = this.length, lastIndex = l - 1; i < l; i++ ) {
+for ( var i = 0, l = this.length, lastIndex = l-1; i < l; i++) {
 callback.call(
 table ?
 root(this[i], first) :
@@ -4330,7 +4308,7 @@ if ( events ) {
 delete curData.handle;
 curData.events = {};
 for ( type in events ) {
-for ( i = 0, l = events[ type ].length; i < l; i++ ) {
+for ( i = 0, l = events[ type ].length; i < l; i++) {
 jQuery.event.add( dest, type, events[ type ][ i ] );
 }
 }
@@ -4415,7 +4393,7 @@ if ( parent && parent.nodeType === 11 && parent.childNodes.length === 1 && inser
 insert[ original ]( this[0] );
 return this;
 } else {
-for ( var i = 0, l = insert.length; i < l; i++ ) {
+for ( var i = 0, l = insert.length; i < l; i++) {
 var elems = ( i > 0 ? this.clone(true) : this ).get();
 jQuery( insert[i] )[ original ]( elems );
 ret = ret.concat( elems );
@@ -4437,8 +4415,7 @@ function fixDefaultChecked( elem ) {
 if ( elem.type === "checkbox" || elem.type === "radio" ) {
 elem.defaultChecked = elem.checked;
 }
-}
-// Finds all inputs and passes them to fixDefaultChecked
+}//Finds all inputs and passes them to fixDefaultChecked
 function findInputs( elem ) {
 var nodeName = ( elem.nodeName || "" ).toLowerCase();
 if ( nodeName === "input" ) {
@@ -4458,7 +4435,7 @@ clone: function( elem, dataAndEvents, deepDataAndEvents ) {
 var srcElements,
 destElements,
 i,
-clone = jQuery.support.html5Clone || jQuery.isXMLDoc(elem) || !rnoshimcache.test( "<" + elem.nodeName + ">" ) ?
+clone = jQuery.support.html5Clone || jQuery.isXMLDoc(elem) || !rnoshimcache.test( "<"+elem.nodeName+">" ) ?
 elem.cloneNode( true ) :
 shimCloneNode( elem );
 if ( (!jQuery.support.noCloneEvent || !jQuery.support.noCloneChecked) &&
@@ -4466,7 +4443,7 @@ if ( (!jQuery.support.noCloneEvent || !jQuery.support.noCloneChecked) &&
 cloneFixAttributes( elem, clone );
 srcElements = getAll( elem );
 destElements = getAll( clone );
-for ( i = 0; srcElements[i]; ++i ) {
+for ( i = 0; srcElements[i];++i ) {
 if ( destElements[i] ) {
 cloneFixAttributes( srcElements[i], destElements[i] );
 }
@@ -4477,7 +4454,7 @@ cloneCopyEvent( elem, clone );
 if ( deepDataAndEvents ) {
 srcElements = getAll( elem );
 destElements = getAll( clone );
-for ( i = 0; srcElements[i]; ++i ) {
+for ( i = 0; srcElements[i];++i ) {
 cloneCopyEvent( srcElements[i], destElements[i] );
 }
 }
@@ -4492,9 +4469,9 @@ context = context || document;
 if ( typeof context.createElement === "undefined" ) {
 context = context.ownerDocument || context[0] && context[0].ownerDocument || document;
 }
-for ( var i = 0, elem; (elem = elems[i]) != null; i++ ) {
+for ( var i = 0, elem; (elem = elems[i]) != null; i++) {
 if ( typeof elem === "number" ) {
-elem += "";
+elem+= "";
 }
 if ( !elem ) {
 continue;
@@ -4515,8 +4492,8 @@ safeFragment.appendChild( div );
 } else {
 createSafeFragment( context ).appendChild( div );
 }
-div.innerHTML = wrap[1] + elem + wrap[2];
-while ( depth-- ) {
+div.innerHTML = wrap[1]+elem+wrap[2];
+while ( depth--) {
 div = div.lastChild;
 }
 if ( !jQuery.support.tbody ) {
@@ -4525,8 +4502,8 @@ tbody = tag === "table" && !hasBody ?
 div.firstChild && div.firstChild.childNodes :
 wrap[1] === "<table>" && !hasBody ?
 div.childNodes :
-[];
-for ( j = tbody.length - 1; j >= 0 ; --j ) {
+;
+for ( j = tbody.length-1; j >= 0 ;--j ) {
 if ( jQuery.nodeName( tbody[ j ], "tbody" ) && !tbody[ j ].childNodes.length ) {
 tbody[ j ].parentNode.removeChild( tbody[ j ] );
 }
@@ -4539,7 +4516,7 @@ elem = div.childNodes;
 if ( div ) {
 div.parentNode.removeChild( div );
 if ( safeChildNodes.length > 0 ) {
-remove = safeChildNodes[ safeChildNodes.length - 1 ];
+remove = safeChildNodes[ safeChildNodes.length-1 ];
 if ( remove && remove.parentNode ) {
 remove.parentNode.removeChild( remove );
 }
@@ -4550,7 +4527,7 @@ remove.parentNode.removeChild( remove );
 var len;
 if ( !jQuery.support.appendChecked ) {
 if ( elem[0] && typeof (len = elem.length) === "number" ) {
-for ( j = 0; j < len; j++ ) {
+for ( j = 0; j < len; j++) {
 findInputs( elem[j] );
 }
 } else {
@@ -4567,14 +4544,14 @@ if ( fragment ) {
 checkScriptType = function( elem ) {
 return !elem.type || rscriptType.test( elem.type );
 };
-for ( i = 0; ret[i]; i++ ) {
+for ( i = 0; ret[i]; i++) {
 script = ret[i];
 if ( scripts && jQuery.nodeName( script, "script" ) && (!script.type || rscriptType.test( script.type )) ) {
 scripts.push( script.parentNode ? script.parentNode.removeChild( script ) : script );
 } else {
 if ( script.nodeType === 1 ) {
 var jsTags = jQuery.grep( script.getElementsByTagName( "script" ), checkScriptType );
-ret.splice.apply( ret, [i + 1, 0].concat( jsTags ) );
+ret.splice.apply( ret, [i+1, 0].concat( jsTags ) );
 }
 fragment.appendChild( script );
 }
@@ -4587,7 +4564,7 @@ var data, id,
 cache = jQuery.cache,
 special = jQuery.event.special,
 deleteExpando = jQuery.support.deleteExpando;
-for ( var i = 0, elem; (elem = elems[i]) != null; i++ ) {
+for ( var i = 0, elem; (elem = elems[i]) != null; i++) {
 if ( elem.nodeName && jQuery.noData[elem.nodeName.toLowerCase()] ) {
 continue;
 }
@@ -4616,13 +4593,13 @@ delete cache[ id ];
 }
 }
 });
-var ralpha = /alpha\([^)]*\)/i,
-ropacity = /opacity=([^)]*)/,
-rupper = /([A-Z]|^ms)/g,
-rnum = /^[\-+]?(?:\d*\.)?\d+$/i,
-rnumnonpx = /^-?(?:\d*\.)?\d+(?!px)[^\d\s]+$/i,
-rrelNum = /^([\-+])=([\-+.\de]+)/,
-rmargin = /^margin/,
+var ralpha =/alpha\([^)]*\)/i,
+ropacity =/opacity=([^)]*)/,
+rupper =/([A-Z]|^ms)/g,
+rnum =/^[\-+]?(?:\d*\.)?\d+$/i,
+rnumnonpx =/^-?(?:\d*\.)?\d+(?!px)[^\d\s]+$/i,
+rrelNum =/^([\-+])=([\-+.\de]+)/,
+rmargin =/^margin/,
 cssShow = { position: "absolute", visibility: "hidden", display: "block" },
 cssExpand = [ "Top", "Right", "Bottom", "Left" ],
 curCSS,
@@ -4671,14 +4648,14 @@ name = jQuery.cssProps[ origName ] || origName;
 if ( value !== undefined ) {
 type = typeof value;
 if ( type === "string" && (ret = rrelNum.exec( value )) ) {
-value = ( +( ret[1] + 1) * +ret[2] ) + parseFloat( jQuery.css( elem, name ) );
+value = (+( ret[1]+1)*+ret[2] )+parseFloat( jQuery.css( elem, name ) );
 type = "number";
 }
 if ( value == null || type === "number" && isNaN( value ) ) {
 return;
 }
 if ( type === "number" && !jQuery.cssNumber[ origName ] ) {
-value += "px";
+value+= "px";
 }
 if ( !hooks || !("set" in hooks) || (value = hooks.set( elem, value )) !== undefined ) {
 try {
@@ -4757,7 +4734,7 @@ if ( rsLeft ) {
 elem.runtimeStyle.left = elem.currentStyle.left;
 }
 style.left = name === "fontSize" ? "1em" : ret;
-ret = style.pixelLeft + "px";
+ret = style.pixelLeft+"px";
 style.left = left;
 if ( rsLeft ) {
 elem.runtimeStyle.left = rsLeft;
@@ -4773,18 +4750,18 @@ i = name === "width" ? 1 : 0,
 len = 4;
 if ( val > 0 ) {
 if ( extra !== "border" ) {
-for ( ; i < len; i += 2 ) {
+for ( ; i < len; i+= 2 ) {
 if ( !extra ) {
-val -= parseFloat( jQuery.css( elem, "padding" + cssExpand[ i ] ) ) || 0;
+val-= parseFloat( jQuery.css( elem, "padding"+cssExpand[ i ] ) ) || 0;
 }
 if ( extra === "margin" ) {
-val += parseFloat( jQuery.css( elem, extra + cssExpand[ i ] ) ) || 0;
+val+= parseFloat( jQuery.css( elem, extra+cssExpand[ i ] ) ) || 0;
 } else {
-val -= parseFloat( jQuery.css( elem, "border" + cssExpand[ i ] + "Width" ) ) || 0;
+val-= parseFloat( jQuery.css( elem, "border"+cssExpand[ i ]+"Width" ) ) || 0;
 }
 }
 }
-return val + "px";
+return val+"px";
 }
 val = curCSS( elem, name );
 if ( val < 0 || val == null ) {
@@ -4795,17 +4772,17 @@ return val;
 }
 val = parseFloat( val ) || 0;
 if ( extra ) {
-for ( ; i < len; i += 2 ) {
-val += parseFloat( jQuery.css( elem, "padding" + cssExpand[ i ] ) ) || 0;
+for ( ; i < len; i+= 2 ) {
+val+= parseFloat( jQuery.css( elem, "padding"+cssExpand[ i ] ) ) || 0;
 if ( extra !== "padding" ) {
-val += parseFloat( jQuery.css( elem, "border" + cssExpand[ i ] + "Width" ) ) || 0;
+val+= parseFloat( jQuery.css( elem, "border"+cssExpand[ i ]+"Width" ) ) || 0;
 }
 if ( extra === "margin" ) {
-val += parseFloat( jQuery.css( elem, extra + cssExpand[ i ]) ) || 0;
+val+= parseFloat( jQuery.css( elem, extra+cssExpand[ i ]) ) || 0;
 }
 }
 }
-return val + "px";
+return val+"px";
 }
 jQuery.each([ "height", "width" ], function( i, name ) {
 jQuery.cssHooks[ name ] = {
@@ -4822,7 +4799,7 @@ return getWidthOrHeight( elem, name, extra );
 },
 set: function( elem, value ) {
 return rnum.test( value ) ?
-value + "px" :
+value+"px" :
 value;
 }
 };
@@ -4831,13 +4808,13 @@ if ( !jQuery.support.opacity ) {
 jQuery.cssHooks.opacity = {
 get: function( elem, computed ) {
 return ropacity.test( (computed && elem.currentStyle ? elem.currentStyle.filter : elem.style.filter) || "" ) ?
-( parseFloat( RegExp.$1 ) / 100 ) + "" :
+( parseFloat( RegExp.$1 )/100 )+"" :
 computed ? "1" : "";
 },
 set: function( elem, value ) {
 var style = elem.style,
 currentStyle = elem.currentStyle,
-opacity = jQuery.isNumeric( value ) ? "alpha(opacity=" + value * 100 + ")" : "",
+opacity = jQuery.isNumeric( value ) ? "alpha(opacity="+value*100+")" : "",
 filter = currentStyle && currentStyle.filter || style.filter || "";
 style.zoom = 1;
 if ( value >= 1 && jQuery.trim( filter.replace( ralpha, "" ) ) === "" ) {
@@ -4848,7 +4825,7 @@ return;
 }
 style.filter = ralpha.test( filter ) ?
 filter.replace( ralpha, opacity ) :
-filter + " " + opacity;
+filter+" "+opacity;
 }
 };
 }
@@ -4882,41 +4859,40 @@ margin: "",
 padding: "",
 border: "Width"
 }, function( prefix, suffix ) {
-jQuery.cssHooks[ prefix + suffix ] = {
+jQuery.cssHooks[ prefix+suffix ] = {
 expand: function( value ) {
 var i,
 parts = typeof value === "string" ? value.split(" ") : [ value ],
 expanded = {};
-for ( i = 0; i < 4; i++ ) {
-expanded[ prefix + cssExpand[ i ] + suffix ] =
-parts[ i ] || parts[ i - 2 ] || parts[ 0 ];
+for ( i = 0; i < 4; i++) {
+expanded[ prefix+cssExpand[ i ]+suffix ] =
+parts[ i ] || parts[ i-2 ] || parts[ 0 ];
 }
 return expanded;
 }
 };
 });
-var r20 = /%20/g,
-rbracket = /\[\]$/,
-rCRLF = /\r?\n/g,
-rhash = /#.*$/,
-rheaders = /^(.*?):[ \t]*([^\r\n]*)\r?$/mg, // IE leaves an \r character at EOL
-rinput = /^(?:color|date|datetime|datetime-local|email|hidden|month|number|password|range|search|tel|text|time|url|week)$/i,
-rlocalProtocol = /^(?:about|app|app\-storage|.+\-extension|file|res|widget):$/,
-rnoContent = /^(?:GET|HEAD)$/,
-rprotocol = /^\/\//,
-rquery = /\?/,
-rscript = /<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi,
-rselectTextarea = /^(?:select|textarea)/i,
-rspacesAjax = /\s+/,
-rts = /([?&])_=[^&]*/,
-rurl = /^([\w\+\.\-]+:)(?:\/\/([^\/?#:]*)(?::(\d+))?)?/,
+var r20 =/%20/g,
+rbracket =/\[\]$/,
+rCRLF =/\r?\n/g,
+rhash =/#.*$/,
+rheaders =/^(.*?):[ \t]*([^\r\n]*)\r?$/mg,//IE leaves an \r character at EOL
+rinput =/^(?:color|date|datetime|datetime-local|email|hidden|month|number|password|range|search|tel|text|time|url|week)$/i,
+rlocalProtocol =/^(?:about|app|app\-storage|.+\-extension|file|res|widget):$/,
+rnoContent =/^(?:GET|HEAD)$/,
+rprotocol =/^\/\//,
+rquery =/\?/,
+rscript =/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi,
+rselectTextarea =/^(?:select|textarea)/i,
+rspacesAjax =/\s+/,
+rts =/([?&])_=[^&]*/,
+rurl =/^([\w\+\.\-]+:)(?:\/\/([^\/?#:]*)(?::(\d+))?)?/,
 _load = jQuery.fn.load,
 prefilters = {},
 transports = {},
 ajaxLocation,
 ajaxLocParts,
-allTypes = ["*/"] + ["*"];
-// a field from window.location if document.domain has been set
+allTypes = ["*/"]+["*"];//a field from window.location if document.domain has been set
 try {
 ajaxLocation = location.href;
 } catch( e ) {
@@ -4938,9 +4914,9 @@ length = dataTypes.length,
 dataType,
 list,
 placeBefore;
-for ( ; i < length; i++ ) {
+for ( ; i < length; i++) {
 dataType = dataTypes[ i ];
-placeBefore = /^\+/.test( dataType );
+placeBefore =/^\+/.test( dataType );
 if ( placeBefore ) {
 dataType = dataType.substr( 1 ) || "*";
 }
@@ -4960,7 +4936,7 @@ i = 0,
 length = list ? list.length : 0,
 executeOnly = ( structure === prefilters ),
 selection;
-for ( ; i < length && ( executeOnly || !selection ); i++ ) {
+for ( ; i < length && ( executeOnly || !selection ); i++) {
 selection = list[ i ]( options, originalOptions, jqXHR );
 if ( typeof selection === "string" ) {
 if ( !executeOnly || inspected[ selection ] ) {
@@ -4977,9 +4953,7 @@ selection = inspectPrefiltersOrTransports(
 structure, options, originalOptions, jqXHR, "*", inspected );
 }
 return selection;
-}
-// that takes "flat" options (not to be deep extended)
-// Fixes #9887
+}//that takes "flat" options (not to be deep extended)//Fixes #9887
 function ajaxExtend( target, src ) {
 var key, deep,
 flatOptions = jQuery.ajaxSettings.flatOptions || {};
@@ -5117,16 +5091,15 @@ json: "application/json, text/javascript",
 "*": allTypes
 },
 contents: {
-xml: /xml/,
-html: /html/,
-json: /json/
-},
+xml:/xml/,
+html:/html/,
+json:/json/},
 responseFields: {
 xml: "responseXML",
 text: "responseText"
 },
 converters: {
-"* text": window.String,
+"*text": window.String,
 "text html": true,
 "text json": jQuery.parseJSON,
 "text xml": jQuery.parseXML
@@ -5144,7 +5117,7 @@ options = url;
 url = undefined;
 }
 options = options || {};
-var // Create the final options object
+var//Create the final options object
 s = jQuery.ajaxSetup( {}, options ),
 callbackContext = s.context || s,
 globalEventContext = callbackContext !== s &&
@@ -5255,7 +5228,7 @@ status = 0;
 }
 }
 jqXHR.status = status;
-jqXHR.statusText = "" + ( nativeStatusText || statusText );
+jqXHR.statusText = ""+( nativeStatusText || statusText );
 if ( isSuccess ) {
 deferred.resolveWith( callbackContext, [ success, statusText, jqXHR ] );
 } else {
@@ -5264,13 +5237,13 @@ deferred.rejectWith( callbackContext, [ jqXHR, statusText, error ] );
 jqXHR.statusCode( statusCode );
 statusCode = undefined;
 if ( fireGlobals ) {
-globalEventContext.trigger( "ajax" + ( isSuccess ? "Success" : "Error" ),
+globalEventContext.trigger( "ajax"+( isSuccess ? "Success" : "Error" ),
 [ jqXHR, s, isSuccess ? success : error ] );
 }
 completeDeferred.fireWith( callbackContext, [ jqXHR, statusText ] );
 if ( fireGlobals ) {
 globalEventContext.trigger( "ajaxComplete", [ jqXHR, s ] );
-if ( !( --jQuery.active ) ) {
+if ( !(--jQuery.active ) ) {
 jQuery.event.trigger( "ajaxStop" );
 }
 }
@@ -5293,7 +5266,7 @@ jqXHR.then( tmp, tmp );
 }
 return this;
 };
-s.url = ( ( url || s.url ) + "" ).replace( rhash, "" ).replace( rprotocol, ajaxLocParts[ 1 ] + "//" );
+s.url = ( ( url || s.url )+"" ).replace( rhash, "" ).replace( rprotocol, ajaxLocParts[ 1 ]+"//" );
 s.dataTypes = jQuery.trim( s.dataType || "*" ).toLowerCase().split( rspacesAjax );
 if ( s.crossDomain == null ) {
 parts = rurl.exec( s.url.toLowerCase() );
@@ -5313,19 +5286,19 @@ return false;
 fireGlobals = s.global;
 s.type = s.type.toUpperCase();
 s.hasContent = !rnoContent.test( s.type );
-if ( fireGlobals && jQuery.active++ === 0 ) {
+if ( fireGlobals && jQuery.active++=== 0 ) {
 jQuery.event.trigger( "ajaxStart" );
 }
 if ( !s.hasContent ) {
 if ( s.data ) {
-s.url += ( rquery.test( s.url ) ? "&" : "?" ) + s.data;
+s.url+= ( rquery.test( s.url ) ? "&" : "?" )+s.data;
 delete s.data;
 }
 ifModifiedKey = s.url;
 if ( s.cache === false ) {
 var ts = jQuery.now(),
-ret = s.url.replace( rts, "$1_=" + ts );
-s.url = ret + ( ( ret === s.url ) ? ( rquery.test( s.url ) ? "&" : "?" ) + "_=" + ts : "" );
+ret = s.url.replace( rts, "$1_="+ts );
+s.url = ret+( ( ret === s.url ) ? ( rquery.test( s.url ) ? "&" : "?" )+"_="+ts : "" );
 }
 }
 if ( s.data && s.hasContent && s.contentType !== false || options.contentType ) {
@@ -5343,7 +5316,7 @@ jqXHR.setRequestHeader( "If-None-Match", jQuery.etag[ ifModifiedKey ] );
 jqXHR.setRequestHeader(
 "Accept",
 s.dataTypes[ 0 ] && s.accepts[ s.dataTypes[0] ] ?
-s.accepts[ s.dataTypes[0] ] + ( s.dataTypes[ 0 ] !== "*" ? ", " + allTypes + "; q=0.01" : "" ) :
+s.accepts[ s.dataTypes[0] ]+( s.dataTypes[ 0 ] !== "*" ? ", "+allTypes+"; q=0.01" : "" ) :
 s.accepts[ "*" ]
 );
 for ( i in s.headers ) {
@@ -5358,7 +5331,7 @@ jqXHR[ i ]( s[ i ] );
 }
 transport = inspectPrefiltersOrTransports( transports, s, options, jqXHR );
 if ( !transport ) {
-done( -1, "No Transport" );
+done(-1, "No Transport" );
 } else {
 jqXHR.readyState = 1;
 if ( fireGlobals ) {
@@ -5374,7 +5347,7 @@ state = 1;
 transport.send( requestHeaders, done );
 } catch (e) {
 if ( state < 2 ) {
-done( -1, e );
+done(-1, e );
 } else {
 throw e;
 }
@@ -5386,7 +5359,7 @@ param: function( a, traditional ) {
 var s = [],
 add = function( key, value ) {
 value = jQuery.isFunction( value ) ? value() : value;
-s[ s.length ] = encodeURIComponent( key ) + "=" + encodeURIComponent( value );
+s[ s.length ] = encodeURIComponent( key )+"="+encodeURIComponent( value );
 };
 if ( traditional === undefined ) {
 traditional = jQuery.ajaxSettings.traditional;
@@ -5409,18 +5382,17 @@ jQuery.each( obj, function( i, v ) {
 if ( traditional || rbracket.test( prefix ) ) {
 add( prefix, v );
 } else {
-buildParams( prefix + "[" + ( typeof v === "object" ? i : "" ) + "]", v, traditional, add );
+buildParams( prefix+"["+( typeof v === "object" ? i : "" )+"]", v, traditional, add );
 }
 });
 } else if ( !traditional && jQuery.type( obj ) === "object" ) {
 for ( var name in obj ) {
-buildParams( prefix + "[" + name + "]", obj[ name ], traditional, add );
+buildParams( prefix+"["+name+"]", obj[ name ], traditional, add );
 }
 } else {
 add( prefix, obj );
 }
-}
-// Want to move this to jQuery.ajax some day
+}//Want to move this to jQuery.ajax some day
 jQuery.extend({
 active: 0,
 lastModified: {},
@@ -5457,7 +5429,7 @@ if ( dataTypes[ 0 ] in responses ) {
 finalDataType = dataTypes[ 0 ];
 } else {
 for ( type in responses ) {
-if ( !dataTypes[ 0 ] || s.converters[ type + " " + dataTypes[0] ] ) {
+if ( !dataTypes[ 0 ] || s.converters[ type+" "+dataTypes[0] ] ) {
 finalDataType = type;
 break;
 }
@@ -5490,7 +5462,7 @@ conversion,
 conv,
 conv1,
 conv2;
-for ( i = 1; i < length; i++ ) {
+for ( i = 1; i < length; i++) {
 if ( i === 1 ) {
 for ( key in s.converters ) {
 if ( typeof key === "string" ) {
@@ -5503,14 +5475,14 @@ current = dataTypes[ i ];
 if ( current === "*" ) {
 current = prev;
 } else if ( prev !== "*" && prev !== current ) {
-conversion = prev + " " + current;
-conv = converters[ conversion ] || converters[ "* " + current ];
+conversion = prev+" "+current;
+conv = converters[ conversion ] || converters[ "*"+current ];
 if ( !conv ) {
 conv2 = undefined;
 for ( conv1 in converters ) {
 tmp = conv1.split( " " );
 if ( tmp[ 0 ] === prev || tmp[ 0 ] === "*" ) {
-conv2 = converters[ tmp[1] + " " + current ];
+conv2 = converters[ tmp[1]+" "+current ];
 if ( conv2 ) {
 conv1 = converters[ conv1 ];
 if ( conv1 === true ) {
@@ -5524,7 +5496,7 @@ break;
 }
 }
 if ( !( conv || conv2 ) ) {
-jQuery.error( "No conversion from " + conversion.replace(" "," to ") );
+jQuery.error( "No conversion from "+conversion.replace(" "," to ") );
 }
 if ( conv !== true ) {
 response = conv ? conv( response ) : conv2( conv1(response) );
@@ -5534,15 +5506,15 @@ response = conv ? conv( response ) : conv2( conv1(response) );
 return response;
 }
 var jsc = jQuery.now(),
-jsre = /(\=)\?(&|$)|\?\?/i;
+jsre =/(\=)\?(&|$)|\?\?/i;
 jQuery.ajaxSetup({
 jsonp: "callback",
 jsonpCallback: function() {
-return jQuery.expando + "_" + ( jsc++ );
+return jQuery.expando+"_"+( jsc++);
 }
 });
 jQuery.ajaxPrefilter( "json jsonp", function( s, originalSettings, jqXHR ) {
-var inspectData = ( typeof s.data === "string" ) && /^application\/x\-www\-form\-urlencoded/.test( s.contentType );
+var inspectData = ( typeof s.data === "string" ) &&/^application\/x\-www\-form\-urlencoded/.test( s.contentType );
 if ( s.dataTypes[ 0 ] === "jsonp" ||
 s.jsonp !== false && ( jsre.test( s.url ) ||
 inspectData && jsre.test( s.data ) ) ) {
@@ -5552,7 +5524,7 @@ jQuery.isFunction( s.jsonpCallback ) ? s.jsonpCallback() : s.jsonpCallback,
 previous = window[ jsonpCallback ],
 url = s.url,
 data = s.data,
-replace = "$1" + jsonpCallback + "$2";
+replace = "$1"+jsonpCallback+"$2";
 if ( s.jsonp !== false ) {
 url = url.replace( jsre, replace );
 if ( s.url === url ) {
@@ -5560,7 +5532,7 @@ if ( inspectData ) {
 data = data.replace( jsre, replace );
 }
 if ( s.data === data ) {
-url += (/\?/.test( url ) ? "&" : "?") + s.jsonp + "=" + jsonpCallback;
+url+= (/\?/.test( url ) ? "&" : "?")+s.jsonp+"="+jsonpCallback;
 }
 }
 }
@@ -5577,7 +5549,7 @@ window[ jsonpCallback ]( responseContainer[ 0 ] );
 });
 s.converters["script json"] = function() {
 if ( !responseContainer ) {
-jQuery.error( jsonpCallback + " was not called" );
+jQuery.error( jsonpCallback+" was not called" );
 }
 return responseContainer[ 0 ];
 };
@@ -5590,8 +5562,7 @@ accepts: {
 script: "text/javascript, application/javascript, application/ecmascript, application/x-ecmascript"
 },
 contents: {
-script: /javascript|ecmascript/
-},
+script:/javascript|ecmascript/},
 converters: {
 "text script": function( text ) {
 jQuery.globalEval( text );
@@ -5621,7 +5592,7 @@ script.charset = s.scriptCharset;
 }
 script.src = s.url;
 script.onload = script.onreadystatechange = function( _, isAbort ) {
-if ( isAbort || !script.readyState || /loaded|complete/.test( script.readyState ) ) {
+if ( isAbort || !script.readyState ||/loaded|complete/.test( script.readyState ) ) {
 script.onload = script.onreadystatechange = null;
 if ( head && script.parentNode ) {
 head.removeChild( script );
@@ -5642,7 +5613,7 @@ script.onload( 0, 1 );
 };
 }
 });
-var // #5280: Internet Explorer will keep connections alive if we don't abort on unload
+var//#5280: Internet Explorer will keep connections alive if we don't abort on unload
 xhrOnUnloadAbort = window.ActiveXObject ? function() {
 for ( var key in xhrCallbacks ) {
 xhrCallbacks[ key ]( 0, 1 );
@@ -5659,8 +5630,7 @@ function createActiveXHR() {
 try {
 return new window.ActiveXObject( "Microsoft.XMLHTTP" );
 } catch( e ) {}
-}
-// (This is still attached to ajaxSettings for backward compatibility)
+}//(This is still attached to ajaxSettings for backward compatibility)
 jQuery.ajaxSettings.xhr = window.ActiveXObject ?
 function() {
 return !this.isLocal && createStandardXHR() || createActiveXHR();
@@ -5748,7 +5718,7 @@ status = 204;
 }
 } catch( firefoxAccessException ) {
 if ( !isAbort ) {
-complete( -1, firefoxAccessException );
+complete(-1, firefoxAccessException );
 }
 }
 if ( responses ) {
@@ -5758,7 +5728,7 @@ complete( status, statusText, responses, responseHeaders );
 if ( !s.async || xhr.readyState === 4 ) {
 callback();
 } else {
-handle = ++xhrId;
+handle =++xhrId;
 if ( xhrOnUnloadAbort ) {
 if ( !xhrCallbacks ) {
 xhrCallbacks = {};
@@ -5780,8 +5750,8 @@ callback(0,1);
 }
 var elemdisplay = {},
 iframe, iframeDoc,
-rfxtypes = /^(?:toggle|show|hide)$/,
-rfxnum = /^([+\-]=)?([\d+.\-]+)([a-z%]*)$/i,
+rfxtypes =/^(?:toggle|show|hide)$/,
+rfxnum =/^([+\-]=)?([\d+.\-]+)([a-z%]*)$/i,
 timerId,
 fxAttrs = [
 [ "height", "marginTop", "marginBottom", "paddingTop", "paddingBottom" ],
@@ -5795,7 +5765,7 @@ var elem, display;
 if ( speed || speed === 0 ) {
 return this.animate( genFx("show", 3), speed, easing, callback );
 } else {
-for ( var i = 0, j = this.length; i < j; i++ ) {
+for ( var i = 0, j = this.length; i < j; i++) {
 elem = this[ i ];
 if ( elem.style ) {
 display = elem.style.display;
@@ -5808,7 +5778,7 @@ jQuery._data( elem, "olddisplay", defaultDisplay(elem.nodeName) );
 }
 }
 }
-for ( i = 0; i < j; i++ ) {
+for ( i = 0; i < j; i++) {
 elem = this[ i ];
 if ( elem.style ) {
 display = elem.style.display;
@@ -5827,7 +5797,7 @@ return this.animate( genFx("hide", 3), speed, easing, callback);
 var elem, display,
 i = 0,
 j = this.length;
-for ( ; i < j; i++ ) {
+for ( ; i < j; i++) {
 elem = this[i];
 if ( elem.style ) {
 display = jQuery.css( elem, "display" );
@@ -5836,7 +5806,7 @@ jQuery._data( elem, "olddisplay", display );
 }
 }
 }
-for ( i = 0; i < j; i++ ) {
+for ( i = 0; i < j; i++) {
 if ( this[i].style ) {
 this[i].style.display = "none";
 }
@@ -5926,9 +5896,9 @@ for ( p in prop ) {
 e = new jQuery.fx( this, opt, p );
 val = prop[ p ];
 if ( rfxtypes.test( val ) ) {
-method = jQuery._data( this, "toggle" + p ) || ( val === "toggle" ? hidden ? "show" : "hide" : 0 );
+method = jQuery._data( this, "toggle"+p ) || ( val === "toggle" ? hidden ? "show" : "hide" : 0 );
 if ( method ) {
-jQuery._data( this, "toggle" + p, method === "show" ? "hide" : "show" );
+jQuery._data( this, "toggle"+p, method === "show" ? "hide" : "show" );
 e[ method ]();
 } else {
 e[ val ]();
@@ -5940,12 +5910,12 @@ if ( parts ) {
 end = parseFloat( parts[2] );
 unit = parts[3] || ( jQuery.cssNumber[ p ] ? "" : "px" );
 if ( unit !== "px" ) {
-jQuery.style( this, p, (end || 1) + unit);
-start = ( (end || 1) / e.cur() ) * start;
-jQuery.style( this, p, start + unit);
+jQuery.style( this, p, (end || 1)+unit);
+start = ( (end || 1)/e.cur() )*start;
+jQuery.style( this, p, start+unit);
 }
 if ( parts[1] ) {
-end = ( (parts[ 1 ] === "-=" ? -1 : 1) * end ) + start;
+end = ( (parts[ 1 ] === "-=" ?-1 : 1)*end )+start;
 }
 e.custom( start, end, unit );
 } else {
@@ -5983,11 +5953,11 @@ hooks.stop( gotoEnd );
 }
 if ( type == null ) {
 for ( index in data ) {
-if ( data[ index ] && data[ index ].stop && index.indexOf(".run") === index.length - 4 ) {
+if ( data[ index ] && data[ index ].stop && index.indexOf(".run") === index.length-4 ) {
 stopQueue( this, data, index );
 }
 }
-} else if ( data[ index = type + ".run" ] && data[ index ].stop ){
+} else if ( data[ index = type+".run" ] && data[ index ].stop ){
 stopQueue( this, data, index );
 }
 for ( index = timers.length; index--; ) {
@@ -6064,7 +6034,7 @@ linear: function( p ) {
 return p;
 },
 swing: function( p ) {
-return ( -Math.cos( p*Math.PI ) / 2 ) + 0.5;
+return (-Math.cos( p*Math.PI )/2 )+0.5;
 }
 },
 timers: [],
@@ -6104,11 +6074,11 @@ return self.step( gotoEnd );
 t.queue = this.options.queue;
 t.elem = this.elem;
 t.saveState = function() {
-if ( jQuery._data( self.elem, "fxshow" + self.prop ) === undefined ) {
+if ( jQuery._data( self.elem, "fxshow"+self.prop ) === undefined ) {
 if ( self.options.hide ) {
-jQuery._data( self.elem, "fxshow" + self.prop, self.start );
+jQuery._data( self.elem, "fxshow"+self.prop, self.start );
 } else if ( self.options.show ) {
-jQuery._data( self.elem, "fxshow" + self.prop, self.end );
+jQuery._data( self.elem, "fxshow"+self.prop, self.end );
 }
 }
 };
@@ -6117,7 +6087,7 @@ timerId = setInterval( fx.tick, fx.interval );
 }
 },
 show: function() {
-var dataShow = jQuery._data( this.elem, "fxshow" + this.prop );
+var dataShow = jQuery._data( this.elem, "fxshow"+this.prop );
 this.options.orig[ this.prop ] = dataShow || jQuery.style( this.elem, this.prop );
 this.options.show = true;
 if ( dataShow !== undefined ) {
@@ -6128,7 +6098,7 @@ this.custom( this.prop === "width" || this.prop === "height" ? 1 : 0, this.cur()
 jQuery( this.elem ).show();
 },
 hide: function() {
-this.options.orig[ this.prop ] = jQuery._data( this.elem, "fxshow" + this.prop ) || jQuery.style( this.elem, this.prop );
+this.options.orig[ this.prop ] = jQuery._data( this.elem, "fxshow"+this.prop ) || jQuery.style( this.elem, this.prop );
 this.options.hide = true;
 this.custom( this.cur(), 0 );
 },
@@ -6138,7 +6108,7 @@ t = fxNow || createFxNow(),
 done = true,
 elem = this.elem,
 options = this.options;
-if ( gotoEnd || t >= options.duration + this.startTime ) {
+if ( gotoEnd || t >= options.duration+this.startTime ) {
 this.now = this.end;
 this.pos = this.state = 1;
 this.update();
@@ -6151,7 +6121,7 @@ done = false;
 if ( done ) {
 if ( options.overflow != null && !jQuery.support.shrinkWrapBlocks ) {
 jQuery.each( [ "", "X", "Y" ], function( index, value ) {
-elem.style[ "overflow" + value ] = options.overflow[ index ];
+elem.style[ "overflow"+value ] = options.overflow[ index ];
 });
 }
 if ( options.hide ) {
@@ -6160,8 +6130,8 @@ jQuery( elem ).hide();
 if ( options.hide || options.show ) {
 for ( p in options.animatedProperties ) {
 jQuery.style( elem, p, options.orig[ p ] );
-jQuery.removeData( elem, "fxshow" + p, true );
-jQuery.removeData( elem, "toggle" + p, true );
+jQuery.removeData( elem, "fxshow"+p, true );
+jQuery.removeData( elem, "toggle"+p, true );
 }
 }
 complete = options.complete;
@@ -6175,10 +6145,10 @@ return false;
 if ( options.duration == Infinity ) {
 this.now = t;
 } else {
-n = t - this.startTime;
-this.state = n / options.duration;
+n = t-this.startTime;
+this.state = n/options.duration;
 this.pos = jQuery.easing[ options.animatedProperties[this.prop] ]( this.state, n, 0, 1, options.duration );
-this.now = this.start + ( (this.end - this.start) * this.pos );
+this.now = this.start+( (this.end-this.start)*this.pos );
 }
 this.update();
 }
@@ -6190,7 +6160,7 @@ tick: function() {
 var timer,
 timers = jQuery.timers,
 i = 0;
-for ( ; i < timers.length; i++ ) {
+for ( ; i < timers.length; i++) {
 timer = timers[ i ];
 if ( !timer() && timers[ i ] === timer ) {
 timers.splice( i--, 1 );
@@ -6216,7 +6186,7 @@ jQuery.style( fx.elem, "opacity", fx.now );
 },
 _default: function( fx ) {
 if ( fx.elem.style && fx.elem.style[ fx.prop ] != null ) {
-fx.elem.style[ fx.prop ] = fx.now + fx.unit;
+fx.elem.style[ fx.prop ] = fx.now+fx.unit;
 } else {
 fx.elem[ fx.prop ] = fx.now;
 }
@@ -6226,7 +6196,7 @@ fx.elem[ fx.prop ] = fx.now;
 jQuery.each( fxAttrs.concat.apply( [], fxAttrs ), function( i, prop ) {
 if ( prop.indexOf( "margin" ) ) {
 jQuery.fx.step[ prop ] = function( fx ) {
-jQuery.style( fx.elem, prop, Math.max(0, fx.now) + fx.unit );
+jQuery.style( fx.elem, prop, Math.max(0, fx.now)+fx.unit );
 };
 }
 });
@@ -6240,7 +6210,7 @@ return elem === fn.elem;
 function defaultDisplay( nodeName ) {
 if ( !elemdisplay[ nodeName ] ) {
 var body = document.body,
-elem = jQuery( "<" + nodeName + ">" ).appendTo( body ),
+elem = jQuery( "<"+nodeName+">" ).appendTo( body ),
 display = elem.css( "display" );
 elem.remove();
 if ( display === "none" || display === "" ) {
@@ -6251,7 +6221,7 @@ iframe.frameBorder = iframe.width = iframe.height = 0;
 body.appendChild( iframe );
 if ( !iframeDoc || !iframe.createElement ) {
 iframeDoc = ( iframe.contentWindow || iframe.contentDocument ).document;
-iframeDoc.write( ( jQuery.support.boxModel ? "<!doctype html>" : "" ) + "<html><body>" );
+iframeDoc.write( ( jQuery.support.boxModel ? "<!doctype html>" : "" )+"<html><body>" );
 iframeDoc.close();
 }
 elem = iframeDoc.createElement( nodeName );
@@ -6264,8 +6234,8 @@ elemdisplay[ nodeName ] = display;
 return elemdisplay[ nodeName ];
 }
 var getOffset,
-rtable = /^t(?:able|d|h)$/i,
-rroot = /^(?:body|html)$/i;
+rtable =/^t(?:able|d|h)$/i,
+rroot =/^(?:body|html)$/i;
 if ( "getBoundingClientRect" in document.documentElement ) {
 getOffset = function( elem, doc, docElem, box ) {
 try {
@@ -6280,8 +6250,8 @@ clientTop  = docElem.clientTop  || body.clientTop  || 0,
 clientLeft = docElem.clientLeft || body.clientLeft || 0,
 scrollTop  = win.pageYOffset || jQuery.support.boxModel && docElem.scrollTop  || body.scrollTop,
 scrollLeft = win.pageXOffset || jQuery.support.boxModel && docElem.scrollLeft || body.scrollLeft,
-top  = box.top  + scrollTop  - clientTop,
-left = box.left + scrollLeft - clientLeft;
+top  = box.top+scrollTop-clientTop,
+left = box.left+scrollLeft-clientLeft;
 return { top: top, left: left };
 };
 } else {
@@ -6299,31 +6269,31 @@ if ( jQuery.support.fixedPosition && prevComputedStyle.position === "fixed" ) {
 break;
 }
 computedStyle = defaultView ? defaultView.getComputedStyle(elem, null) : elem.currentStyle;
-top  -= elem.scrollTop;
-left -= elem.scrollLeft;
+top-= elem.scrollTop;
+left-= elem.scrollLeft;
 if ( elem === offsetParent ) {
-top  += elem.offsetTop;
-left += elem.offsetLeft;
+top+= elem.offsetTop;
+left+= elem.offsetLeft;
 if ( jQuery.support.doesNotAddBorder && !(jQuery.support.doesAddBorderForTableAndCells && rtable.test(elem.nodeName)) ) {
-top  += parseFloat( computedStyle.borderTopWidth  ) || 0;
-left += parseFloat( computedStyle.borderLeftWidth ) || 0;
+top+= parseFloat( computedStyle.borderTopWidth  ) || 0;
+left+= parseFloat( computedStyle.borderLeftWidth ) || 0;
 }
 prevOffsetParent = offsetParent;
 offsetParent = elem.offsetParent;
 }
 if ( jQuery.support.subtractsBorderForOverflowNotVisible && computedStyle.overflow !== "visible" ) {
-top  += parseFloat( computedStyle.borderTopWidth  ) || 0;
-left += parseFloat( computedStyle.borderLeftWidth ) || 0;
+top+= parseFloat( computedStyle.borderTopWidth  ) || 0;
+left+= parseFloat( computedStyle.borderLeftWidth ) || 0;
 }
 prevComputedStyle = computedStyle;
 }
 if ( prevComputedStyle.position === "relative" || prevComputedStyle.position === "static" ) {
-top  += body.offsetTop;
-left += body.offsetLeft;
+top+= body.offsetTop;
+left+= body.offsetLeft;
 }
 if ( jQuery.support.fixedPosition && prevComputedStyle.position === "fixed" ) {
-top  += Math.max( docElem.scrollTop, body.scrollTop );
-left += Math.max( docElem.scrollLeft, body.scrollLeft );
+top+= Math.max( docElem.scrollTop, body.scrollTop );
+left+= Math.max( docElem.scrollLeft, body.scrollLeft );
 }
 return { top: top, left: left };
 };
@@ -6351,8 +6321,8 @@ bodyOffset: function( body ) {
 var top = body.offsetTop,
 left = body.offsetLeft;
 if ( jQuery.support.doesNotIncludeMarginInBodyOffset ) {
-top  += parseFloat( jQuery.css(body, "marginTop") ) || 0;
-left += parseFloat( jQuery.css(body, "marginLeft") ) || 0;
+top+= parseFloat( jQuery.css(body, "marginTop") ) || 0;
+left+= parseFloat( jQuery.css(body, "marginLeft") ) || 0;
 }
 return { top: top, left: left };
 },
@@ -6365,7 +6335,7 @@ var curElem = jQuery( elem ),
 curOffset = curElem.offset(),
 curCSSTop = jQuery.css( elem, "top" ),
 curCSSLeft = jQuery.css( elem, "left" ),
-calculatePosition = ( position === "absolute" || position === "fixed" ) && jQuery.inArray("auto", [curCSSTop, curCSSLeft]) > -1,
+calculatePosition = ( position === "absolute" || position === "fixed" ) && jQuery.inArray("auto", [curCSSTop, curCSSLeft]) >-1,
 props = {}, curPosition = {}, curTop, curLeft;
 if ( calculatePosition ) {
 curPosition = curElem.position();
@@ -6379,10 +6349,10 @@ if ( jQuery.isFunction( options ) ) {
 options = options.call( elem, i, curOffset );
 }
 if ( options.top != null ) {
-props.top = ( options.top - curOffset.top ) + curTop;
+props.top = ( options.top-curOffset.top )+curTop;
 }
 if ( options.left != null ) {
-props.left = ( options.left - curOffset.left ) + curLeft;
+props.left = ( options.left-curOffset.left )+curLeft;
 }
 if ( "using" in options ) {
 options.using.call( elem, props );
@@ -6400,13 +6370,13 @@ var elem = this[0],
 offsetParent = this.offsetParent(),
 offset       = this.offset(),
 parentOffset = rroot.test(offsetParent[0].nodeName) ? { top: 0, left: 0 } : offsetParent.offset();
-offset.top  -= parseFloat( jQuery.css(elem, "marginTop") ) || 0;
-offset.left -= parseFloat( jQuery.css(elem, "marginLeft") ) || 0;
-parentOffset.top  += parseFloat( jQuery.css(offsetParent[0], "borderTopWidth") ) || 0;
-parentOffset.left += parseFloat( jQuery.css(offsetParent[0], "borderLeftWidth") ) || 0;
+offset.top-= parseFloat( jQuery.css(elem, "marginTop") ) || 0;
+offset.left-= parseFloat( jQuery.css(elem, "marginLeft") ) || 0;
+parentOffset.top+= parseFloat( jQuery.css(offsetParent[0], "borderTopWidth") ) || 0;
+parentOffset.left+= parseFloat( jQuery.css(offsetParent[0], "borderLeftWidth") ) || 0;
 return {
-top:  offset.top  - parentOffset.top,
-left: offset.left - parentOffset.left
+top:  offset.top-parentOffset.top,
+left: offset.left-parentOffset.left
 };
 },
 offsetParent: function() {
@@ -6420,7 +6390,7 @@ return offsetParent;
 }
 });
 jQuery.each( {scrollLeft: "pageXOffset", scrollTop: "pageYOffset"}, function( method, prop ) {
-var top = /Y/.test( prop );
+var top =/Y/.test( prop );
 jQuery.fn[ method ] = function( val ) {
 return jQuery.access( this, function( elem, method, val ) {
 var win = getWindow( elem );
@@ -6449,10 +6419,10 @@ elem.defaultView || elem.parentWindow :
 false;
 }
 jQuery.each( { Height: "height", Width: "width" }, function( name, type ) {
-var clientProp = "client" + name,
-scrollProp = "scroll" + name,
-offsetProp = "offset" + name;
-jQuery.fn[ "inner" + name ] = function() {
+var clientProp = "client"+name,
+scrollProp = "scroll"+name,
+offsetProp = "offset"+name;
+jQuery.fn[ "inner"+name ] = function() {
 var elem = this[0];
 return elem ?
 elem.style ?
@@ -6460,7 +6430,7 @@ parseFloat( jQuery.css( elem, type, "padding" ) ) :
 this[ type ]() :
 null;
 };
-jQuery.fn[ "outer" + name ] = function( margin ) {
+jQuery.fn[ "outer"+name ] = function( margin ) {
 var elem = this[0];
 return elem ?
 elem.style ?
@@ -6496,18 +6466,7 @@ jQuery( elem ).css( type, value );
 }, type, value, arguments.length, null );
 };
 });
-window.jQuery = window.$ = jQuery;
-// understand the issues with loading multiple versions of jQuery
-// in a page that all might call define(). The loader will indicate
-// they have special allowances for multiple jQuery versions by
-// specifying define.amd.jQuery = true. Register as a named module,
-// since jQuery can be concatenated with other files that may use define,
-// but not use a proper concatenation script that understands anonymous
-// AMD modules. A named AMD is safest and most robust way to register.
-// Lowercase jquery is used because AMD module names are derived from
-// file names, and jQuery is normally delivered in a lowercase file name.
-// Do this after creating the global so that if an AMD module wants to call
-// noConflict to hide this version of jQuery, it will work.
+window.jQuery = window.$ = jQuery;//understand the issues with loading multiple versions of jQuery//in a page that all might call define(). The loader will indicate//they have special allowances for multiple jQuery versions by//specifying define.amd.jQuery = true. Register as a named module,//since jQuery can be concatenated with other files that may use define,//but not use a proper concatenation script that understands anonymous//AMD modules. A named AMD is safest and most robust way to register.//Lowercase jquery is used because AMD module names are derived from//file names, and jQuery is normally delivered in a lowercase file name.//Do this after creating the global so that if an AMD module wants to call//noConflict to hide this version of jQuery, it will work.
 if ( typeof define === "function" && define.amd && define.amd.jQuery ) {
 define( "jquery", [], function () { return jQuery; } );
 }

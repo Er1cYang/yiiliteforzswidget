@@ -49,7 +49,7 @@ $this->gc();
 $this->_gced=true;
 }
 if($expire<=0)
-$expire=31536000; // 1 year
+$expire=31536000;//1 year
 $expire+=time();
 $cacheFile=$this->getCacheFile($key);
 if($this->directoryLevel>0)

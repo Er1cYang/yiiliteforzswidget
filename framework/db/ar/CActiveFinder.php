@@ -139,9 +139,9 @@ else
 $model->setTableAlias($relation->alias);
 }
 if(!empty($relation->scopes))
-$scopes=array_merge($scopes,(array)$relation->scopes); // no need for complex merging
+$scopes=array_merge($scopes,(array)$relation->scopes);//no need for complex merging
 if(!empty($options['scopes']))
-$scopes=array_merge($scopes,(array)$options['scopes']); // no need for complex merging
+$scopes=array_merge($scopes,(array)$options['scopes']);//no need for complex merging
 $model->resetScope(false);
 $criteria=$model->getDbCriteria();
 $criteria->scopes=$scopes;
@@ -176,7 +176,7 @@ return $element;
 }
 foreach($with as $key=>$value)
 {
-if(is_string($value))  // the value is a relation name
+if(is_string($value))//the value is a relation name
 $this->buildJoinTree($parent,$value);
 else if(is_string($key) && is_array($value))
 $this->buildJoinTree($parent,$key,$value);
@@ -198,11 +198,11 @@ public $rawTableAlias;
 private $_finder;
 private $_builder;
 private $_parent;
-private $_pkAlias;  				// string or name=>alias
-private $_columnAliases=array();	// name=>alias
+private $_pkAlias;//string or name=>alias
+private $_columnAliases=array();//name=>alias
 private $_joined=false;
 private $_table;
-private $_related=array();			// PK, relation name, related PK=>true
+private $_related=array();//PK, relation name, related PK=>true
 public function __construct($finder,$relation,$parent=null,$id=0)
 {
 $this->_finder=$finder;
@@ -217,7 +217,7 @@ $this->tableAlias=$relation->alias===null?$relation->name:$relation->alias;
 $this->rawTableAlias=$this->_builder->getSchema()->quoteTableName($this->tableAlias);
 $this->_table=$this->model->getTableSchema();
 }
-else  // root element, the first parameter is the model.
+else//root element, the first parameter is the model.
 {
 $this->model=$relation;
 $this->_builder=$relation->getCommandBuilder();
@@ -226,7 +226,7 @@ $this->tableAlias=$this->model->getTableAlias();
 $this->rawTableAlias=$this->_builder->getSchema()->quoteTableName($this->tableAlias);
 }
 $table=$this->_table;
-if($this->model->getDbConnection()->getDriverName()==='oci')  // Issue 482
+if($this->model->getDbConnection()->getDriverName()==='oci')//Issue 482
 $prefix='T'.$id.'_C';
 else
 $prefix='t'.$id.'_c';
@@ -251,7 +251,7 @@ unset($this->_finder, $this->_parent, $this->model, $this->relation, $this->mast
 }
 public function find($criteria=null)
 {
-if($this->_parent===null) // root element
+if($this->_parent===null)//root element
 {
 $query=new CJoinQuery($this,$criteria);
 $this->_finder->baseLimited=($criteria->offset>=0 || $criteria->limit>=0);
@@ -259,7 +259,7 @@ $this->buildQuery($query);
 $this->_finder->baseLimited=false;
 $this->runQuery($query);
 }
-else if(!$this->_joined && !empty($this->_parent->records)) // not joined before
+else if(!$this->_joined && !empty($this->_parent->records))//not joined before
 {
 $query=new CJoinQuery($this->_parent);
 $this->_joined=true;
@@ -267,7 +267,7 @@ $query->join($this);
 $this->buildQuery($query);
 $this->_parent->runQuery($query);
 }
-foreach($this->children as $child) // find recursively
+foreach($this->children as $child)//find recursively
 $child->find();
 foreach($this->stats as $stat)
 $stat->query();
@@ -293,7 +293,7 @@ break;
 case 1:
 $child=reset($this->children);
 break;
-default: // bridge(s) inside
+default://bridge(s) inside
 $child=end($this->children);
 break;
 }
@@ -328,7 +328,7 @@ if(empty($child->records))
 return;
 if($child->relation instanceof CHasOneRelation || $child->relation instanceof CBelongsToRelation)
 $baseRecord->addRelatedRecord($child->relation->name,reset($child->records),false);
-else // has_many and many_many
+else//has_many and many_many
 {
 foreach($child->records as $record)
 {
@@ -359,7 +359,7 @@ $params=array();
 $fkDefined=true;
 foreach($fks as $i=>$fk)
 {
-if(isset($joinTable->foreignKeys[$fk]))  // FK defined
+if(isset($joinTable->foreignKeys[$fk]))//FK defined
 {
 list($tableName,$pk)=$joinTable->foreignKeys[$fk];
 if(!isset($parentCondition[$pk]) && $schema->compareTableNames($parent->_table->rawName,$tableName))
@@ -441,9 +441,9 @@ if($this->relation instanceof CBelongsToRelation)
 {
 if(is_int($i))
 {
-if(isset($parent->_table->foreignKeys[$fk]))  // FK defined
+if(isset($parent->_table->foreignKeys[$fk]))//FK defined
 $pk=$parent->_table->foreignKeys[$fk][1];
-else if(is_array($this->_table->primaryKey)) // composite PK
+else if(is_array($this->_table->primaryKey))//composite PK
 $pk=$this->_table->primaryKey[$i];
 else
 $pk=$this->_table->primaryKey;
@@ -454,9 +454,9 @@ else
 {
 if(is_int($i))
 {
-if(isset($this->_table->foreignKeys[$fk]))  // FK defined
+if(isset($this->_table->foreignKeys[$fk]))//FK defined
 $pk=$this->_table->foreignKeys[$fk][1];
-else if(is_array($parent->_table->primaryKey)) // composite PK
+else if(is_array($parent->_table->primaryKey))//composite PK
 $pk=$parent->_table->primaryKey[$i];
 else
 $pk=$parent->_table->primaryKey;
@@ -562,21 +562,21 @@ $this->populateRecord($query,$row);
 }
 private function populateRecord($query,$row)
 {
-if(is_string($this->_pkAlias))  // single key
+if(is_string($this->_pkAlias))//single key
 {
 if(isset($row[$this->_pkAlias]))
 $pk=$row[$this->_pkAlias];
-else	// no matching related objects
+else//no matching related objects
 return null;
 }
-else // is_array, composite key
+else//is_array, composite key
 {
 $pk=array();
 foreach($this->_pkAlias as $name=>$alias)
 {
 if(isset($row[$alias]))
 $pk[$name]=$row[$alias];
-else	// no matching related objects
+else//no matching related objects
 return null;
 }
 $pk=serialize($pk);
@@ -607,7 +607,7 @@ continue;
 $childRecord=$child->populateRecord($query,$row);
 if($child->relation instanceof CHasOneRelation || $child->relation instanceof CBelongsToRelation)
 $record->addRelatedRecord($child->relation->name,$childRecord,false);
-else // has_many and many_many
+else//has_many and many_many
 {
 if($childRecord instanceof CActiveRecord)
 $fpk=serialize($childRecord->getPrimaryKey());
@@ -670,12 +670,12 @@ $selected[$alias]=1;
 }
 continue;
 }
-if(isset($this->_columnAliases[$key]))  // simple column names
+if(isset($this->_columnAliases[$key]))//simple column names
 {
 $columns[]=$prefix.$schema->quoteColumnName($key).' AS '.$schema->quoteColumnName($this->_columnAliases[$key]);
 $selected[$this->_columnAliases[$key]]=1;
 }
-else if(preg_match('/^(.*?)\s+AS\s+(\w+)$/im',$name,$matches)) // if the column is already aliased
+else if(preg_match('/^(.*?)\s+AS\s+(\w+)$/im',$name,$matches))//if the column is already aliased
 {
 $alias=$matches[2];
 if(!isset($this->_columnAliases[$alias]) || $this->_columnAliases[$alias]!==$alias)
@@ -787,9 +787,9 @@ if(is_int($i))
 {
 if(isset($fke->_table->foreignKeys[$fk]) && $schema->compareTableNames($pke->_table->rawName, $fke->_table->foreignKeys[$fk][0]))
 $pk=$fke->_table->foreignKeys[$fk][1];
-else // FK constraints undefined
+else//FK constraints undefined
 {
-if(is_array($pke->_table->primaryKey)) // composite PK
+if(is_array($pke->_table->primaryKey))//composite PK
 $pk=$pke->_table->primaryKey[$i];
 else
 $pk=$pke->_table->primaryKey;
@@ -991,7 +991,7 @@ $fks=preg_split('/\s*,\s*/',$relation->foreignKey,-1,PREG_SPLIT_NO_EMPTY);
 if(count($fks)!==count($pkTable->primaryKey))
 throw new CDbException(Yii::t('yii','The relation "{relation}" in active record class "{class}" is specified with an invalid foreign key. The columns in the key must match the primary keys of the table "{table}".',
 array('{class}'=>get_class($parent->model), '{relation}'=>$relation->name, '{table}'=>$pkTable->name)));
-$map=array();  // pk=>fk
+$map=array();//pk=>fk
 foreach($fks as $i=>$fk)
 {
 if(!isset($table->columns[$fk]))
@@ -1006,9 +1006,9 @@ else
 throw new CDbException(Yii::t('yii','The relation "{relation}" in active record class "{class}" is specified with a foreign key "{key}" that does not point to the parent table "{table}".',
 array('{class}'=>get_class($parent->model), '{relation}'=>$relation->name, '{key}'=>$fk, '{table}'=>$pkTable->name)));
 }
-else  // FK constraints undefined
+else//FK constraints undefined
 {
-if(is_array($pkTable->primaryKey)) // composite PK
+if(is_array($pkTable->primaryKey))//composite PK
 $map[$pkTable->primaryKey[$i]]=$fk;
 else
 $map[$pkTable->primaryKey]=$fk;
@@ -1023,7 +1023,7 @@ $order=empty($relation->order)?'' : ' ORDER BY '.$relation->order;
 $c=$schema->quoteColumnName('c');
 $s=$schema->quoteColumnName('s');
 $tableAlias=$model->getTableAlias(true);
-if(count($fks)===1)  // single column FK
+if(count($fks)===1)//single column FK
 {
 $col=$table->columns[$fks[0]]->rawName;
 $sql="SELECT $col AS $c, {$relation->select} AS $s FROM {$table->rawName} ".$tableAlias.$join
@@ -1037,7 +1037,7 @@ $stats=array();
 foreach($command->queryAll() as $row)
 $stats[$row['c']]=$row['s'];
 }
-else  // composite FK
+else//composite FK
 {
 $keys=array_keys($records);
 foreach($keys as &$key)

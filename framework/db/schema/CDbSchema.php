@@ -47,7 +47,7 @@ $this->_tables[$name]=$table;
 }
 else
 $this->_tables[$name]=$table=$this->loadTable($realName);
-if(isset($qcDuration))  // re-enable query caching
+if(isset($qcDuration))//re-enable query caching
 $this->_connection->queryCachingDuration=$qcDuration;
 return $table;
 }

@@ -35,9 +35,9 @@ $verb=$request->getRequestType();
 $ip=$request->getUserHostAddress();
 foreach($this->getRules() as $rule)
 {
-if(($allow=$rule->isUserAllowed($user,$filterChain->controller,$filterChain->action,$ip,$verb))>0) // allowed
+if(($allow=$rule->isUserAllowed($user,$filterChain->controller,$filterChain->action,$ip,$verb))>0)//allowed
 break;
-else if($allow<0) // denied
+else if($allow<0)//denied
 {
 if(isset($rule->deniedCallback))
 call_user_func($rule->deniedCallback, $rule);
@@ -86,7 +86,7 @@ if($this->isActionMatched($action)
 && $this->isVerbMatched($verb)
 && $this->isControllerMatched($controller)
 && $this->isExpressionMatched($user))
-return $this->allow ? 1 : -1;
+return $this->allow ? 1 :-1;
 else
 return 0;
 }

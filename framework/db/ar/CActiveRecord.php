@@ -11,17 +11,17 @@ const CASCADE_VALIDATE = 2;
 const CASCADE_SAVE = 4;
 const CASCADE_ALL = 7;
 public static $db;
-protected static $_models=array();			// class name=>model
-protected $_md;								// meta data
-private $_new=false;						// whether this instance is new or not
-private $_attributes=array();				// attribute name=>attribute value
-private $_related=array();					// attribute name=>related objects
-private $_c;								// query criteria (used by finder only)
-private $_pk;								// old primary key value
-private $_alias='t';						// the table alias being used for query
+protected static $_models=array();//class name=>model
+protected $_md;//meta data
+private $_new=false;//whether this instance is new or not
+private $_attributes=array();//attribute name=>attribute value
+private $_related=array();//attribute name=>related objects
+private $_c;//query criteria (used by finder only)
+private $_pk;//old primary key value
+private $_alias='t';//the table alias being used for query
 public function __construct($scenario='insert')
 {
-if($scenario===null) // internally used by populateRecord() and model()
+if($scenario===null)//internally used by populateRecord() and model()
 return;
 $this->setScenario($scenario);
 $this->setIsNewRecord(true);
@@ -131,7 +131,7 @@ Yii::trace('lazy loading '.get_class($this).'.'.$name,'system.db.ar.CActiveRecor
 $relation=$md->relations[$name];
 if($this->getIsNewRecord() && !$refresh && ($relation instanceof CHasOneRelation || $relation instanceof CHasManyRelation))
 return $relation instanceof CHasOneRelation ? null : array();
-if($params!==array()) // dynamic query
+if($params!==array())//dynamic query
 {
 $exists=isset($this->_related[$name]) || array_key_exists($name,$this->_related);
 if($exists)
@@ -851,7 +851,7 @@ public function with()
 if(func_num_args()>0)
 {
 $with=func_get_args();
-if(is_array($with[0]))  // the parameter is given as an array
+if(is_array($with[0]))//the parameter is given as an array
 $with=$with[0];
 if(!empty($with))
 $this->getDbCriteria()->mergeWith(array('with'=>$with));
@@ -1413,7 +1413,7 @@ $this->addRelation($name,$config);
 }
 public function addRelation($name,$config)
 {
-if(isset($config[0],$config[1],$config[2]))  // relation class, AR class, FK
+if(isset($config[0],$config[1],$config[2]))//relation class, AR class, FK
 $this->relations[$name]=new $config[0]($name,$config[1],$config[2],array_slice($config,3));
 else
 throw new CDbException(Yii::t('yii','Active record "{class}" has an invalid configuration for relation "{relation}". It must specify the relation type, the related active record class and the foreign key.', array('{class}'=>get_class($this->_model),'{relation}'=>$name)));

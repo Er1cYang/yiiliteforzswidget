@@ -47,7 +47,7 @@ throw new HTMLPurifier_ConfigSchema_Exception('Hash does not have any ID');
 }
 if (strpos($hash['ID'], '.') === false) {
 if (count($hash) == 2 && isset($hash['DESCRIPTION'])) {
-$hash->offsetGet('DESCRIPTION'); // prevent complaining
+$hash->offsetGet('DESCRIPTION');//prevent complaining
 } else {
 throw new HTMLPurifier_ConfigSchema_Exception('All directives must have a namespace');
 }
@@ -59,7 +59,7 @@ $this->_findUnused($hash);
 public function buildDirective($interchange, $hash) {
 $directive = new HTMLPurifier_ConfigSchema_Interchange_Directive();
 $directive->id = $this->id($hash->offsetGet('ID'));
-$id = $directive->id->toString(); // convenience
+$id = $directive->id->toString();//convenience
 if (isset($hash['TYPE'])) {
 $type = explode('/', $hash->offsetGet('TYPE'));
 if (isset($type[1])) $directive->typeAllowsNull = true;

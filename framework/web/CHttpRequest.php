@@ -201,7 +201,7 @@ public function getRequestUri()
 {
 if($this->_requestUri===null)
 {
-if(isset($_SERVER['HTTP_X_REWRITE_URL'])) // IIS
+if(isset($_SERVER['HTTP_X_REWRITE_URL']))//IIS
 $this->_requestUri=$_SERVER['HTTP_X_REWRITE_URL'];
 else if(isset($_SERVER['REQUEST_URI']))
 {
@@ -214,7 +214,7 @@ $this->_requestUri=preg_replace('/^\w+:\/\/[^\/]+/','',$this->_requestUri);
 else
 $this->_requestUri=preg_replace('/^(http|https):\/\/[^\/]+/i','',$this->_requestUri);
 }
-else if(isset($_SERVER['ORIG_PATH_INFO']))  // IIS 5.0 CGI
+else if(isset($_SERVER['ORIG_PATH_INFO']))//IIS 5.0 CGI
 {
 $this->_requestUri=$_SERVER['ORIG_PATH_INFO'];
 if(!empty($_SERVER['QUERY_STRING']))

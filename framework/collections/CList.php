@@ -34,7 +34,7 @@ public function itemAt($index)
 {
 if(isset($this->_d[$index]))
 return $this->_d[$index];
-else if($index>=0 && $index<$this->_c) // in case the value is null
+else if($index>=0 && $index<$this->_c)//in case the value is null
 return $this->_d[$index];
 else
 throw new CException(Yii::t('yii','List index "{index}" is out of bound.',
@@ -110,7 +110,7 @@ public function indexOf($item)
 if(($index=array_search($item,$this->_d,true))!==false)
 return $index;
 else
-return -1;
+return-1;
 }
 public function toArray()
 {

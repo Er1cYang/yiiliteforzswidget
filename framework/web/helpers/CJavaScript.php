@@ -30,7 +30,7 @@ return 'Number.NEGATIVE_INFINITY';
 else if($value===INF)
 return 'Number.POSITIVE_INFINITY';
 else
-return rtrim(sprintf('%.16F',$value),'0');  // locale-independent representation
+return rtrim(sprintf('%.16F',$value),'0');//locale-independent representation
 }
 else if($value instanceof CJavaScriptExpression)
 return $value->__toString();

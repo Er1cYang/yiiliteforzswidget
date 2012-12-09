@@ -35,14 +35,14 @@ $params[]=is_array($options[$name]) ? $options[$name] : array($options[$name]);
 else if(!is_array($options[$name]))
 $params[]=$options[$name];
 else
-$this->usageError("Option --$name requires a scalar. Array is given.");
+$this->usageError("Option--$name requires a scalar. Array is given.");
 }
 else if($name==='args')
 $params[]=$args;
 else if($param->isDefaultValueAvailable())
 $params[]=$param->getDefaultValue();
 else
-$this->usageError("Missing required option --$name.");
+$this->usageError("Missing required option--$name.");
 unset($options[$name]);
 }
 if(!empty($options))
@@ -93,11 +93,11 @@ return $event->exitCode;
 }
 protected function resolveRequest($args)
 {
-$options=array();	// named parameters
-$params=array();	// unnamed parameters
+$options=array();//named parameters
+$params=array();//unnamed parameters
 foreach($args as $arg)
 {
-if(preg_match('/^--(\w+)(=(.*))?$/',$arg,$matches))  // an option
+if(preg_match('/^--(\w+)(=(.*))?$/',$arg,$matches))//an option
 {
 $name=$matches[1];
 $value=isset($matches[3]) ? $matches[3] : true;
@@ -160,7 +160,7 @@ $name=$param->getName();
 if($optional)
 $help.=" [--$name=$defaultValue]";
 else
-$help.=" --$name=value";
+$help.="--$name=value";
 }
 $options[]=$help;
 }

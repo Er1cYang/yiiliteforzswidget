@@ -84,7 +84,7 @@ $attr = array('for'=>"{$this->name}:$ns.$directive");
 if (!$this->compress || (strlen($directive) < $this->compress)) {
 $directive_disp = $directive;
 } else {
-$directive_disp = substr($directive, 0, $this->compress - 2) . '...';
+$directive_disp = substr($directive, 0, $this->compress-2) . '...';
 $attr['title'] = $directive;
 }
 $ret .= $this->element(
@@ -103,7 +103,7 @@ $type = abs($def);
 $type = $def->type;
 $allow_null = isset($def->allow_null);
 }
-if (!isset($this->fields[$type])) $type = 0; // default
+if (!isset($this->fields[$type])) $type = 0;//default
 $type_obj = $this->fields[$type];
 if ($allow_null) {
 $type_obj = new HTMLPurifier_Printer_ConfigForm_NullDecorator($type_obj);
@@ -141,7 +141,7 @@ $attr = array(
 'class'=>'null-toggle',
 'name'=>"$name"."[Null_$ns.$directive]",
 'id'=>"$name:Null_$ns.$directive",
-'onclick'=>"toggleWriteability('$name:$ns.$directive',checked)" // INLINE JAVASCRIPT!!!!
+'onclick'=>"toggleWriteability('$name:$ns.$directive',checked)"//INLINE JAVASCRIPT!!!!
 );
 if ($this->obj instanceof HTMLPurifier_Printer_ConfigForm_bool) {
 $attr['onclick'] = "toggleWriteability('$name:Yes_$ns.$directive',checked);toggleWriteability('$name:No_$ns.$directive',checked)";

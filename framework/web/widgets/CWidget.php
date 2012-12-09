@@ -53,7 +53,7 @@ else
 if($checkTheme && ($theme=Yii::app()->getTheme())!==null)
 {
 $path=$theme->getViewPath().DIRECTORY_SEPARATOR;
-if(strpos($className,'\\')!==false) // namespaced class
+if(strpos($className,'\\')!==false)//namespaced class
 $path.=str_replace('\\','_',ltrim($className,'\\'));
 else
 $path.=$className;
@@ -70,7 +70,7 @@ if(($renderer=Yii::app()->getViewRenderer())!==null)
 $extension=$renderer->fileExtension;
 else
 $extension='.php';
-if(strpos($viewName,'.')) // a path alias
+if(strpos($viewName,'.'))//a path alias
 $viewFile=Yii::getPathOfAlias($viewName);
 else
 {

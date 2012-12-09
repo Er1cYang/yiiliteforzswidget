@@ -1,4 +1,4 @@
-<!-- start profiling summary -->
+<!--start profiling summary-->
 <table class="yiiLog" width="100%" cellpadding="2" style="border-spacing:1px;font:11px Verdana, Arial, Helvetica, sans-serif;background:#EEEEEE;color:#666666;">
 <tr>
 <th style="background:black;color:white;" colspan="6">
@@ -37,4 +37,4 @@ EOD;
 }
 ?>
 </table>
-<!-- end of profiling summary -->
+<!--end of profiling summary-->
