@@ -7,7 +7,7 @@ $destDir = $dir.'/../framework/';
 readDirRecursive($srcDir);
 
 /**
- * µÝ¹éÄ¿Â¼ÎÄ¼þ
+ * é€’å½’ç›®å½•æ–‡ä»¶
  */
 function readDirRecursive($src) {
 	global $srcDir;
@@ -28,7 +28,7 @@ function readDirRecursive($src) {
 		} else {
 			$pi = pathinfo($path);
 			$newfile = $newPath.'/'.$pi['basename'];
-			if(isset($pi['extension']) && in_array($pi['extension'], array('php', 'js', 'css'))) {
+			if(isset($pi['extension']) && in_array($pi['extension'], array('php'))) {
 				compress($path, $newfile);
 			} else {
 				copy($path, $newfile);
@@ -39,21 +39,21 @@ function readDirRecursive($src) {
 }
 
 /**
- * Ñ¹ËõÎÄ¼þ
+ * åŽ‹ç¼©æ–‡ä»¶
  */
 function compress($old, $new) {
     $content = file_get_contents($old);
 
 	$spaces = array(
-		// ÎÄµµ×¢ÊÍ
+		// æ–‡æ¡£æ³¨é‡Š
 		'/\/\*.*?\*\//msi'=>'',
-		// ÕûÐÐ×¢ÊÍ
+		// æ•´è¡Œæ³¨é‡Š
 		'/^\s*\/\/.*?\n/smi' =>"\n",
-		// ¼üÖµ¶Ô
+		// é”®å€¼å¯¹
 		'/\s*=>\s*/smi' => '=>',
-		// ÐÐÇ°¿Õ°×
-		'/^[\s[^\n]]+(.*?)/smi' => '\1',
-		// ¶àÓàµÄ»Ø³µ
+		// è¡Œå‰ç©ºç™½
+		'/^[\s[^\n]]+(.*?)$/smi' => '\1',
+		// å¤šä½™çš„å›žè½¦
 		'/\n+/smi' => "\n",
 	);
 
